@@ -73,3 +73,15 @@ function detect_device() {
 }
 
 document.addEventListener("DOMContentLoaded", detect_device);
+
+function resetAllSettings() {
+  const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
+  if (confirmar) {
+    localStorage.removeItem("customBackground");
+    localStorage.removeItem("customTitle");
+    localStorage.removeItem("customSystemName");
+    localStorage.removeItem("currentBackgroundTemp");
+    alert("✅ Todos los ajustes han sido restablecidos.");
+    location.reload(); // Recarga para aplicar los cambios
+  }
+}
