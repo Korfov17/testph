@@ -1,95 +1,134 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const selector1 = document.getElementById("opcion1");
+function initSettingsPage() {
+  // Aplicar fondo personalizado guardado para settings
+  const fondoAjustes = localStorage.getItem("settingsBackground");
+  if (fondoAjustes) {
+    document.body.style.backgroundImage = `url('${fondoAjustes}')`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "center";
+  }
 
-  selector1.addEventListener("change", () => {
-    const selectedValue = selector1.value;
+  // Aplicar el título desde localStorage al cargar
+  const nombreSistema = localStorage.getItem("customSystemName");
+  if (nombreSistema) {
+    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
+  }
+
+  const dropdown = document.getElementById("opcion1");
+  if (!dropdown) return;
+
+  dropdown.addEventListener("change", () => {
+    const selectedValue = dropdown.value;
 
     switch (selectedValue) {
       case "setBackgroundImage":
-        setBackground("background/extra2.jpg");
+        localStorage.setItem("customBackground", "background/extra2.jpg");
+        localStorage.setItem("settingsBackground", "background/extra2.jpg");
+        document.body.style.backgroundImage = "url('background/extra2.jpg')";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundRepeat = "no-repeat";
+        document.body.style.backgroundPosition = "center";
+        alert("✅ Imagen establecida como fondo.");
         break;
+
       case "changeTitle":
-        changeMainTitle();
+        const nuevoTexto = prompt("Introduce el nuevo texto para el título:");
+        if (nuevoTexto) {
+          localStorage.setItem("customTitle", nuevoTexto);
+          alert("✅ Título actualizado.");
+        }
         break;
+
       case "changeSystemName":
-        changeSystemName();
+        const nuevoNombre = prompt("Introduce el nuevo nombre del sistema (ej: Mi PS4 Hack):");
+        if (nuevoNombre) {
+          localStorage.setItem("customSystemName", nuevoNombre);
+          document.title = `🎮 ${nuevoNombre} | Menu 🎮`;
+          alert("✅ Nombre del sistema actualizado.");
+        }
         break;
+
       case "applyIndexBackground":
-        applyIndexBackgroundToSettings();
+        const fondo = localStorage.getItem("customBackground");
+        if (fondo) {
+          document.body.style.backgroundImage = `url('${fondo}')`;
+          document.body.style.backgroundSize = "cover";
+          document.body.style.backgroundRepeat = "no-repeat";
+          document.body.style.backgroundPosition = "center";
+
+          // Guardar también como fondo de ajustes para que persista
+          localStorage.setItem("settingsBackground", fondo);
+          alert("✅ Fondo de index aplicado y guardado en ajustes.");
+        } else {
+          alert("⚠️ No se encontró fondo personalizado en index.");
+        }
         break;
+
       case "clearBackground":
-        clearBackgroundBoth();
+        localStorage.removeItem("customBackground");
+        localStorage.removeItem("settingsBackground");
+        document.body.style.backgroundImage = "none";
+        document.body.style.backgroundColor = "#ffffff";
+        alert("✅ Fondo eliminado. Fondo blanco aplicado.");
         break;
-      default:
+
+      case "resetSettings":
+        resetAllSettings();
         break;
     }
 
-    selector1.selectedIndex = 0; // Restablece el selector
+    // Restablecer selección
+    dropdown.selectedIndex = 0;
   });
+}
 
-  applySavedSettings();
+function initIndexPage() {
+  const fondo = localStorage.getItem("customBackground");
+  const titulo = localStorage.getItem("customTitle");
+  const nombreSistema = localStorage.getItem("customSystemName");
+
+  if (fondo) {
+    document.body.style.backgroundImage = `url('${fondo}')`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "center";
+    localStorage.setItem("currentBackgroundTemp", fondo);
+  } else {
+    document.body.style.backgroundImage = "none";
+    document.body.style.backgroundColor = "#ffffff";
+  }
+
+  if (titulo) {
+    const span = document.querySelector("h2 .arcoiris");
+    if (span) {
+      span.textContent = titulo;
+    }
+  }
+
+  if (nombreSistema) {
+    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
+  }
+}
+
+function resetAllSettings() {
+  const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
+  if (confirmar) {
+    localStorage.removeItem("customBackground");
+    localStorage.removeItem("settingsBackground");
+    localStorage.removeItem("customTitle");
+    localStorage.removeItem("customSystemName");
+    localStorage.removeItem("currentBackgroundTemp");
+    alert("✅ Todos los ajustes han sido restablecidos.");
+    location.reload();
+  }
+}
+
+// Detectar qué página es
+document.addEventListener("DOMContentLoaded", () => {
+  const isSettings = document.getElementById("opcion1") !== null;
+  if (isSettings) {
+    initSettingsPage();
+  } else {
+    initIndexPage();
+  }
 });
-
-function setBackground(url) {
-  document.body.style.backgroundImage = `url('${url}')`;
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundColor = "";
-  localStorage.setItem("customBackground", url); // Clave única para ambos
-}
-
-function clearBackgroundBoth() {
-  document.body.style.backgroundImage = "none";
-  document.body.style.backgroundColor = "#ffffff";
-  localStorage.removeItem("customBackground");
-}
-
-function changeMainTitle() {
-  const newText = prompt("Nuevo texto para el título:");
-  if (!newText) return;
-
-  const span = document.querySelector("h2 .arcoiris");
-  if (span) span.textContent = newText;
-
-  document.title = `🎮 ${newText} | Menu 🎮`;
-
-  localStorage.setItem("customTitle", newText);
-}
-
-function changeSystemName() {
-  const newName = prompt("Nuevo nombre del sistema (aplicará en index.html también):");
-  if (!newName) return;
-
-  localStorage.setItem("customSystemName", newName);
-  alert("✅ Nombre guardado. Recarga settings.html e index.html para aplicarlo.");
-}
-
-function applyIndexBackgroundToSettings() {
-  const bg = localStorage.getItem("customBackground");
-  if (!bg) return alert("⚠️ No se encontró fondo en index.");
-
-  if (confirm("¿Quieres aplicar el fondo de index.html a settings.html?")) {
-    setBackground(bg);
-    alert("✅ Fondo aplicado a settings.html");
-  }
-}
-
-function applySavedSettings() {
-  const savedTitle = localStorage.getItem("customTitle");
-  if (savedTitle) {
-    const span = document.querySelector("h2 .arcoiris");
-    if (span) span.textContent = savedTitle;
-    document.title = `🎮 ${savedTitle} | Menu 🎮`;
-  }
-
-  const bg = localStorage.getItem("customBackground");
-  if (bg) {
-    setBackground(bg);
-  }
-
-  const systemName = localStorage.getItem("customSystemName");
-  if (systemName && !savedTitle) {
-    const span = document.querySelector("h2 .arcoiris");
-    if (span) span.textContent = systemName;
-    document.title = `🎮 ${systemName} | Menu 🎮`;
-  }
-}
