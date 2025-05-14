@@ -60,7 +60,7 @@ function initSettingsPage() {
         localStorage.removeItem("settingsBackground");
         localStorage.setItem("whiteBackground", "true");
         setWhiteBackground();
-        alert("✅ Fondo eliminado. Ambas páginas ahora están en blanco.");
+        alert("✅ Fondo eliminado. Ambas páginas ahora están en blanco/negro.");
         break;
     }
 
@@ -101,8 +101,11 @@ function applyBackground(url) {
 }
 
 function setWhiteBackground() {
-  document.body.style.background = "#ffffff";
   document.body.style.backgroundImage = "none";
+  document.body.style.backgroundSize = "";
+  document.body.style.backgroundRepeat = "";
+  document.body.style.backgroundPosition = "";
+  document.body.style.backgroundColor = "#000000"; // Negro visible (puedes cambiar a "#ffffff")
 }
 
 function resetAllSettings() {
