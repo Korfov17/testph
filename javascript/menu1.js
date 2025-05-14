@@ -1,5 +1,14 @@
 function initSettingsPage() {
-  // Aplicar el título desde localStorage al cargar la página
+  // Aplicar fondo personalizado guardado para settings
+  const fondoAjustes = localStorage.getItem("settingsBackground");
+  if (fondoAjustes) {
+    document.body.style.backgroundImage = `url('${fondoAjustes}')`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "center";
+  }
+
+  // Aplicar el título desde localStorage al cargar
   const nombreSistema = localStorage.getItem("customSystemName");
   if (nombreSistema) {
     document.title = `🎮 ${nombreSistema} | Menu 🎮`;
@@ -41,14 +50,21 @@ function initSettingsPage() {
           document.body.style.backgroundSize = "cover";
           document.body.style.backgroundRepeat = "no-repeat";
           document.body.style.backgroundPosition = "center";
-          alert("✅ Fondo de index aplicado en ajustes.");
+
+          // Guardar también como fondo de ajustes para que persista
+          localStorage.setItem("settingsBackground", fondo);
+          alert("✅ Fondo de index aplicado y guardado en ajustes.");
         } else {
           alert("⚠️ No se encontró fondo personalizado en index.");
         }
         break;
+
+      case "resetSettings":
+        resetAllSettings();
+        break;
     }
 
-    // Restablecer el desplegable tras la acción
+    // Restablecer selección
     dropdown.selectedIndex = 0;
   });
 }
@@ -64,7 +80,7 @@ function initIndexPage() {
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundPosition = "center";
 
-    // Guardar el fondo actual como temporal por si se necesita para otras acciones
+    // Guardar como fondo actual temporal (opcional)
     localStorage.setItem("currentBackgroundTemp", fondo);
   }
 
@@ -80,7 +96,20 @@ function initIndexPage() {
   }
 }
 
-// Detección automática de qué página estamos
+function resetAllSettings() {
+  const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
+  if (confirmar) {
+    localStorage.removeItem("customBackground");
+    localStorage.removeItem("customTitle");
+    localStorage.removeItem("customSystemName");
+    localStorage.removeItem("currentBackgroundTemp");
+    localStorage.removeItem("settingsBackground");
+    alert("✅ Todos los ajustes han sido restablecidos.");
+    location.reload();
+  }
+}
+
+// Detectar qué página es
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings = document.getElementById("opcion1") !== null;
   if (isSettings) {
