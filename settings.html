@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🎮 TU PS4 HEN | Ajustes 🎮</title>
+  <style>
+    @font-face {
+      font-family: 'Pricedown'; 
+      src: url('web-fonts/Pricedown.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'MODERNE';
+      src: url('MODERNE%20SANS.eot');
+      src: local('MODERNE Regular'), local('MODERNE SANS'),
+           url('MODERNE%20SANSd41d.eot?#iefix') format('embedded-opentype'),
+           url('MODERNE%20SANS.woff2') format('woff2'),
+           url('MODERNE%20SANS.woff') format('woff'),
+           url('MODERNE%20SANS.ttf') format('truetype'),
+           url('MODERNE%20SANS.svg#MODERNE') format('svg');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    body {
+      text-align: center;
+      background-image: url('background/default.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      margin: 0;
+      font-family: 'MODERNE', monospace;
+    }
+
+    h1 {
+      font-size: 10rem;
+      color: #FFFFFF;
+      margin: 5px;
+      text-shadow: 1px 1px 10px #777;
+    }
+
+    h2 {
+      font-size: 3rem;
+      font-family: 'Pricedown', sans-serif; 
+      color: #FFFFFF;
+      margin: 10px;
+      text-shadow: 
+        1px 1px 0px black, 
+        -1px -1px 0px black,
+        1px -1px 0px black, 
+        -1px 1px 0px black; 
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: #FFFFFF;
+      margin: 10px;
+      text-shadow: 1px 1px 2px #777;
+    }
+
+    h4 {
+      font-size: 1.5rem;
+      color: #FFFFFF;
+      margin: 10px;
+      text-shadow: 1px 1px 2px #777;
+    }
+
+    main {
+      margin-top: 30px;
+    }
+
+    @keyframes arcoiris {
+      0% { color: red; }
+      16.6% { color: orange; }
+      33.3% { color: yellow; }
+      50% { color: green; }
+      66.6% { color: blue; }
+      83.3% { color: indigo; }
+      100% { color: red; }
+    }
+
+    .arcoiris {
+      font-size: 1.2em;
+      font-weight: bold;
+      letter-spacing: 0.2em;
+      animation: arcoiris 18s linear infinite; 
+    }
+
+    .contenedor-transparente {
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 700px;
+    }
+
+    .contenedor-transparente select {
+      margin: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      width: 100%;
+      border-radius: 5px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      text-align: center;
+      backdrop-filter: blur(3px);
+    }
+
+    .contenedor-transparente select option {
+      background-color: #333;
+      color: white;
+    }
+
+    .select-contenedor {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .select-contenedor select {
+      flex: 1 1 calc(33.333% - 30px);
+      max-width: calc(33.333% - 30px);
+    }
+
+    .boton {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      backdrop-filter: blur(3px);
+      transition: background-color 0.3s ease;
+    }
+
+    .boton:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .botones-contenedor {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <br><br>
+    <h2>🎮  <span class="arcoiris">AJUSTES</span>  🎮</h2>
+
+    <main>
+      <div class="contenedor-transparente">
+        <h4>Configuracion Personalizada de TU PS4 HEN</h4>
+        <h3>¿Que deseas modificar?</h3>
+
+		<div class="select-contenedor">
+		  <select id="opcion1">
+			  <option disabled selected>Prueba 1</option>
+			  <option value="setBackgroundImage">🖼️ Imagen 1</option>
+			  <option value="changeTitle">🔤 Cambiar título principal</option>
+			</select>
+
+		  <select id="opcion2">
+			<option value="">Cambiar Fondo</option>
+			<option value="valor2a">Imagen 1</option>
+			<option value="valor2b">URL Custom</option>
+			<option value="valor2b">Eliminar fondo</option>
+			<option value="valor2b">Restablecer fondo default</option>
+		  </select>
+
+		  <select id="opcion3">
+			<option value="">Selecciona una opción 3...</option>
+			<option value="valor3a">Opción 3A</option>
+			<option value="valor3b">Opción 3B</option>
+		  </select>
+
+		  <select id="opcion4">
+			<option value="">Selecciona una opción 4...</option>
+			<option value="valor4a">Opción 4A</option>
+			<option value="valor4b">Opción 4B</option>
+		  </select>
+
+		  <select id="opcion5">
+			<option value="">Selecciona una opción 5...</option>
+			<option value="valor5a">Opción 5A</option>
+			<option value="valor5b">Opción 5B</option>
+		  </select>
+
+		  <select id="opcion6">
+			<option value="">Selecciona una opción 6...</option>
+			<option value="valor6a">Opción 6A</option>
+			<option value="valor6b">Opción 6B</option>
+		  </select>
+
+		  <select id="opcion7">
+			<option value="">Selecciona una opción 7...</option>
+			<option value="valor7a">Opción 7A</option>
+			<option value="valor7b">Opción 7B</option>
+		  </select>
+
+		  <select id="opcion8">
+			<option value="">Selecciona una opción 8...</option>
+			<option value="valor8a">Opción 8A</option>
+			<option value="valor8b">Opción 8B</option>
+		  </select>
+
+		  <select id="opcion9">
+			<option value="">Selecciona una opción 9...</option>
+			<option value="valor9a">Opción 9A</option>
+			<option value="valor9b">Opción 9B</option>
+		  </select>
+
+		  <select id="opcion10">
+			<option value="">Selecciona una opción 10...</option>
+			<option value="valor10a">Opción 10A</option>
+			<option value="valor10b">Opción 10B</option>
+		  </select>
+
+		  <select id="opcion11">
+			<option value="">Selecciona una opción 11...</option>
+			<option value="valor11a">Opción 11A</option>
+			<option value="valor11b">Opción 11B</option>
+		  </select>
+
+		  <select id="opcion12">
+			<option value="">Selecciona una opción 12...</option>
+			<option value="valor12a">Opción 12A</option>
+			<option value="valor12b">Opción 12B</option>
+		  </select>
+		</div>
+
+
+        <div class="botones-contenedor">
+          <button class="boton" onclick="window.location.href='index.html';">🔄 Volver al menu</button>
+          <button class="boton" onclick="restablecerPorDefecto()">🔄 Restablecer por defecto</button>
+        </div>
+      </div>
+    </main>
+
+    <br><br><br>
+    <h3>Creado por TheZodiacoX</h3>
+  </center>
+
+	<script src="javascript/autoscript.js"></script>
+	<script src="javascript/menu1.js"></script>
+
+</body>
+</html>
