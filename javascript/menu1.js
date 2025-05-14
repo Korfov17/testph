@@ -34,15 +34,12 @@ function setBackground(url) {
   document.body.style.backgroundImage = `url('${url}')`;
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundColor = "";
-  localStorage.setItem("settingsBackground", url);
-  localStorage.setItem("customBackground", url); // También lo guarda para index
+  localStorage.setItem("customBackground", url); // Clave única para ambos
 }
 
 function clearBackgroundBoth() {
   document.body.style.backgroundImage = "none";
   document.body.style.backgroundColor = "#ffffff";
-
-  localStorage.removeItem("settingsBackground");
   localStorage.removeItem("customBackground");
 }
 
@@ -84,7 +81,7 @@ function applySavedSettings() {
     document.title = `🎮 ${savedTitle} | Menu 🎮`;
   }
 
-  const bg = localStorage.getItem("settingsBackground");
+  const bg = localStorage.getItem("customBackground");
   if (bg) {
     setBackground(bg);
   }
