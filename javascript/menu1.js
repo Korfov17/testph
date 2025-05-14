@@ -1,11 +1,13 @@
 function initSettingsPage() {
-  // Aplicar fondo personalizado guardado para settings (si existe)
+  const whiteBG = localStorage.getItem("whiteBackground");
   const fondoAjustes = localStorage.getItem("settingsBackground");
-  if (fondoAjustes) {
+
+  if (whiteBG === "true") {
+    setWhiteBackground();
+  } else if (fondoAjustes) {
     applyBackground(fondoAjustes);
   }
 
-  // Aplicar el título desde localStorage al cargar
   const nombreSistema = localStorage.getItem("customSystemName");
   if (nombreSistema) {
     document.title = `🎮 ${nombreSistema} | Menu 🎮`;
@@ -19,9 +21,8 @@ function initSettingsPage() {
 
     switch (selectedValue) {
       case "setBackgroundImage":
-        const url = "background/extra2.jpg";
-        localStorage.setItem("customBackground", url);
-        applyBackground(url);
+        localStorage.setItem("customBackground", "background/extra2.jpg");
+        localStorage.removeItem("whiteBackground");
         alert("✅ Imagen establecida como fondo en index.");
         break;
 
@@ -34,7 +35,7 @@ function initSettingsPage() {
         break;
 
       case "changeSystemName":
-        const nuevoNombre = prompt("Introduce el nuevo nombre del sistema (ej: Mi PS4 Hack):");
+        const nuevoNombre = prompt("Introduce el nuevo nombre del sistema:");
         if (nuevoNombre) {
           localStorage.setItem("customSystemName", nuevoNombre);
           document.title = `🎮 ${nuevoNombre} | Menu 🎮`;
@@ -47,7 +48,8 @@ function initSettingsPage() {
         if (fondo) {
           applyBackground(fondo);
           localStorage.setItem("settingsBackground", fondo);
-          alert("✅ Fondo de index aplicado y guardado en ajustes.");
+          localStorage.removeItem("whiteBackground");
+          alert("✅ Fondo de index aplicado en ajustes.");
         } else {
           alert("⚠️ No se encontró fondo personalizado en index.");
         }
@@ -56,8 +58,9 @@ function initSettingsPage() {
       case "removeBackground":
         localStorage.removeItem("customBackground");
         localStorage.removeItem("settingsBackground");
-        document.body.style.background = ""; // Elimina inline styles, se usará el fondo por defecto del HTML
-        alert("✅ Fondo eliminado. Se usará el definido por defecto en el HTML.");
+        localStorage.setItem("whiteBackground", "true");
+        setWhiteBackground();
+        alert("✅ Fondo eliminado. Ambas páginas ahora están en blanco.");
         break;
     }
 
@@ -66,11 +69,14 @@ function initSettingsPage() {
 }
 
 function initIndexPage() {
+  const whiteBG = localStorage.getItem("whiteBackground");
   const fondo = localStorage.getItem("customBackground");
   const titulo = localStorage.getItem("customTitle");
   const nombreSistema = localStorage.getItem("customSystemName");
 
-  if (fondo) {
+  if (whiteBG === "true") {
+    setWhiteBackground();
+  } else if (fondo) {
     applyBackground(fondo);
   }
 
@@ -91,22 +97,27 @@ function applyBackground(url) {
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundRepeat = "no-repeat";
   document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundColor = "";
+}
+
+function setWhiteBackground() {
+  document.body.style.background = "#ffffff";
+  document.body.style.backgroundImage = "none";
 }
 
 function resetAllSettings() {
   const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
   if (confirmar) {
     localStorage.removeItem("customBackground");
+    localStorage.removeItem("settingsBackground");
     localStorage.removeItem("customTitle");
     localStorage.removeItem("customSystemName");
-    localStorage.removeItem("settingsBackground");
-
-    alert("✅ Todos los ajustes han sido restablecidos. Se usará la configuración por defecto del HTML.");
+    localStorage.removeItem("whiteBackground");
+    alert("✅ Ajustes restablecidos. Se usará la configuración por defecto.");
     location.reload();
   }
 }
 
-// Detectar en qué página estamos
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings = document.getElementById("opcion1") !== null;
   if (isSettings) {
