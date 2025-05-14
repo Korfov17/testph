@@ -1,3 +1,4 @@
+<script>
 function initSettingsPage() {
   const whiteBG = localStorage.getItem("whiteBackground");
   const fondoAjustes = localStorage.getItem("settingsBackground");
@@ -6,6 +7,8 @@ function initSettingsPage() {
     setWhiteBackground();
   } else if (fondoAjustes) {
     applyBackground(fondoAjustes);
+  } else {
+    applyDefaultBackground();
   }
 
   const nombreSistema = localStorage.getItem("customSystemName");
@@ -78,6 +81,8 @@ function initIndexPage() {
     setWhiteBackground();
   } else if (fondo) {
     applyBackground(fondo);
+  } else {
+    applyDefaultBackground();
   }
 
   if (titulo) {
@@ -100,8 +105,16 @@ function applyBackground(url) {
   document.body.style.backgroundColor = "";
 }
 
+function applyDefaultBackground() {
+  document.body.style.backgroundImage = "url('background/default.jpg')";
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundRepeat = "no-repeat";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundColor = "";
+}
+
 function setWhiteBackground() {
-  document.body.style.background = "#000"; // Negro para comprobarlo visualmente
+  document.body.style.background = "#000000"; // cambia a blanco si prefieres: "#ffffff"
   document.body.style.backgroundImage = "none";
 }
 
@@ -113,7 +126,7 @@ function resetAllSettings() {
     localStorage.removeItem("customTitle");
     localStorage.removeItem("customSystemName");
     localStorage.removeItem("whiteBackground");
-    alert("✅ Ajustes restablecidos. Se usará la configuración por defecto.");
+    alert("✅ Ajustes restablecidos. Se usará el fondo por defecto.");
     location.reload();
   }
 }
@@ -126,3 +139,4 @@ document.addEventListener("DOMContentLoaded", () => {
     initIndexPage();
   }
 });
+</script>
