@@ -1,4 +1,10 @@
 function initSettingsPage() {
+  // Aplicar el título desde localStorage al cargar la página
+  const nombreSistema = localStorage.getItem("customSystemName");
+  if (nombreSistema) {
+    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
+  }
+
   const dropdown = document.getElementById("opcion1");
   if (!dropdown) return;
 
@@ -21,7 +27,6 @@ function initSettingsPage() {
         const nuevoNombre = prompt("Introduce el nuevo nombre del sistema (ej: Mi PS4 Hack):");
         if (nuevoNombre) {
           localStorage.setItem("customSystemName", nuevoNombre);
-          // Cambiar el <title> en settings.html directamente
           document.title = `🎮 ${nuevoNombre} | Menu 🎮`;
         }
         break;
@@ -55,7 +60,7 @@ function initIndexPage() {
   }
 }
 
-// Detección automática de página
+// Detección automática de qué página estamos
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings = document.getElementById("opcion1") !== null;
   if (isSettings) {
