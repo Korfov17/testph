@@ -1,10 +1,8 @@
 function initSettingsPage() {
-  // Aplicar fondo personalizado guardado para settings
+  // Aplicar fondo personalizado guardado para settings (si existe)
   const fondoAjustes = localStorage.getItem("settingsBackground");
   if (fondoAjustes) {
     applyBackground(fondoAjustes);
-  } else {
-    clearBackgroundStyles();
   }
 
   // Aplicar el título desde localStorage al cargar
@@ -21,7 +19,9 @@ function initSettingsPage() {
 
     switch (selectedValue) {
       case "setBackgroundImage":
-        localStorage.setItem("customBackground", "background/extra2.jpg");
+        const url = "background/extra2.jpg";
+        localStorage.setItem("customBackground", url);
+        applyBackground(url);
         alert("✅ Imagen establecida como fondo en index.");
         break;
 
@@ -47,21 +47,17 @@ function initSettingsPage() {
         if (fondo) {
           applyBackground(fondo);
           localStorage.setItem("settingsBackground", fondo);
-          alert("✅ Fondo de index aplicado a ajustes.");
+          alert("✅ Fondo de index aplicado y guardado en ajustes.");
         } else {
           alert("⚠️ No se encontró fondo personalizado en index.");
         }
         break;
 
-      case "clearBackground":
+      case "removeBackground":
         localStorage.removeItem("customBackground");
         localStorage.removeItem("settingsBackground");
-        clearBackgroundStyles();
-        alert("✅ Fondo eliminado de index y ajustes.");
-        break;
-
-      case "resetSettings":
-        resetAllSettings();
+        document.body.style.background = ""; // Elimina inline styles, se usará el fondo por defecto del HTML
+        alert("✅ Fondo eliminado. Se usará el definido por defecto en el HTML.");
         break;
     }
 
@@ -76,9 +72,6 @@ function initIndexPage() {
 
   if (fondo) {
     applyBackground(fondo);
-    localStorage.setItem("currentBackgroundTemp", fondo);
-  } else {
-    clearBackgroundStyles();
   }
 
   if (titulo) {
@@ -100,25 +93,20 @@ function applyBackground(url) {
   document.body.style.backgroundPosition = "center";
 }
 
-function clearBackgroundStyles() {
-  document.body.style.backgroundImage = "none";
-  document.body.style.backgroundColor = "#ffffff";
-}
-
 function resetAllSettings() {
   const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
   if (confirmar) {
     localStorage.removeItem("customBackground");
-    localStorage.removeItem("settingsBackground");
     localStorage.removeItem("customTitle");
     localStorage.removeItem("customSystemName");
-    localStorage.removeItem("currentBackgroundTemp");
-    alert("✅ Todos los ajustes han sido restablecidos.");
+    localStorage.removeItem("settingsBackground");
+
+    alert("✅ Todos los ajustes han sido restablecidos. Se usará la configuración por defecto del HTML.");
     location.reload();
   }
 }
 
-// Detectar qué página es
+// Detectar en qué página estamos
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings = document.getElementById("opcion1") !== null;
   if (isSettings) {
