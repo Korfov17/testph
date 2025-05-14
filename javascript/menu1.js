@@ -2,10 +2,9 @@ function initSettingsPage() {
   // Aplicar fondo personalizado guardado para settings
   const fondoAjustes = localStorage.getItem("settingsBackground");
   if (fondoAjustes) {
-    document.body.style.backgroundImage = `url('${fondoAjustes}')`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundRepeat = "no-repeat";
-    document.body.style.backgroundPosition = "center";
+    applyBackground(fondoAjustes);
+  } else {
+    clearBackgroundStyles();
   }
 
   // Aplicar el título desde localStorage al cargar
@@ -23,12 +22,7 @@ function initSettingsPage() {
     switch (selectedValue) {
       case "setBackgroundImage":
         localStorage.setItem("customBackground", "background/extra2.jpg");
-        localStorage.setItem("settingsBackground", "background/extra2.jpg");
-        document.body.style.backgroundImage = "url('background/extra2.jpg')";
-        document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundPosition = "center";
-        alert("✅ Imagen establecida como fondo.");
+        alert("✅ Imagen establecida como fondo en index.");
         break;
 
       case "changeTitle":
@@ -51,14 +45,9 @@ function initSettingsPage() {
       case "applyIndexBackground":
         const fondo = localStorage.getItem("customBackground");
         if (fondo) {
-          document.body.style.backgroundImage = `url('${fondo}')`;
-          document.body.style.backgroundSize = "cover";
-          document.body.style.backgroundRepeat = "no-repeat";
-          document.body.style.backgroundPosition = "center";
-
-          // Guardar también como fondo de ajustes para que persista
+          applyBackground(fondo);
           localStorage.setItem("settingsBackground", fondo);
-          alert("✅ Fondo de index aplicado y guardado en ajustes.");
+          alert("✅ Fondo de index aplicado a ajustes.");
         } else {
           alert("⚠️ No se encontró fondo personalizado en index.");
         }
@@ -67,9 +56,8 @@ function initSettingsPage() {
       case "clearBackground":
         localStorage.removeItem("customBackground");
         localStorage.removeItem("settingsBackground");
-        document.body.style.backgroundImage = "none";
-        document.body.style.backgroundColor = "#ffffff";
-        alert("✅ Fondo eliminado. Fondo blanco aplicado.");
+        clearBackgroundStyles();
+        alert("✅ Fondo eliminado de index y ajustes.");
         break;
 
       case "resetSettings":
@@ -77,7 +65,6 @@ function initSettingsPage() {
         break;
     }
 
-    // Restablecer selección
     dropdown.selectedIndex = 0;
   });
 }
@@ -88,14 +75,10 @@ function initIndexPage() {
   const nombreSistema = localStorage.getItem("customSystemName");
 
   if (fondo) {
-    document.body.style.backgroundImage = `url('${fondo}')`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundRepeat = "no-repeat";
-    document.body.style.backgroundPosition = "center";
+    applyBackground(fondo);
     localStorage.setItem("currentBackgroundTemp", fondo);
   } else {
-    document.body.style.backgroundImage = "none";
-    document.body.style.backgroundColor = "#ffffff";
+    clearBackgroundStyles();
   }
 
   if (titulo) {
@@ -108,6 +91,18 @@ function initIndexPage() {
   if (nombreSistema) {
     document.title = `🎮 ${nombreSistema} | Menu 🎮`;
   }
+}
+
+function applyBackground(url) {
+  document.body.style.backgroundImage = `url('${url}')`;
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundRepeat = "no-repeat";
+  document.body.style.backgroundPosition = "center";
+}
+
+function clearBackgroundStyles() {
+  document.body.style.backgroundImage = "none";
+  document.body.style.backgroundColor = "#ffffff";
 }
 
 function resetAllSettings() {
