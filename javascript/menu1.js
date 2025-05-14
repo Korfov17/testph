@@ -14,12 +14,14 @@ function initSettingsPage() {
     switch (selectedValue) {
       case "setBackgroundImage":
         localStorage.setItem("customBackground", "background/extra2.jpg");
+        alert("✅ Imagen establecida como fondo.");
         break;
 
       case "changeTitle":
         const nuevoTexto = prompt("Introduce el nuevo texto para el título:");
         if (nuevoTexto) {
           localStorage.setItem("customTitle", nuevoTexto);
+          alert("✅ Título actualizado.");
         }
         break;
 
@@ -28,10 +30,25 @@ function initSettingsPage() {
         if (nuevoNombre) {
           localStorage.setItem("customSystemName", nuevoNombre);
           document.title = `🎮 ${nuevoNombre} | Menu 🎮`;
+          alert("✅ Nombre del sistema actualizado.");
+        }
+        break;
+
+      case "applyIndexBackground":
+        const fondo = localStorage.getItem("customBackground");
+        if (fondo) {
+          document.body.style.backgroundImage = `url('${fondo}')`;
+          document.body.style.backgroundSize = "cover";
+          document.body.style.backgroundRepeat = "no-repeat";
+          document.body.style.backgroundPosition = "center";
+          alert("✅ Fondo de index aplicado en ajustes.");
+        } else {
+          alert("⚠️ No se encontró fondo personalizado en index.");
         }
         break;
     }
 
+    // Restablecer el desplegable tras la acción
     dropdown.selectedIndex = 0;
   });
 }
@@ -46,6 +63,9 @@ function initIndexPage() {
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundPosition = "center";
+
+    // Guardar el fondo actual como temporal por si se necesita para otras acciones
+    localStorage.setItem("currentBackgroundTemp", fondo);
   }
 
   if (titulo) {
