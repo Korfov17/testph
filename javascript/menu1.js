@@ -2,11 +2,6 @@ function initSettingsPage() {
   const whiteBG = localStorage.getItem("whiteBackground");
   const fondoAjustes = localStorage.getItem("settingsBackground");
 
-  // Si no hay fondo ni fondo blanco, quitar cualquier fondo por defecto del HTML
-  if (!whiteBG && !fondoAjustes) {
-    clearDefaultBackground();
-  }
-
   if (whiteBG === "true") {
     setWhiteBackground();
   } else if (fondoAjustes) {
@@ -106,13 +101,8 @@ function applyBackground(url) {
 }
 
 function setWhiteBackground() {
-  document.body.style.background = "#ffffff";
+  document.body.style.background = "#000"; // Negro para comprobarlo visualmente
   document.body.style.backgroundImage = "none";
-}
-
-function clearDefaultBackground() {
-  document.body.style.backgroundImage = "none";
-  document.body.style.backgroundColor = "#000000"; // Puedes usar otro color base si lo prefieres
 }
 
 function resetAllSettings() {
