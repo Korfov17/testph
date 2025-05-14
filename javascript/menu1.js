@@ -1,4 +1,3 @@
-<script>
 function initSettingsPage() {
   const whiteBG = localStorage.getItem("whiteBackground");
   const fondoAjustes = localStorage.getItem("settingsBackground");
@@ -98,24 +97,24 @@ function initIndexPage() {
 }
 
 function applyBackground(url) {
+  document.body.style.backgroundColor = "";
   document.body.style.backgroundImage = `url('${url}')`;
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundRepeat = "no-repeat";
   document.body.style.backgroundPosition = "center";
-  document.body.style.backgroundColor = "";
 }
 
 function applyDefaultBackground() {
+  document.body.style.backgroundColor = "";
   document.body.style.backgroundImage = "url('background/default.jpg')";
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundRepeat = "no-repeat";
   document.body.style.backgroundPosition = "center";
-  document.body.style.backgroundColor = "";
 }
 
 function setWhiteBackground() {
-  document.body.style.background = "#000000"; // cambia a blanco si prefieres: "#ffffff"
   document.body.style.backgroundImage = "none";
+  document.body.style.backgroundColor = "#000000"; // negro para comprobar bien que no hay imagen
 }
 
 function resetAllSettings() {
@@ -139,4 +138,3 @@ document.addEventListener("DOMContentLoaded", () => {
     initIndexPage();
   }
 });
-</script>
