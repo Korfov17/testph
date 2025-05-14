@@ -16,6 +16,15 @@ function initSettingsPage() {
           localStorage.setItem("customTitle", nuevoTexto);
         }
         break;
+
+      case "changeSystemName":
+        const nuevoNombre = prompt("Introduce el nuevo nombre del sistema (ej: Mi PS4 Hack):");
+        if (nuevoNombre) {
+          localStorage.setItem("customSystemName", nuevoNombre);
+          // Cambiar el <title> en settings.html directamente
+          document.title = `🎮 ${nuevoNombre} | Menu 🎮`;
+        }
+        break;
     }
 
     dropdown.selectedIndex = 0;
@@ -25,6 +34,7 @@ function initSettingsPage() {
 function initIndexPage() {
   const fondo = localStorage.getItem("customBackground");
   const titulo = localStorage.getItem("customTitle");
+  const nombreSistema = localStorage.getItem("customSystemName");
 
   if (fondo) {
     document.body.style.backgroundImage = `url('${fondo}')`;
@@ -38,6 +48,10 @@ function initIndexPage() {
     if (span) {
       span.textContent = titulo;
     }
+  }
+
+  if (nombreSistema) {
+    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
   }
 }
 
