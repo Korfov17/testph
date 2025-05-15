@@ -29,7 +29,7 @@ function initSettingsMenu1() {
         break;
 
       case "infoAlert":
-        alert("ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\nEsta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\nRecomiendo usar esta version nightly a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.");
+        alert("ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\nℹ️Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\nℹ️Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.");
         break;
     }
 
