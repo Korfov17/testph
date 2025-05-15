@@ -46,19 +46,6 @@ function initSettingsPage() {
       alert("✅ Fondo guardado para el menú.");
     }
 
-    // Aplicar fondo de index a ajustes
-    else if (selectedValue === "applyIndexBackground") {
-      const fondoMenu = localStorage.getItem("customBackground");
-      if (fondoMenu) {
-        localStorage.setItem("settingsBackground", fondoMenu);
-        localStorage.removeItem("whiteBackground");
-        applyBackground(fondoMenu);
-        alert("✅ Fondo de menú aplicado en ajustes.");
-      } else {
-        alert("⚠️ No se encontró fondo en el menú.");
-      }
-    }
-
     // Eliminar fondo
     else if (selectedValue === "removeBackground") {
       localStorage.removeItem("settingsBackground");
