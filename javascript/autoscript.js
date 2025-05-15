@@ -77,10 +77,13 @@ document.addEventListener("DOMContentLoaded", detect_device);
 function resetAllSettings() {
   const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
   if (confirmar) {
-    localStorage.removeItem("customBackground");
-    localStorage.removeItem("customTitle");
-    localStorage.removeItem("customSystemName");
-    localStorage.removeItem("currentBackgroundTemp");
+    localStorage.removeItem("customBackground");      // fondo de index
+    localStorage.removeItem("settingsBackground");    // fondo de ajustes
+    localStorage.removeItem("customTitle");           // título personalizado
+    localStorage.removeItem("customSystemName");      // nombre del sistema
+    localStorage.removeItem("whiteBackground");       // fondo blanco si lo hubo
+    localStorage.removeItem("currentBackgroundTemp"); // temporal, por si acaso
+
     alert("✅ Todos los ajustes han sido restablecidos.");
     location.reload(); // Recarga para aplicar los cambios
   }
