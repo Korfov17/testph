@@ -1,15 +1,4 @@
-function initSettingsPage() {
-  const whiteBG = localStorage.getItem("whiteBackground");
-  const fondoAjustes = localStorage.getItem("settingsBackground");
-
-  if (whiteBG === "true") {
-    setWhiteBackground();
-  } else if (fondoAjustes) {
-    applyBackground(fondoAjustes);
-  } else {
-    applyDefaultBackground();
-  }
-
+function initSettingsMenu1() {
   const nombreSistema = localStorage.getItem("customSystemName");
   if (nombreSistema) {
     document.title = `🎮 ${nombreSistema} | Menu 🎮`;
@@ -22,20 +11,6 @@ function initSettingsPage() {
     const selectedValue = dropdown.value;
 
     switch (selectedValue) {
-      case "setBackgroundImage":
-        localStorage.setItem("customBackground", "background/extra2.jpg");
-        localStorage.removeItem("whiteBackground");
-        alert("✅ Imagen establecida como fondo en index.");
-        break;
-
-      case "changeTitle":
-        const nuevoTexto = prompt("Introduce el nuevo texto para el título:");
-        if (nuevoTexto) {
-          localStorage.setItem("customTitle", nuevoTexto);
-          alert("✅ Título actualizado.");
-        }
-        break;
-
       case "changeSystemName":
         const nuevoNombre = prompt("Introduce el nuevo nombre del sistema:");
         if (nuevoNombre) {
@@ -45,24 +20,16 @@ function initSettingsPage() {
         }
         break;
 
-      case "applyIndexBackground":
-        const fondo = localStorage.getItem("customBackground");
-        if (fondo) {
-          applyBackground(fondo);
-          localStorage.setItem("settingsBackground", fondo);
-          localStorage.removeItem("whiteBackground");
-          alert("✅ Fondo de index aplicado en ajustes.");
-        } else {
-          alert("⚠️ No se encontró fondo personalizado en index.");
+      case "changeTitle":
+        const nuevoTitulo = prompt("Introduce el nuevo texto para el título:");
+        if (nuevoTitulo) {
+          localStorage.setItem("customTitle", nuevoTitulo);
+          alert("✅ Título actualizado.");
         }
         break;
 
-      case "removeBackground":
-        localStorage.removeItem("customBackground");
-        localStorage.removeItem("settingsBackground");
-        localStorage.setItem("whiteBackground", "true");
-        setWhiteBackground();
-        alert("✅ Fondo eliminado. Ambas páginas ahora están en blanco.");
+      case "infoAlert":
+        alert("ℹ️ Este es un mensaje informativo personalizado.");
         break;
     }
 
@@ -70,71 +37,9 @@ function initSettingsPage() {
   });
 }
 
-function initIndexPage() {
-  const whiteBG = localStorage.getItem("whiteBackground");
-  const fondo = localStorage.getItem("customBackground");
-  const titulo = localStorage.getItem("customTitle");
-  const nombreSistema = localStorage.getItem("customSystemName");
-
-  if (whiteBG === "true") {
-    setWhiteBackground();
-  } else if (fondo) {
-    applyBackground(fondo);
-  } else {
-    applyDefaultBackground();
-  }
-
-  if (titulo) {
-    const span = document.querySelector("h2 .arcoiris");
-    if (span) {
-      span.textContent = titulo;
-    }
-  }
-
-  if (nombreSistema) {
-    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
-  }
-}
-
-function applyBackground(url) {
-  document.body.style.backgroundColor = "";
-  document.body.style.backgroundImage = `url('${url}')`;
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundRepeat = "no-repeat";
-  document.body.style.backgroundPosition = "center";
-}
-
-function applyDefaultBackground() {
-  document.body.style.backgroundColor = "";
-  document.body.style.backgroundImage = "url('background/default.jpg')";
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundRepeat = "no-repeat";
-  document.body.style.backgroundPosition = "center";
-}
-
-function setWhiteBackground() {
-  document.body.style.backgroundImage = "none";
-  document.body.style.backgroundColor = "#000000"; // negro para comprobar bien que no hay imagen
-}
-
-function resetAllSettings() {
-  const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
-  if (confirmar) {
-    localStorage.removeItem("customBackground");
-    localStorage.removeItem("settingsBackground");
-    localStorage.removeItem("customTitle");
-    localStorage.removeItem("customSystemName");
-    localStorage.removeItem("whiteBackground");
-    alert("✅ Ajustes restablecidos. Se usará el fondo por defecto.");
-    location.reload();
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  const isSettings = document.getElementById("opcion1") !== null;
-  if (isSettings) {
-    initSettingsPage();
-  } else {
-    initIndexPage();
+  const isSettings1 = document.getElementById("opcion1") !== null;
+  if (isSettings1) {
+    initSettingsMenu1();
   }
 });
