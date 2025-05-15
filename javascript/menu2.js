@@ -22,27 +22,39 @@ function initSettingsPage() {
     const selectedValue = dropdown.value;
     let nuevaImagen = null;
 
-    // Imagen extra
+    // Imagen extra (img1, img2, etc.)
     if (selectedValue.startsWith("img")) {
       const numero = selectedValue.replace("img", "");
       nuevaImagen = `background/extra${numero}.jpg`;
     }
 
-    // URL personalizada
+    // Imagen por URL
     else if (selectedValue === "customURL") {
       const url = prompt("Introduce la URL de la imagen de fondo:");
       if (url) nuevaImagen = url;
     }
 
-    // Si hay nueva imagen: guardar en index y confirmar para ajustes
+    // Aplicar nueva imagen (solo index, con confirm para ajustes)
     if (nuevaImagen) {
-      localStorage.setItem("customBackground", nuevaImagen); // index.html
+      localStorage.setItem("customBackground", nuevaImagen); // Para index.html
+
       const aplicarEnAjustes = confirm("¿También quieres aplicarlo en ajustes?");
       if (aplicarEnAjustes) {
         localStorage.setItem("settingsBackground", nuevaImagen);
         localStorage.removeItem("whiteBackground");
-        applyBackground(nuevaImagen); // mostrar en ajustes
+        applyBackground(nuevaImagen); // Mostrar en ajustes
+      } else {
+        const fondoActualSettings = localStorage.getItem("settingsBackground");
+
+        if (fondoActualSettings) {
+          applyBackground(fondoActualSettings);
+        } else if (localStorage.getItem("whiteBackground") === "true") {
+          setWhiteBackground();
+        } else {
+          applyDefaultBackground();
+        }
       }
+
       alert("✅ Fondo guardado para el menú.");
     }
 
