@@ -1,11 +1,11 @@
 function initBackgroundSelector() {
-  const fondoGuardado = localStorage.getItem("settingsBackground");
   const whiteBG = localStorage.getItem("whiteBackground");
+  const fondoAjustes = localStorage.getItem("settingsBackground");
 
   if (whiteBG === "true") {
     setWhiteBackground();
-  } else if (fondoGuardado) {
-    applyBackground(fondoGuardado);
+  } else if (fondoAjustes) {
+    applyBackground(fondoAjustes);
   } else {
     applyDefaultBackground();
   }
@@ -16,53 +16,50 @@ function initBackgroundSelector() {
   dropdown.addEventListener("change", () => {
     const value = dropdown.value;
 
-    // Si la opción es "img1" a "img15", cargar "background/extraX.jpg"
     if (value.startsWith("img")) {
-      const numero = value.replace("img", "");
-      const url = `background/extra${numero}.jpg`;
+      const num = value.replace("img", "");
+      const url = `background/extra${num}.jpg`;
       applyBackground(url);
-      localStorage.setItem("settingsBackground", url);
+      localStorage.setItem("settingsBackground", url); // SOLO settings
       localStorage.removeItem("whiteBackground");
     }
 
-    // Si el usuario introduce una URL personalizada
     if (value === "customURL") {
       const url = prompt("Introduce la URL de la imagen:");
       if (url) {
         applyBackground(url);
-        localStorage.setItem("settingsBackground", url);
+        localStorage.setItem("settingsBackground", url); // SOLO settings
         localStorage.removeItem("whiteBackground");
       }
     }
 
-    // Aplica el fondo que esté en index (customBackground)
     if (value === "applyIndexBackground") {
       const indexBG = localStorage.getItem("customBackground");
       if (indexBG) {
         applyBackground(indexBG);
-        localStorage.setItem("settingsBackground", indexBG);
+        localStorage.setItem("settingsBackground", indexBG); // copia a settings
         localStorage.removeItem("whiteBackground");
+        alert("✅ Fondo de index aplicado en ajustes.");
       } else {
         alert("⚠️ No se encontró fondo personalizado en index.");
       }
     }
 
-    // Elimina el fondo actual y pone fondo blanco (negro como indicador)
     if (value === "removeBackground") {
       setWhiteBackground();
       localStorage.removeItem("settingsBackground");
       localStorage.setItem("whiteBackground", "true");
+      alert("✅ Fondo eliminado. Ajustes se verá en blanco.");
     }
 
-    // Restaura el fondo por defecto
     if (value === "default") {
       const url = "background/default.jpg";
       applyBackground(url);
-      localStorage.setItem("settingsBackground", url);
+      localStorage.setItem("settingsBackground", url); // SOLO settings
       localStorage.removeItem("whiteBackground");
+      alert("✅ Fondo por defecto aplicado en ajustes.");
     }
 
-    // Restablece el menú desplegable a su estado inicial
     dropdown.selectedIndex = 0;
   });
 }
