@@ -1,11 +1,20 @@
 function initSettingsPage() {
   const whiteBG = localStorage.getItem("whiteBackground");
   const fondoAjustes = localStorage.getItem("settingsBackground");
+  const fondoGeneral = localStorage.getItem("customBackground");
 
   if (whiteBG === "true") {
     setWhiteBackground();
   } else if (fondoAjustes) {
-    applyColorOrGradient(fondoAjustes);
+    if (fondoAjustes.startsWith("color:") || fondoAjustes.startsWith("gradient:")) {
+      applyColorOrGradient(fondoAjustes);
+    } else {
+      applyBackground(fondoAjustes);
+    }
+  } else if (fondoGeneral && fondoGeneral.startsWith("color:")) {
+    applyColorOrGradient(fondoGeneral);
+  } else if (fondoGeneral) {
+    applyBackground(fondoGeneral);
   } else {
     applyDefaultBackground();
   }
@@ -22,91 +31,66 @@ function initSettingsPage() {
     const selectedValue = dropdown.value;
     let nuevaImagen = null;
 
-    // Imagen extra (img1, img2, etc.)
+    // Fondos por imagen
     if (selectedValue.startsWith("img")) {
       const numero = selectedValue.replace("img", "");
       nuevaImagen = `background/extra${numero}.jpg`;
-    }
-
-    // Imagen por URL
-    else if (selectedValue === "customURL") {
+    } else if (selectedValue === "customURL") {
       const url = prompt("Introduce la URL de la imagen de fondo:");
       if (url) nuevaImagen = url;
     }
 
-    // Color sólido predefinido
-    else if (selectedValue.startsWith("color")) {
-      const colorMap = {
-        color1: "#000000",
-        color2: "#1e1e1e",
-        color3: "#2c2c2c",
-        color4: "#3a3a3a",
-        color5: "#4b4b4b",
-        color6: "#5c5c5c",
-        color7: "#6d6d6d",
-        color8: "#7e7e7e",
-        color9: "#8f8f8f",
-        color10: "#a0a0a0"
-      };
-      const color = colorMap[selectedValue];
-      if (color) {
-        aplicarColorSolido(color);
-      }
-    }
-
-    // Color personalizado ingresado
-    else if (selectedValue === "customColor") {
-      const color = prompt("Introduce un código de color hexadecimal (ej: #1e1e1e o #FFF):");
-      const hexRegex = /^#([0-9A-F]{3}|[0-9A-F]{6})$/i;
-      if (color && hexRegex.test(color)) {
-        aplicarColorSolido(color);
-      } else {
-        alert("❌ Código de color inválido. Usa formato como #1e1e1e o #FFF.");
-      }
-    }
-
-    // Degradados
-    else if (selectedValue.startsWith("gradient")) {
-      const gradientMap = {
-        gradient1: "linear-gradient(to right, #000428, #004e92)",
-        gradient2: "linear-gradient(to right, #373B44, #4286f4)",
-        gradient3: "linear-gradient(to right, #0f2027, #203a43, #2c5364)",
-        gradient4: "linear-gradient(to right, #ff5f6d, #ffc371)"
-      };
-      const gradient = gradientMap[selectedValue];
-      if (gradient) {
-        document.body.style.backgroundImage = gradient;
-        document.body.style.backgroundColor = "";
-
-        localStorage.setItem("customBackground", `gradient:${gradient}`);
+    // Color personalizado
+    else if (selectedValue === "colorPersonalizado") {
+      const colorInput = prompt("Introduce un código de color (ej: #ff0000):");
+      const esValido = /^#([0-9A-Fa-f]{3}){1,2}$/.test(colorInput);
+      if (esValido) {
+        const fondo = `color:${colorInput}`;
+        localStorage.setItem("customBackground", fondo);
         localStorage.setItem("whiteBackground", "true");
-        localStorage.removeItem("settingsBackground");
+        applyColorOrGradient(fondo);
 
         const aplicarEnAjustes = confirm("¿También quieres aplicarlo en ajustes?");
         if (aplicarEnAjustes) {
-          localStorage.setItem("settingsBackground", `gradient:${gradient}`);
-          applyColorOrGradient(`gradient:${gradient}`);
+          localStorage.setItem("settingsBackground", fondo);
         }
 
-        alert("✅ Degradado aplicado.");
+        alert("✅ Fondo personalizado aplicado.");
+      } else {
+        alert("❌ Código de color no válido.");
       }
     }
 
-    // Aplicar nueva imagen (solo index, con confirm para ajustes)
+    // Colores y degradados predefinidos
+    else if (selectedValue.startsWith("color:") || selectedValue.startsWith("gradient:")) {
+      const aplicarEnAjustes = confirm("¿También quieres aplicarlo en ajustes?");
+      localStorage.setItem("customBackground", selectedValue);
+      localStorage.setItem("whiteBackground", "true");
+      applyColorOrGradient(selectedValue);
+
+      if (aplicarEnAjustes) {
+        localStorage.setItem("settingsBackground", selectedValue);
+      }
+
+      alert("✅ Fondo aplicado.");
+    }
+
+    // Aplicar imagen (con confirmación)
     if (nuevaImagen) {
-      localStorage.setItem("customBackground", nuevaImagen); // Para index.html
+      localStorage.setItem("customBackground", nuevaImagen);
+      localStorage.removeItem("whiteBackground");
 
       const aplicarEnAjustes = confirm("¿También quieres aplicarlo en ajustes?");
       if (aplicarEnAjustes) {
         localStorage.setItem("settingsBackground", nuevaImagen);
-        localStorage.removeItem("whiteBackground");
-        applyBackground(nuevaImagen); // Mostrar en ajustes
+        applyBackground(nuevaImagen);
       } else {
         const fondoActualSettings = localStorage.getItem("settingsBackground");
-
-        if (fondoActualSettings) {
+        if (fondoActualSettings?.startsWith("color:") || fondoActualSettings?.startsWith("gradient:")) {
           applyColorOrGradient(fondoActualSettings);
-        } else if (localStorage.getItem("whiteBackground") === "true") {
+        } else if (fondoActualSettings) {
+          applyBackground(fondoActualSettings);
+        } else if (whiteBG === "true") {
           setWhiteBackground();
         } else {
           applyDefaultBackground();
@@ -125,7 +109,7 @@ function initSettingsPage() {
       alert("✅ Fondos eliminados. Ambos fondos ahora son negros.");
     }
 
-    // Restablecer fondo por defecto
+    // Fondo por defecto
     else if (selectedValue === "default") {
       localStorage.removeItem("settingsBackground");
       localStorage.removeItem("customBackground");
@@ -134,95 +118,6 @@ function initSettingsPage() {
       location.reload();
     }
 
-    dropdown.selectedIndex = 0; // Reiniciar selector
+    dropdown.selectedIndex = 0;
   });
 }
-
-function aplicarColorSolido(color) {
-  document.body.style.backgroundImage = "none";
-  document.body.style.backgroundColor = color;
-
-  localStorage.setItem("customBackground", `color:${color}`);
-  localStorage.setItem("whiteBackground", "true");
-  localStorage.removeItem("settingsBackground");
-
-  const aplicarEnAjustes = confirm("¿También quieres aplicarlo en ajustes?");
-  if (aplicarEnAjustes) {
-    localStorage.setItem("settingsBackground", `color:${color}`);
-    applyColorOrGradient(`color:${color}`);
-  }
-
-  alert("✅ Color aplicado.");
-}
-
-function initIndexPage() {
-  const whiteBG = localStorage.getItem("whiteBackground");
-  const fondo = localStorage.getItem("customBackground");
-  const titulo = localStorage.getItem("customTitle");
-  const nombreSistema = localStorage.getItem("customSystemName");
-
-  if (whiteBG === "true") {
-    if (fondo && fondo.startsWith("color:") || fondo.startsWith("gradient:")) {
-      applyColorOrGradient(fondo);
-    } else {
-      setWhiteBackground();
-    }
-  } else if (fondo) {
-    applyBackground(fondo);
-  } else {
-    applyDefaultBackground();
-  }
-
-  if (titulo) {
-    const span = document.querySelector("h2 .arcoiris");
-    if (span) {
-      span.textContent = titulo;
-    }
-  }
-
-  if (nombreSistema) {
-    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
-  }
-}
-
-function applyColorOrGradient(entry) {
-  if (entry.startsWith("color:")) {
-    const color = entry.replace("color:", "");
-    document.body.style.backgroundImage = "none";
-    document.body.style.backgroundColor = color;
-  } else if (entry.startsWith("gradient:")) {
-    const gradient = entry.replace("gradient:", "");
-    document.body.style.backgroundColor = "";
-    document.body.style.backgroundImage = gradient;
-  }
-}
-
-function applyBackground(url) {
-  document.body.style.backgroundColor = "";
-  document.body.style.backgroundImage = `url('${url}')`;
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundRepeat = "no-repeat";
-  document.body.style.backgroundPosition = "center";
-}
-
-function applyDefaultBackground() {
-  document.body.style.backgroundColor = "";
-  document.body.style.backgroundImage = "url('background/default.jpg')";
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundRepeat = "no-repeat";
-  document.body.style.backgroundPosition = "center";
-}
-
-function setWhiteBackground() {
-  document.body.style.backgroundImage = "none";
-  document.body.style.backgroundColor = "#000000";
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const isSettings = document.getElementById("opcion2") !== null;
-  if (isSettings) {
-    initSettingsPage();
-  } else {
-    initIndexPage();
-  }
-});
