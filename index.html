@@ -4,23 +4,14 @@
   <meta charset="UTF-8">
   <title>🎮 TU PS4 HEN | Menu 🎮</title>
   <style>
-
     @font-face {
-	  font-family: 'Pricedown'; 
+      font-family: 'Pricedown'; 
       src: url('web-fonts/Pricedown.otf') format('opentype');
     }
 
     @font-face {
       font-family: 'MODERNE';
-      src: url('MODERNE%20SANS.eot');
-      src: local('MODERNE Regular'), local('MODERNE SANS'),
-           url('MODERNE%20SANSd41d.eot?#iefix') format('embedded-opentype'),
-           url('MODERNE%20SANS.woff2') format('woff2'),
-           url('MODERNE%20SANS.woff') format('woff'),
-           url('MODERNE%20SANS.ttf') format('truetype'),
-           url('MODERNE%20SANS.svg#MODERNE') format('svg');
-      font-weight: 400;
-      font-style: normal;
+      src: url('MODERNE%20SANS.ttf') format('truetype');
     }
 
     body {
@@ -28,12 +19,48 @@
       background-image: url('background/default.jpg');
       background-size: cover;
       background-position: center;
-	  background-attachment: fixed;
+      background-attachment: fixed;
       background-repeat: no-repeat;
       margin: 0;
       font-family: 'MODERNE', monospace;
     }
 
+    /* CARGA CACHE */
+    #cacheOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #loadingText {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 40px;
+      font-family: Arial, sans-serif;
+    }
+
+    .bar-container {
+      width: 70%;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid white;
+    }
+
+    .bar {
+      width: 0%;
+      height: 100%;
+      background: white;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      transition: width 0.1s linear;
+    }
+
+    /* BOTONES Y CABECERA */
     .classname, .classname1 {
       display: inline-block;
       padding: 12px 25px;
@@ -100,7 +127,7 @@
 
     h2 {
       font-size: 3rem;
-	  font-family: 'Pricedown', sans-serif; 
+      font-family: 'Pricedown', sans-serif; 
       color: #FFFFFF;
       margin: 10px;
       text-shadow: 
@@ -124,27 +151,6 @@
       text-shadow: 1px 1px 2px #777;
     }
 
-    main {
-      margin-top: 30px;
-    }
-	  
-    @keyframes arcoiris {
-       0% { color: red; }
-       16.6% { color: orange; }
-       33.3% { color: yellow; }
-       50% { color: green; }
-       66.6% { color: blue; }
-       83.3% { color: indigo; }
-       100% { color: red; }
-    }
-
-    .arcoiris {
-      font-size: 1.2em;
-      font-weight: bold;
-	  letter-spacing: 0.2em;
-      animation: arcoiris 18s linear infinite; 
-    }
-
     #filterUserAgent {
       background: white;
       border: 1px solid #ccc;
@@ -152,28 +158,31 @@
       font-family: monospace;
     }
 
-    #progress-container {
-      width: 80%;
-      height: 20px;
-      border: 2px solid #fff;
-      border-radius: 10px;
-      margin: 30px auto;
-      background-color: rgba(255, 255, 255, 0.1);
+    @keyframes arcoiris {
+      0% { color: red; }
+      16.6% { color: orange; }
+      33.3% { color: yellow; }
+      50% { color: green; }
+      66.6% { color: blue; }
+      83.3% { color: indigo; }
+      100% { color: red; }
     }
 
-    #progress-bar {
-      height: 100%;
-      width: 0%;
-      background-color: white;
-      border-radius: 10px;
-      transition: width 0.2s ease;
-      box-shadow: 0 0 10px white;
+    .arcoiris {
+      font-size: 1.2em;
+      font-weight: bold;
+      letter-spacing: 0.2em;
+      animation: arcoiris 18s linear infinite; 
     }
-
   </style>
 </head>
-
 <body>
+  <div id="cacheOverlay" style="display: none;">
+    <div id="loadingText">Guardando en caché...</div>
+    <div class="bar-container">
+      <div class="bar" id="progressBar"></div>
+    </div>
+  </div>
 
   <center>
     <br><br>
@@ -182,16 +191,11 @@
     <h3>¡Si necesitas ayuda sobre Jailbreak de PS4 puedes unirte a nuestro Grupo de Telegram!</h3>
     <h3 id="filterUserAgent">Identificando...</h3>
 
-    <!-- PROGRESS BAR -->
-    <div id="progress-container">
-      <div id="progress-bar"></div>
-    </div>
-
     <main>
       <div class="small-button-container">
-		<a href="settings.html" class="small-button">Ajustes</a>
-		<a href="https://nanospeedgameryt.github.io/" class="small-button">[PS4] NanoHost 9.00</a>
-		<a href="https://www.kmeps4.site/psphive/" class="small-button">[PS4] PS-Phive Host 9.00</a>
+        <a href="settings.html" class="small-button">Ajustes</a>
+        <a href="https://nanospeedgameryt.github.io/" class="small-button">[PS4] NanoHost 9.00</a>
+        <a href="https://www.kmeps4.site/psphive/" class="small-button">[PS4] PS-Phive Host 9.00</a>
         <a href="https://es7in1.site/ps4/index.php" class="small-button">[PS4] MultiHost 7in1</a>
         <a href="https://kmeps4.site/pppwn/" class="small-button">[PS4] PPPwn Host</a>
       </div>
@@ -207,10 +211,9 @@
         <a href="https://github.com/EchoStretch/ps4-payload-sdk/releases" class="classname1">💉 Pack Payloads 12.02 💉</a>
       </div>
 
-	  <script src="javascript/autoscript.js"></script>
-	  <script src="javascript/menu1.js"></script>
-	  <script src="javascript/menu2.js"></script>
-
+      <script src="javascript/autoscript.js"></script>
+      <script src="javascript/menu1.js"></script>
+      <script src="javascript/menu2.js"></script>
     </main>
     <br><br><br><br><br><br><br><br><br><br>
     <h4>Creado por TheZodiacoX</h4>
@@ -218,32 +221,34 @@
   </center>
 
   <script>
-    const progressBar = document.getElementById("progress-bar");
-    const cache = window.applicationCache;
+    if (window.applicationCache) {
+      const cacheOverlay = document.getElementById("cacheOverlay");
+      const progressBar = document.getElementById("progressBar");
 
-    if (cache) {
-      cache.addEventListener("progress", function(e) {
-        if (e.lengthComputable) {
-          let percent = Math.round((e.loaded / e.total) * 100);
-          progressBar.style.width = percent + "%";
-        } else {
-          let currentWidth = parseFloat(progressBar.style.width) || 0;
-          progressBar.style.width = Math.min(currentWidth + 5, 100) + "%";
-        }
+      window.applicationCache.addEventListener('downloading', () => {
+        cacheOverlay.style.display = "flex";
       });
 
-      cache.addEventListener("cached", done);
-      cache.addEventListener("updateready", done);
-      cache.addEventListener("noupdate", done);
+      window.applicationCache.addEventListener('progress', (e) => {
+        const percent = (e.loaded / e.total) * 100;
+        progressBar.style.width = percent + "%";
+      });
 
-      function done() {
+      window.applicationCache.addEventListener('cached', () => {
         progressBar.style.width = "100%";
         setTimeout(() => {
           location.reload();
         }, 3000);
-      }
+      });
+
+      window.applicationCache.addEventListener('noupdate', () => {
+        cacheOverlay.style.display = "none";
+      });
+
+      window.applicationCache.addEventListener('error', () => {
+        cacheOverlay.style.display = "none";
+      });
     }
   </script>
-
 </body>
 </html>
