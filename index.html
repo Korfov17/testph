@@ -28,12 +28,105 @@
       background-image: url('background/default.jpg');
       background-size: cover;
       background-position: center;
-	  background-attachment: fixed;
+      background-attachment: fixed;
       background-repeat: no-repeat;
       margin: 0;
       font-family: 'MODERNE', monospace;
     }
 
+	/* ====== FONDO DE CARGA (pantalla splash) ====== */
+	.cacheUPDbg {
+	  position: fixed;
+	  left: 0;
+	  right: 0;
+	  top: 0;
+	  bottom: 0;
+	  margin: auto;
+	  width: 100%;
+	  height: 100%;
+	  max-width: 100%;
+	  max-height: 100%;
+	  opacity: 1;
+	  display: none;
+	  transition: opacity 600ms;
+	  z-index: 900;
+	}
+	
+	/* ====== TEXTO DE CARGA ====== */
+	.cacheUPDtext {
+	  position: absolute;
+	  top: 318px;
+	  left: 0;
+	  width: 100%;
+	  height: 400px;
+	  margin: auto;
+	  line-height: 30px;
+	  text-align: center;
+	  font-family: sans-serif;
+	  font-size: 28px;
+	  color: white;
+	  text-shadow: -2px 2px #274478;
+	  z-index: 901;
+	}
+	
+	/* ====== BARRAS DE PROGRESO ====== */
+	#CacheProgress {
+	  position: fixed;
+	  left: 230px;
+	  top: 0;
+	  bottom: 30px;
+	  margin: auto;
+	  width: 538px;
+	  height: 8px;
+	  max-width: 100%;
+	  max-height: 100%;
+	  background-color: transparent;
+	  border: 3px solid #8C9CB6;
+	  border-right: none;
+	  border-radius: 3px;
+	}
+	
+	#CacheProgress2 {
+	  position: fixed;
+	  left: 765px;
+	  top: 0;
+	  bottom: 30px;
+	  margin: auto;
+	  width: 538px;
+	  height: 8px;
+	  max-width: 100%;
+	  max-height: 100%;
+	  background-color: transparent;
+	  border: 3px solid #8C9CB6;
+	  border-left: none;
+	  border-radius: 3px;
+	}
+	
+	.CacheBar {
+	  width: 0%;
+	  height: 100%;
+	  background-color: white;
+	}
+	
+	/* ====== EFECTO DE CARGA GENERAL ====== */
+	.Loader {
+	  background-color: transparent;
+	  transition: opacity 1000ms;
+	  opacity: 0;
+	}
+	
+	/* ====== MENSAJE DE ESTADO FINAL ====== */
+	#PassFail0 {
+	  position: fixed;
+	  right: 10px;
+	  bottom: 10px;
+	  font-size: 18px;
+	  font-weight: bold;
+	  text-align: right;
+	  text-shadow: -1px 1px #646468;
+	  z-index: 901;
+	}
+	
     .classname, .classname1 {
       display: inline-block;
       padding: 12px 25px;
