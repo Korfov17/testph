@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" manifest="tups4hen.cache">
 <head>
   <meta charset="UTF-8">
   <title>🎮 TU PS4 HEN | Menu 🎮</title>
@@ -128,27 +128,46 @@
       margin-top: 30px;
     }
 	  
-      @keyframes arcoiris {
-           0% { color: red; }
-           16.6% { color: orange; }
-           33.3% { color: yellow; }
-           50% { color: green; }
-           66.6% { color: blue; }
-           83.3% { color: indigo; }
-           100% { color: red; }
-       }
+    @keyframes arcoiris {
+       0% { color: red; }
+       16.6% { color: orange; }
+       33.3% { color: yellow; }
+       50% { color: green; }
+       66.6% { color: blue; }
+       83.3% { color: indigo; }
+       100% { color: red; }
+    }
 
-      .arcoiris {
-          font-size: 1.2em;
-          font-weight: bold;
-		  letter-spacing: 0.2em;
-          animation: arcoiris 18s linear infinite; 
-		  
-	#filterUserAgent {
+    .arcoiris {
+      font-size: 1.2em;
+      font-weight: bold;
+	  letter-spacing: 0.2em;
+      animation: arcoiris 18s linear infinite; 
+    }
+
+    #filterUserAgent {
       background: white;
       border: 1px solid #ccc;
       padding: 10px;
       font-family: monospace;
+    }
+
+    #progress-container {
+      width: 80%;
+      height: 20px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      margin: 30px auto;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: white;
+      border-radius: 10px;
+      transition: width 0.2s ease;
+      box-shadow: 0 0 10px white;
     }
 
   </style>
@@ -162,6 +181,11 @@
     <h3>¡Bienvenido al sitio web oficial de Tu PS4 Hen!</h3>
     <h3>¡Si necesitas ayuda sobre Jailbreak de PS4 puedes unirte a nuestro Grupo de Telegram!</h3>
     <h3 id="filterUserAgent">Identificando...</h3>
+
+    <!-- PROGRESS BAR -->
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
 
     <main>
       <div class="small-button-container">
@@ -183,16 +207,43 @@
         <a href="https://github.com/EchoStretch/ps4-payload-sdk/releases" class="classname1">💉 Pack Payloads 12.02 💉</a>
       </div>
 
-	     <script src="javascript/autoscript.js"></script>
-	     <script src="javascript/menu1.js"></script>
-	     <script src="javascript/menu2.js"></script>
-		
+	  <script src="javascript/autoscript.js"></script>
+	  <script src="javascript/menu1.js"></script>
+	  <script src="javascript/menu2.js"></script>
+
     </main>
-   <br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
     <h4>Creado por TheZodiacoX</h4>
     <h4>Credits: PS4 Homebrew Devs || TheFlow, SiSTR0, Kameleon, EchoStretch, LM, etc</h4>
-
   </center>
+
+  <script>
+    const progressBar = document.getElementById("progress-bar");
+    const cache = window.applicationCache;
+
+    if (cache) {
+      cache.addEventListener("progress", function(e) {
+        if (e.lengthComputable) {
+          let percent = Math.round((e.loaded / e.total) * 100);
+          progressBar.style.width = percent + "%";
+        } else {
+          let currentWidth = parseFloat(progressBar.style.width) || 0;
+          progressBar.style.width = Math.min(currentWidth + 5, 100) + "%";
+        }
+      });
+
+      cache.addEventListener("cached", done);
+      cache.addEventListener("updateready", done);
+      cache.addEventListener("noupdate", done);
+
+      function done() {
+        progressBar.style.width = "100%";
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+      }
+    }
+  </script>
 
 </body>
 </html>
