@@ -58,7 +58,7 @@ function initSettingsMenu2() {
     else if (selectedValue.startsWith("tph_gradient")) {
       const degradados = {
         tph_gradient1: "linear-gradient(135deg, #ff6a5c 0%, #ffb88c 50%, #ffffff 100%)",
-        tph_gradient2: "linear-gradient(to top left, #00e3ae 0%, #8ef6e4 60%, #ffffff 100%)",
+        tph_gradient1: "linear-gradient(135deg, #ff0033 0%, #ff6f61 50%, #ffffff 100%)",
         tph_gradient3: "linear-gradient(120deg, #7f00ff 0%, #3f51b5 60%, #ffffff 100%)",
         tph_gradient4: "linear-gradient(to right, #00c9ff 0%, #92fe9d 60%, #ffffff 100%)",
       };
