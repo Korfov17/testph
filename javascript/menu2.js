@@ -24,36 +24,35 @@ function initSettingsPage() {
     let nuevoColor = null;
     let nuevoGradiente = null;
 
-    // Imagen extra (img1, img2, etc.)
+    // Extra IMG
     if (selectedValue.startsWith("img")) {
       const numero = selectedValue.replace("img", "");
       nuevaImagen = `background/extra${numero}.jpg`;
     }
 
-    // Imagen por URL
+    // URL Custom
     else if (selectedValue === "customURL") {
       const url = prompt("Introduce la URL de la imagen de fondo:");
       if (url) nuevaImagen = url;
     }
 
-    // Colores sólidos
+    // Hex Color
     else if (selectedValue.startsWith("solid")) {
       const colores = {
         solidRed: "#ff0000",
         solidBlue: "#0000ff",
-        solidGreen: "#00ff00",
+        solidGreen: "#16b516",
         solidYellow: "#ffff00",
-        solidOrange: "#ffa500",
+        solidOrange: "#eb6b00",
         solidPurple: "#800080",
-        solidPink: "#ffc0cb",
+        solidPink: "#e02284",
         solidBrown: "#8b4513",
-        solidGray: "#d3d3d3",
+        solidGray: "#b4b4b4",
         solidBlack: "#000000"
       };
       nuevoColor = colores[selectedValue];
     }
 
-    // Degradados
     else if (selectedValue.startsWith("gradient")) {
       const degradados = {
         gradient1: "linear-gradient(to right, #2193b0, #6dd5ed)",
@@ -64,13 +63,13 @@ function initSettingsPage() {
       nuevoGradiente = degradados[selectedValue];
     }
 
-    // Color personalizado
+    // Custom Hex Color
     else if (selectedValue === "customColor") {
       const colorPersonalizado = prompt("Introduce el código del color (ej. #ffcc00):");
       if (colorPersonalizado) nuevoColor = colorPersonalizado;
     }
 
-    // Aplicar imagen
+    // Apply IMG
     if (nuevaImagen) {
       localStorage.setItem("customBackground", nuevaImagen);
       const aplicarEnAjustes = confirm("¿También quieres aplicarlo en ajustes?");
@@ -84,7 +83,7 @@ function initSettingsPage() {
       alert("✅ Fondo guardado para el menú.");
     }
 
-    // Aplicar color sólido
+    // Apply Hex Color
     else if (nuevoColor) {
       const valor = `color:${nuevoColor}`;
       applyBackground(valor);
@@ -99,7 +98,6 @@ function initSettingsPage() {
       alert("✅ Color aplicado como fondo.");
     }
 
-    // Aplicar degradado
     else if (nuevoGradiente) {
       const valor = `gradient:${nuevoGradiente}`;
       applyBackground(valor);
@@ -114,7 +112,7 @@ function initSettingsPage() {
       alert("✅ Degradado aplicado como fondo.");
     }
 
-    // Eliminar fondo
+    // Remove Background
     else if (selectedValue === "removeBackground") {
       localStorage.removeItem("settingsBackground");
       localStorage.removeItem("customBackground");
@@ -123,7 +121,7 @@ function initSettingsPage() {
       alert("✅ Fondos eliminados. Ambos fondos ahora son blancos.");
     }
 
-    // Restablecer fondo por defecto
+    // Background Default
     else if (selectedValue === "default") {
       localStorage.removeItem("settingsBackground");
       localStorage.removeItem("customBackground");
