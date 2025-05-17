@@ -11,7 +11,7 @@ function initSettingsMenu1() {
     const selectedValue = dropdown.value;
 
     switch (selectedValue) {
-      case "tph_changeTitleHTML":
+      case "tph_changetitleHTML":
         const nuevoNombre = prompt("Introduce el texto para reemplazar:");
         if (nuevoNombre) {
           localStorage.setItem("tph_customTitleHTML", nuevoNombre);
