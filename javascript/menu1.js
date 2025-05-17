@@ -1,5 +1,5 @@
 function initSettingsMenu1() {
-  const nombreSistema = localStorage.getItem("customSystemName");
+  const nombreSistema = localStorage.getItem("tphCustomSystemName");
   if (nombreSistema) {
     document.title = `🎮 ${nombreSistema} | Menu 🎮`;
   }
@@ -14,7 +14,7 @@ function initSettingsMenu1() {
       case "changeSystemName":
         const nuevoNombre = prompt("Introduce el nuevo nombre del sistema:");
         if (nuevoNombre) {
-          localStorage.setItem("customSystemName", nuevoNombre);
+          localStorage.setItem("tphCustomSystemName", nuevoNombre);
           document.title = `🎮 ${nuevoNombre} | Menu 🎮`;
           alert("✅ Nombre del sistema actualizado.");
         }
@@ -23,13 +23,13 @@ function initSettingsMenu1() {
       case "changeTitle":
         const nuevoTitulo = prompt("Introduce el nuevo texto para el título:");
         if (nuevoTitulo) {
-          localStorage.setItem("customTitle", nuevoTitulo);
+          localStorage.setItem("tphCustomTitle", nuevoTitulo);
           alert("✅ Título actualizado.");
         }
         break;
 
       case "infoAlert":
-        alert("ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\nℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\nℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.");
+        alert("ℹ️ Esta web está en fase de desarrollo y no está terminada.\n\nℹ️ Esta versión Nightly se actualizará cada pocos cambios aunque esté en desarrollo y pueda tener fallos.\n\nℹ️ Recomiendo usar esta versión a modo de prueba por futuras características que llegarán a tups4hen.vercel.app.");
         break;
     }
 
