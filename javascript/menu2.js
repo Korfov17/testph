@@ -20,13 +20,13 @@ function initSettingsMenu2() {
     let nuevoGradiente = null;
 
     // Extra IMG
-    if (selectedValue.startsWith("img")) {
-      const numero = selectedValue.replace("img", "");
+    if (selectedValue.startsWith("tph_img")) {
+      const numero = selectedValue.replace("tph_img", "");
       nuevaImagen = `background/extra${numero}.jpg`;
     }
 
     // URL Custom
-    else if (selectedValue === "customURL") {
+    else if (selectedValue === "tph_customURL") {
       const url = prompt("Introduce la URL para aplicar como fondo:");
       if (url) nuevaImagen = url;
     }
