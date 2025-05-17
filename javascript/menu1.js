@@ -1,5 +1,5 @@
 function initSettingsMenu1() {
-  const nombreSistema = localStorage.getItem("customSystemName");
+  const nombreSistema = localStorage.getItem("tphcustomSystemName");
   if (nombreSistema) {
     document.title = `🎮 ${nombreSistema} | Menu 🎮`;
   }
@@ -14,7 +14,7 @@ function initSettingsMenu1() {
       case "changeSystemName":
         const nuevoNombre = prompt("Introduce el nuevo nombre del sistema:");
         if (nuevoNombre) {
-          localStorage.setItem("customSystemName", nuevoNombre);
+          localStorage.setItem("tphcustomSystemName", nuevoNombre);
           document.title = `🎮 ${nuevoNombre} | Menu 🎮`;
           alert("✅ Nombre del sistema actualizado.");
         }
@@ -23,7 +23,7 @@ function initSettingsMenu1() {
       case "changeTitle":
         const nuevoTitulo = prompt("Introduce el nuevo texto para el título:");
         if (nuevoTitulo) {
-          localStorage.setItem("customTitle", nuevoTitulo);
+          localStorage.setItem("tphcustomTitle", nuevoTitulo);
           alert("✅ Título actualizado.");
         }
         break;
