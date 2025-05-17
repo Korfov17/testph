@@ -53,7 +53,6 @@ function initIndexMenu1() {
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings1 = document.getElementById("opcion1") !== null;
   if (isSettings1) {
