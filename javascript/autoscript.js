@@ -82,7 +82,7 @@ function tph_resetSettings() {
     localStorage.removeItem("tph_customTitle");     
     localStorage.removeItem("tph_customTitleHTML"); 
     localStorage.removeItem("tph_whiteBackground");    
-    localStorage.removeItem("tph_currentBackgroundTemp");
+    localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
     location.reload();
