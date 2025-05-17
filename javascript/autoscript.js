@@ -103,3 +103,5 @@ function inicializarCache() {
         }, 1500);
     };
 }
+
+document.addEventListener("DOMContentLoaded", inicializarCache);
