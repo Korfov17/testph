@@ -10,6 +10,7 @@ function initSettingsMenu2() {
     applyDefaultBackground();
   }
 } 
+
   const dropdown = document.getElementById("opcion2");
   if (!dropdown) return;
 
@@ -151,6 +152,7 @@ function initIndexMenu2() {
   } else {
     applyDefaultBackground();
   }
+}
 
 function applyBackground(valor) {
   if (valor.startsWith("color:")) {
