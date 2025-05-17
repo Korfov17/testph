@@ -58,5 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (isSettings1) {
     initSettingsMenu1();
   }
-  initIndexMenu1()
+
+  const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+  if (isIndex) {
+    initIndexMenu1();
+  }
 });
