@@ -9,7 +9,7 @@ function initSettingsMenu2() {
   } else {
     applyDefaultBackground();
   }
-
+} 
   const dropdown = document.getElementById("opcion2");
   if (!dropdown) return;
 
