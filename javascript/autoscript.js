@@ -74,15 +74,15 @@ function detect_device() {
 
 document.addEventListener("DOMContentLoaded", detect_device);
 
-function tph_resetSettings() {
+function tphresetSettings() {
   const confirmar = confirm("¿Estás seguro de restablecer todos los ajustes por defecto?");
   if (confirmar) {
-    localStorage.removeItem("tph_customBackground");  
-    localStorage.removeItem("tph_settingsBackground"); 
-    localStorage.removeItem("tph_customTitle");     
-    localStorage.removeItem("tph_customtitleHTML"); 
-    localStorage.removeItem("tph_whiteBackground");    
-    localStorage.removeItem("tph_currentBackgroundTemp");
+    localStorage.removeItem("tphcustomBackground");  
+    localStorage.removeItem("tphsettingsBackground"); 
+    localStorage.removeItem("tphcustomTitle");     
+    localStorage.removeItem("tphcustomSystemName"); 
+    localStorage.removeItem("tphwhiteBackground");    
+    localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
     location.reload();
