@@ -74,7 +74,7 @@ function detect_device() {
 
 document.addEventListener("DOMContentLoaded", detect_device);
 
-function resetAllSettings() {
+function tph.resetSettings() {
   const confirmar = confirm("¿Estás seguro de restablecer todos los ajustes por defecto?");
   if (confirmar) {
     localStorage.removeItem("tph.customBackground");  
