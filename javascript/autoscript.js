@@ -74,14 +74,14 @@ function detect_device() {
 
 document.addEventListener("DOMContentLoaded", detect_device);
 
-function tphresetSettings() {
-  const confirmar = confirm("¿Estás seguro de restablecer todos los ajustes por defecto?");
+function resetAllSettings() {
+  const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
   if (confirmar) {
-    localStorage.removeItem("tphcustomBackground");  
-    localStorage.removeItem("tphsettingsBackground"); 
-    localStorage.removeItem("tphcustomTitle");     
-    localStorage.removeItem("tphcustomSystemName"); 
-    localStorage.removeItem("tphwhiteBackground");    
+    localStorage.removeItem("customBackground");  
+    localStorage.removeItem("settingsBackground"); 
+    localStorage.removeItem("customTitle");     
+    localStorage.removeItem("customSystemName"); 
+    localStorage.removeItem("whiteBackground");    
     localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
