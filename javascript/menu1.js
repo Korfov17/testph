@@ -11,7 +11,7 @@ function initSettingsMenu1() {
     const selectedValue = dropdown.value;
 
     switch (selectedValue) {
-      case "changeSystemName":
+      case "tphchangeSystemName":
         const nuevoNombre = prompt("Introduce el nuevo nombre del sistema:");
         if (nuevoNombre) {
           localStorage.setItem("tphcustomSystemName", nuevoNombre);
@@ -20,7 +20,7 @@ function initSettingsMenu1() {
         }
         break;
 
-      case "changeTitle":
+      case "tphchangeTitle":
         const nuevoTitulo = prompt("Introduce el nuevo texto para el título:");
         if (nuevoTitulo) {
           localStorage.setItem("tphcustomTitle", nuevoTitulo);
