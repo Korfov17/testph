@@ -88,20 +88,3 @@ function tph_resetSettings() {
     location.reload();
   }
 }
-
-function inicializarCache() {
-    window.applicationCache.ondownloading = function () {
-        document.getElementById("progress").innerHTML = "Iniciando proceso de caché...";
-    };
-    window.applicationCache.onprogress = function (a) {
-        document.getElementById("progress").innerHTML = (Math.round(100 * (a.loaded / a.total))) + "%";
-    };
-    window.applicationCache.oncached = function () {
-        document.getElementById("progress").innerHTML = "Se ha almacenado la caché exitosamente!!";
-        setTimeout(function () {
-            document.getElementById("progress").innerHTML = "Abre de nuevo el navegador!!";
-        }, 1500);
-    };
-}
-
-document.addEventListener("DOMContentLoaded", inicializarCache);
