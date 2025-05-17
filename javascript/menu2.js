@@ -10,11 +10,6 @@ function initSettingsPage() {
     applyDefaultBackground();
   }
 
-  const nombreSistema = localStorage.getItem("customSystemName");
-  if (nombreSistema) {
-    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
-  }
-
   const dropdown = document.getElementById("opcion2");
   if (!dropdown) return;
 
