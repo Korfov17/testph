@@ -1,6 +1,6 @@
 function initSettingsMenu2() {
-  const whiteBG = localStorage.getItem("whiteBackground");
-  const fondoAjustes = localStorage.getItem("settingsBackground");
+  const whiteBG = localStorage.getItem("tph_whiteBackground");
+  const fondoAjustes = localStorage.getItem("tph_settingsBackground");
 
   if (whiteBG === "true") {
     setWhiteBackground();
@@ -27,12 +27,12 @@ function initSettingsMenu2() {
 
     // URL Custom
     else if (selectedValue === "customURL") {
-      const url = prompt("Introduce la URL de la imagen de fondo:");
+      const url = prompt("Introduce la URL para aplicar como fondo:");
       if (url) nuevaImagen = url;
     }
 
     // Hex Color
-    else if (selectedValue.startsWith("solid")) {
+    else if (selectedValue.startsWith("tph_")) {
       const colores = {
         solidRed: "#ff0000",
         solidBlue: "#0000ff",
@@ -48,45 +48,45 @@ function initSettingsMenu2() {
       nuevoColor = colores[selectedValue];
     }
 
-    else if (selectedValue.startsWith("gradient")) {
+    else if (selectedValue.startsWith("tph_gradient")) {
       const degradados = {
-        gradient1: "linear-gradient(to right, #2193b0, #6dd5ed)",
-        gradient2: "linear-gradient(to right, #ff0000, #ffff00)",
-        gradient3: "linear-gradient(to right, #008000, #bfff00)",
-        gradient4: "linear-gradient(to right, #00c6ff, #ffffff)"
+        tph_gradient1: "linear-gradient(to right, #2193b0, #6dd5ed)",
+        tph_gradient2: "linear-gradient(to right, #ff0000, #ffff00)",
+        tph_gradient3: "linear-gradient(to right, #008000, #bfff00)",
+        tph_gradient4: "linear-gradient(to right, #00c6ff, #ffffff)"
       };
       nuevoGradiente = degradados[selectedValue];
     }
 
     // Custom Hex Color
-    else if (selectedValue === "customColor") {
-      const colorPersonalizado = prompt("Introduce el código del color (ej. #ffcc00):");
+    else if (selectedValue === "tph_customColor") {
+      const colorPersonalizado = prompt("Introduce el código hexadecimal del color (ej. #ffcc00):");
       if (colorPersonalizado) nuevoColor = colorPersonalizado;
     }
 
     // Apply IMG
     if (nuevaImagen) {
-      localStorage.setItem("customBackground", nuevaImagen);
-      const aplicarEnAjustes = confirm("¿También quieres aplicarlo en ajustes?");
+      localStorage.setItem("tph_customBackground", nuevaImagen);
+      const aplicarEnAjustes = confirm("¿Quieres aplicar el fondo en el menu de ajustes?");
       if (aplicarEnAjustes) {
-        localStorage.setItem("settingsBackground", nuevaImagen);
-        localStorage.removeItem("whiteBackground");
+        localStorage.setItem("tph_settingsBackground", nuevaImagen);
+        localStorage.removeItem("tph_whiteBackground");
         applyBackground(nuevaImagen);
       } else {
         mantenerFondoActual();
       }
-      alert("✅ Fondo guardado para el menú.");
+      alert("✅ Fondo guardado correctamente.");
     }
 
     // Apply Hex Color
     else if (nuevoColor) {
       const valor = `color:${nuevoColor}`;
       applyBackground(valor);
-      localStorage.setItem("customBackground", valor);
-      const aplicarEnAjustes = confirm("¿También quieres aplicar este color en ajustes?");
+      localStorage.setItem("tph_customBackground", valor);
+      const aplicarEnAjustes = confirm("¿Quieres aplicar este color como fondo en el menu de ajustes?");
       if (aplicarEnAjustes) {
-        localStorage.setItem("settingsBackground", valor);
-        localStorage.removeItem("whiteBackground");
+        localStorage.setItem("tph_settingsBackground", valor);
+        localStorage.removeItem("tph_whiteBackground");
       } else {
         mantenerFondoActual();
       }
@@ -94,13 +94,13 @@ function initSettingsMenu2() {
     }
 
     else if (nuevoGradiente) {
-      const valor = `gradient:${nuevoGradiente}`;
+      const valor = `tph_gradient:${nuevoGradiente}`;
       applyBackground(valor);
-      localStorage.setItem("customBackground", valor);
-      const aplicarEnAjustes = confirm("¿También quieres aplicar este degradado en ajustes?");
+      localStorage.setItem("tph_customBackground", valor);
+      const aplicarEnAjustes = confirm("¿Quieres aplicar este degradado como fondo en el menu de ajustes?");
       if (aplicarEnAjustes) {
-        localStorage.setItem("settingsBackground", valor);
-        localStorage.removeItem("whiteBackground");
+        localStorage.setItem("tph_settingsBackground", valor);
+        localStorage.removeItem("tph_whiteBackground");
       } else {
         mantenerFondoActual();
       }
@@ -108,20 +108,20 @@ function initSettingsMenu2() {
     }
 
     // Remove Background
-    else if (selectedValue === "removeBackground") {
-      localStorage.removeItem("settingsBackground");
-      localStorage.removeItem("customBackground");
-      localStorage.setItem("whiteBackground", "true");
+    else if (selectedValue === "tph_removeBackground") {
+      localStorage.removeItem("tph_settingsBackground");
+      localStorage.removeItem("tph_customBackground");
+      localStorage.setItem("tph_whiteBackground", "true");
       setWhiteBackground();
-      alert("✅ Fondos eliminados. Ambos fondos ahora son blancos.");
+      alert("✅ Fondo eliminado.");
     }
 
     // Background Default
-    else if (selectedValue === "default") {
-      localStorage.removeItem("settingsBackground");
-      localStorage.removeItem("customBackground");
-      localStorage.removeItem("whiteBackground");
-      alert("✅ Fondos restablecidos por defecto.");
+    else if (selectedValue === "tph_default") {
+      localStorage.removeItem("tph_settingsBackground");
+      localStorage.removeItem("tph_customBackground");
+      localStorage.removeItem("tph_whiteBackground");
+      alert("✅ Fondo restablecido por defecto.");
       location.reload();
     }
 
@@ -130,10 +130,10 @@ function initSettingsMenu2() {
 }
 
 function mantenerFondoActual() {
-  const fondoActualSettings = localStorage.getItem("settingsBackground");
+  const fondoActualSettings = localStorage.getItem("tph_settingsBackground");
   if (fondoActualSettings) {
     applyBackground(fondoActualSettings);
-  } else if (localStorage.getItem("whiteBackground") === "true") {
+  } else if (localStorage.getItem("tph_whiteBackground") === "true") {
     setWhiteBackground();
   } else {
     applyDefaultBackground();
@@ -141,8 +141,8 @@ function mantenerFondoActual() {
 }
 
 function initIndexMenu2() {
-  const whiteBG = localStorage.getItem("whiteBackground");
-  const fondo = localStorage.getItem("customBackground");
+  const whiteBG = localStorage.getItem("tph_whiteBackground");
+  const fondo = localStorage.getItem("tph_customBackground");
 
   if (whiteBG === "true") {
     setWhiteBackground();
@@ -156,9 +156,9 @@ function applyBackground(valor) {
   if (valor.startsWith("color:")) {
     document.body.style.backgroundImage = "none";
     document.body.style.backgroundColor = valor.replace("color:", "");
-  } else if (valor.startsWith("gradient:")) {
+  } else if (valor.startsWith("tph_gradient:")) {
     document.body.style.backgroundColor = "";
-    document.body.style.backgroundImage = valor.replace("gradient:", "");
+    document.body.style.backgroundImage = valor.replace("tph_gradient:", "");
   } else {
     document.body.style.backgroundColor = "";
     document.body.style.backgroundImage = `url('${valor}')`;
