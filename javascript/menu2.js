@@ -57,10 +57,10 @@ function initSettingsMenu2() {
     // Gradient
     else if (selectedValue.startsWith("tph_gradient")) {
       const degradados = {
-        tph_gradient1: "linear-gradient(135deg, #1f1c2c, #928dab)",
-        tph_gradient2: "linear-gradient(to right, #f3904f, #3b4371)",
-        tph_gradient3: "linear-gradient(to top left, #a1ffce, #faffd1)",
-        tph_gradient4: "linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4)"
+        tph_gradient1: "linear-gradient(135deg, #ff6a5c 0%, #ffb88c 50%, #ffffff 100%)",
+        tph_gradient2: "linear-gradient(to top left, #00e3ae 0%, #8ef6e4 60%, #ffffff 100%)",
+        tph_gradient3: "linear-gradient(120deg, #7f00ff 0%, #3f51b5 60%, #ffffff 100%)",
+        tph_gradient4: "linear-gradient(to right, #00c9ff 0%, #92fe9d 60%, #ffffff 100%)",
       };
       nuevoGradiente = degradados[selectedValue];
     }
