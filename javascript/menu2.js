@@ -1,4 +1,4 @@
-function initSettingsPage() {
+function initSettingsMenu2() {
   const whiteBG = localStorage.getItem("whiteBackground");
   const fondoAjustes = localStorage.getItem("settingsBackground");
 
@@ -140,11 +140,9 @@ function mantenerFondoActual() {
   }
 }
 
-function initIndexPage() {
+function initIndexMenu2() {
   const whiteBG = localStorage.getItem("whiteBackground");
   const fondo = localStorage.getItem("customBackground");
-  const titulo = localStorage.getItem("customTitle");
-  const nombreSistema = localStorage.getItem("customSystemName");
 
   if (whiteBG === "true") {
     setWhiteBackground();
@@ -153,18 +151,6 @@ function initIndexPage() {
   } else {
     applyDefaultBackground();
   }
-
-  if (titulo) {
-    const span = document.querySelector("h2 .arcoiris");
-    if (span) {
-      span.textContent = titulo;
-    }
-  }
-
-  if (nombreSistema) {
-    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
-  }
-}
 
 function applyBackground(valor) {
   if (valor.startsWith("color:")) {
@@ -198,8 +184,8 @@ function setWhiteBackground() {
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings = document.getElementById("opcion2") !== null;
   if (isSettings) {
-    initSettingsPage();
+    initSettingsMenu2();
   } else {
-    initIndexPage();
+    initIndexMenu2();
   }
 });
