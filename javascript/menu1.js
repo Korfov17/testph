@@ -12,7 +12,7 @@ function initSettingsMenu1() {
 
     switch (selectedValue) {
       case "tph_changetitleHTML":
-        const nuevoNombre = prompt("Introduce el texto para reemplazar:");
+        const nuevoNombre = prompt("Introduce el nuevo nombre del sistema:");
         if (nuevoNombre) {
           localStorage.setItem("tph_customTitleHTML", nuevoNombre);
           document.title = `🎮 ${nuevoNombre} | Menu 🎮`;
@@ -21,10 +21,10 @@ function initSettingsMenu1() {
         break;
 
       case "tph_changeTitle":
-        const nuevoTitulo = prompt("Introduce el texto para reemplazar el título principal:");
+        const nuevoTitulo = prompt("Introduce el nuevo texto para el título:");
         if (nuevoTitulo) {
           localStorage.setItem("tph_customTitle", nuevoTitulo);
-          alert("✅ Título actualizado.");
+          alert("✅ Título Actualizado.");
         }
         break;
 
@@ -37,26 +37,9 @@ function initSettingsMenu1() {
   });
 }
 
-function initIndexMenu1() {
-  const titulo = localStorage.getItem("tph_customTitle");
-  const nombreSistema = localStorage.getItem("tph_customTitleHTML");
-  
-  if (titulo) {
-    const span = document.querySelector("h2 .arcoiris");
-    if (span) {
-      span.textContent = titulo;
-    }
-  }
-
-  if (nombreSistema) {
-    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings1 = document.getElementById("opcion1") !== null;
   if (isSettings1) {
     initSettingsMenu1();
   }
-  initIndexMenu1()
 });
