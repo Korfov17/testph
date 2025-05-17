@@ -37,9 +37,27 @@ function initSettingsMenu1() {
   });
 }
 
+function initIndexMenu1() {
+  const titulo = localStorage.getItem("tph_customTitle");
+  const nombreSistema = localStorage.getItem("tph_customTitleHTML");
+  
+  if (titulo) {
+    const span = document.querySelector("h2 .arcoiris");
+    if (span) {
+      span.textContent = titulo;
+    }
+  }
+
+  if (nombreSistema) {
+    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings1 = document.getElementById("opcion1") !== null;
   if (isSettings1) {
     initSettingsMenu1();
   }
+  initIndexMenu1()
 });
