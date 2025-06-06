@@ -81,7 +81,8 @@ function tph_resetSettings() {
     localStorage.removeItem("tph_settingsBackground"); 
     localStorage.removeItem("tph_customTitle");     
     localStorage.removeItem("tph_customTitleHTML"); 
-    localStorage.removeItem("tph_whiteBackground");    
+    localStorage.removeItem("tph_whiteBackground");  
+    localStorage.removeItem("tph_filterUserAgent");
     localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
@@ -95,6 +96,7 @@ function tph_exportJSON() {
         'tph_settingsBackground',
         'tph_customTitle',
         'tph_customTitleHTML',
+        'tph_filterUserAgent',
         'tph_whiteBackground'
     ];
     const localStorageData = {};
