@@ -28,6 +28,19 @@ function initSettingsMenu1() {
         }
         break;
 
+      case "tph_showuseragent":
+        const h3Element = document.getElementById("filterUserAgent");
+        if (h3Element) {
+          if (h3Element.style.display === "none") {
+            h3Element.style.display = "block";
+          } else {
+            h3Element.style.display = "none";
+          }
+        } else {
+          alert("No se encontró el elemento con id 'filterUserAgent'");
+        }
+        break;
+        
       case "infoAlert":
         alert("ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\nℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\nℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.");
         break;
