@@ -88,3 +88,38 @@ function tph_resetSettings() {
     location.reload();
   }
 }
+
+function exportJSON() {
+    const selectedKeys = [
+        'tph_customBackground',
+        'tph_settingsBackground',
+        'tph_customTitle',
+        'tph_customTitleHTML',
+        'tph_whiteBackground'
+    ];
+    const localStorageData = {};
+
+    selectedKeys.forEach(key => {
+        const value = localStorage.getItem(key);
+        if (value !== null) {
+            localStorageData[key] = value;
+        }
+    });
+
+    const finalData = {
+        "TU PS4 HEN CONFIG JSON": {
+            "version_json": "v1.0.0",
+            ...localStorageData
+        }
+    };
+
+    const blob = new Blob([JSON.stringify(finalData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'tups4hen_config.json';
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
