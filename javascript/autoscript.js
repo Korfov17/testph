@@ -134,8 +134,8 @@ function importJSON() {
             fetch(jsonURL)
                 .then(response => response.json())
                 .then(data => {
-                    if (data["TU PS4 HEN JSON"]) {
-                        const importedData = data["TU PS4 HEN JSON"];
+                    if (data["TU PS4 HEN CONFIG JSON"]) {
+                        const importedData = data["TU PS4 HEN CONFIG JSON"];
                         for (let key in importedData) {
                             if (importedData.hasOwnProperty(key)) {
                                 localStorage.setItem(key, importedData[key]);
