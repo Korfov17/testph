@@ -89,7 +89,7 @@ function tph_resetSettings() {
   }
 }
 
-function exportJSON() {
+function tph_exportJSON() {
     const selectedKeys = [
         'tph_customBackground',
         'tph_settingsBackground',
@@ -124,13 +124,17 @@ function exportJSON() {
     URL.revokeObjectURL(url);
 }
 
-function importJSON() {
-    const useURL = confirm("¿Quieres cargar el archivo JSON desde una URL?");
+function tph_importJSON() {
+    const useURL = confirm("¿Quieres cargar la configuracion JSON desde una URL?");
     
     if (useURL) {
         const jsonURL = prompt("Introduce la URL del archivo JSON:");
         
         if (jsonURL) {
+            if (jsonURL.includes("github.com")) {
+                jsonURL = jsonURL.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/");
+            }
+            
             fetch(jsonURL)
                 .then(response => response.json())
                 .then(data => {
@@ -141,13 +145,14 @@ function importJSON() {
                                 localStorage.setItem(key, importedData[key]);
                             }
                         }
-                        alert("Los datos se han importado exitosamente desde la URL.");
+                        alert("✅ Se ha importado la configuracion JSON con exito.");
+                          location.reload(); 
                     } else {
-                        alert("El formato del JSON no es válido.");
+                        alert("❌ La configuracion JSON no es valida.");
                     }
                 })
                 .catch(error => {
-                    alert("Hubo un error al cargar el archivo desde la URL: " + error);
+                    alert("❌ Error: " + error);
                 });
         }
     } else {
@@ -170,12 +175,13 @@ function importJSON() {
                                     localStorage.setItem(key, importedData[key]);
                                 }
                             }
-                            alert("Los datos se han importado exitosamente desde el archivo.");
+                            alert("✅ Se ha importado la configuracion JSON con exito.");
+                             location.reload(); 
                         } else {
-                            alert("El formato del JSON no es válido.");
+                            alert("❌ La configuracion JSON no es valida.");
                         }
                     } catch (error) {
-                        alert("Hubo un error al leer el archivo JSON: " + error);
+                        alert("❌ Error: " + error);
                     }
                 };
                 reader.readAsText(file);
