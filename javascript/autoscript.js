@@ -123,3 +123,65 @@ function exportJSON() {
 
     URL.revokeObjectURL(url);
 }
+
+function importJSON() {
+    const useURL = confirm("¿Quieres cargar el archivo JSON desde una URL?");
+    
+    if (useURL) {
+        const jsonURL = prompt("Introduce la URL del archivo JSON:");
+        
+        if (jsonURL) {
+            fetch(jsonURL)
+                .then(response => response.json())
+                .then(data => {
+                    if (data["TU PS4 HEN JSON"]) {
+                        const importedData = data["TU PS4 HEN JSON"];
+                        for (let key in importedData) {
+                            if (importedData.hasOwnProperty(key)) {
+                                localStorage.setItem(key, importedData[key]);
+                            }
+                        }
+                        alert("Los datos se han importado exitosamente desde la URL.");
+                    } else {
+                        alert("El formato del JSON no es válido.");
+                    }
+                })
+                .catch(error => {
+                    alert("Hubo un error al cargar el archivo desde la URL: " + error);
+                });
+        }
+    } else {
+        const inputFile = document.createElement('input');
+        inputFile.type = 'file';
+        inputFile.accept = '.json';
+        
+        inputFile.addEventListener('change', event => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        if (data["TU PS4 HEN JSON"]) {
+                            const importedData = data["TU PS4 HEN JSON"];
+                            for (let key in importedData) {
+                                if (importedData.hasOwnProperty(key)) {
+                                    localStorage.setItem(key, importedData[key]);
+                                }
+                            }
+                            alert("Los datos se han importado exitosamente desde el archivo.");
+                        } else {
+                            alert("El formato del JSON no es válido.");
+                        }
+                    } catch (error) {
+                        alert("Hubo un error al leer el archivo JSON: " + error);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+        
+        inputFile.click();
+    }
+}
