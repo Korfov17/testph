@@ -128,13 +128,9 @@ function tph_importJSON() {
     const useURL = confirm("¿Quieres cargar la configuracion JSON desde una URL?");
     
     if (useURL) {
-        const jsonURL = prompt("Introduce la URL del archivo JSON:");
+        const jsonURL = prompt("Introduce la URL de la configuracion JSON:");
         
         if (jsonURL) {
-            if (jsonURL.includes("github.com")) {
-                jsonURL = jsonURL.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/");
-            }
-            
             fetch(jsonURL)
                 .then(response => response.json())
                 .then(data => {
@@ -146,7 +142,6 @@ function tph_importJSON() {
                             }
                         }
                         alert("✅ Se ha importado la configuracion JSON con exito.");
-                          location.reload(); 
                     } else {
                         alert("❌ La configuracion JSON no es valida.");
                     }
@@ -176,7 +171,6 @@ function tph_importJSON() {
                                 }
                             }
                             alert("✅ Se ha importado la configuracion JSON con exito.");
-                             location.reload(); 
                         } else {
                             alert("❌ La configuracion JSON no es valida.");
                         }
