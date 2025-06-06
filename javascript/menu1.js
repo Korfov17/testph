@@ -29,20 +29,18 @@ function initSettingsMenu1() {
         break;
 
       case "tph_showuseragent":
-        const h3Element = document.getElementById("filterUserAgent");
-        if (h3Element) {
-          if (h3Element.style.display === "none") {
-            h3Element.style.display = "block";
-          } else {
-            h3Element.style.display = "none";
-          }
-        } else {
-          alert("No se encontró el elemento con id 'filterUserAgent'");
-        }
+        const estadoActual = localStorage.getItem("tph_filterUserAgent");
+        localStorage.setItem(
+          "tph_filterUserAgent",
+          estadoActual === "hidden" ? "visible" : "hidden"
+        );
+        alert("✅ Estado de filtro alternado.");
         break;
-        
+
       case "infoAlert":
-        alert("ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\nℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\nℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.");
+        alert(
+          "ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\nℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\nℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app."
+        );
         break;
     }
 
@@ -53,7 +51,7 @@ function initSettingsMenu1() {
 function initIndexMenu1() {
   const titulo = localStorage.getItem("tph_customTitle");
   const nombreSistema = localStorage.getItem("tph_customTitleHTML");
-  
+
   if (titulo) {
     const span = document.querySelector("h2 .arcoiris");
     if (span) {
@@ -64,6 +62,12 @@ function initIndexMenu1() {
   if (nombreSistema) {
     document.title = `🎮 ${nombreSistema} | Menu 🎮`;
   }
+
+  const h3 = document.getElementById("filterUserAgent");
+  if (h3) {
+    const estado = localStorage.getItem("tph_filterUserAgent");
+    h3.style.display = estado === "hidden" ? "none" : "block";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -72,7 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
     initSettingsMenu1();
   }
 
-  const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+  const isIndex =
+    window.location.pathname.endsWith("index.html") ||
+    window.location.pathname === "/";
   if (isIndex) {
     initIndexMenu1();
   }
