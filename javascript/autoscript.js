@@ -125,25 +125,14 @@ function tph_exportJSON() {
 }
 
 function tph_importJSON() {
-    const useURL = confirm("¿Quieres cargar la configuración JSON desde una URL?");
+    const useURL = confirm("¿Quieres cargar la configuracion JSON desde una URL?");
     
     if (useURL) {
-        const jsonURL = prompt("Introduce la URL de la configuración JSON (debe ser un enlace directo/raw):");
-
+        const jsonURL = prompt("Introduce la URL de la configuracion JSON:");
+        
         if (jsonURL) {
-            // Detecta si la URL es "raw" (Pastebin, Gist, etc.)
-            const isRawLink = /\/raw\/|raw.githubusercontent.com/.test(jsonURL);
-
-            if (!isRawLink) {
-                alert("❌ La URL proporcionada no parece ser un enlace directo (raw). Asegúrate de usar uno como https://pastebin.com/raw/XXXX");
-                return;
-            }
-
             fetch(jsonURL)
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     if (data["TU PS4 HEN CONFIG JSON"]) {
                         const importedData = data["TU PS4 HEN CONFIG JSON"];
@@ -152,21 +141,21 @@ function tph_importJSON() {
                                 localStorage.setItem(key, importedData[key]);
                             }
                         }
-                        alert("✅ Se ha importado la configuración JSON con éxito.");
+                        alert("✅ Se ha importado la configuracion JSON con exito.");
+                         location.reload()
                     } else {
-                        alert("❌ La configuración JSON no es válida. Falta el objeto 'TU PS4 HEN CONFIG JSON'.");
+                        alert("❌ La configuracion JSON no es valida.");
                     }
                 })
                 .catch(error => {
-                    alert("❌ Error al cargar el JSON:\n" + error.message);
+                    alert("❌ Error: " + error);
                 });
         }
     } else {
-        // Subida de archivo local
         const inputFile = document.createElement('input');
         inputFile.type = 'file';
         inputFile.accept = '.json';
-
+        
         inputFile.addEventListener('change', event => {
             const file = event.target.files[0];
             if (file) {
@@ -174,7 +163,7 @@ function tph_importJSON() {
                 reader.onload = function(e) {
                     try {
                         const data = JSON.parse(e.target.result);
-
+                        
                         if (data["TU PS4 HEN CONFIG JSON"]) {
                             const importedData = data["TU PS4 HEN CONFIG JSON"];
                             for (let key in importedData) {
@@ -182,18 +171,19 @@ function tph_importJSON() {
                                     localStorage.setItem(key, importedData[key]);
                                 }
                             }
-                            alert("✅ Se ha importado la configuración JSON con éxito.");
+                            alert("✅ Se ha importado la configuracion JSON con exito.");
+                            location.reload()
                         } else {
-                            alert("❌ La configuración JSON no es válida.");
+                            alert("❌ La configuracion JSON no es valida.");
                         }
                     } catch (error) {
-                        alert("❌ Error al analizar el archivo JSON:\n" + error.message);
+                        alert("❌ Error: " + error);
                     }
                 };
                 reader.readAsText(file);
             }
         });
-
+        
         inputFile.click();
     }
 }
