@@ -1,7 +1,7 @@
 function initSettingsMenu1() {
   const nombreSistema = localStorage.getItem("tph_customTitleHTML");
   if (nombreSistema) {
-    document.title = `${nombreSistema} | Ajustes`;
+    document.title = `🎮 ${nombreSistema} | Ajustes 🎮`;
   }
 
   const dropdown = document.getElementById("opcion1");
@@ -15,7 +15,7 @@ function initSettingsMenu1() {
         const nuevoNombre = prompt("Introduce el texto para reemplazar:");
         if (nuevoNombre) {
           localStorage.setItem("tph_customTitleHTML", nuevoNombre);
-          document.title = `${nuevoNombre} | Ajustes`;
+          document.title = `🎮 ${nuevoNombre} | Ajustes 🎮`;
           alert("✅ Titulo HTML Actualizado.");
         }
         break;
@@ -49,7 +49,7 @@ function initIndexMenu1() {
   }
 
   if (nombreSistema) {
-    document.title = `${nombreSistema} | Menu`;
+    document.title = `🎮 ${nombreSistema} | Menu 🎮`;
   }
 }
 
