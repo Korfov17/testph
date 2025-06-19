@@ -82,8 +82,8 @@ function tph_resetSettings() {
     localStorage.removeItem("tph_customTitleHTML"); 
     localStorage.removeItem("tph_whiteBackground");  
     localStorage.removeItem("tph_filterUserAgent");
-    localStorage.removeItem("tph_font_index");
-    localStorage.removeItem("tph_font_settings");
+    localStorage.removeItem("tph_font_index");         // Añadido
+    localStorage.removeItem("tph_font_settings");      // Añadido
     localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
@@ -99,8 +99,9 @@ function tph_exportJSON() {
         'tph_customTitleHTML',
         'tph_filterUserAgent',
         'tph_whiteBackground',
-        'tph_font_index',
-        'tph_font_settings'  
+        'tph_font_index',         // Añadido
+        'tph_font_settings'       // Añadido
+    ];
     const localStorageData = {};
 
     selectedKeys.forEach(key => {
@@ -146,7 +147,7 @@ function tph_importJSON() {
                             }
                         }
                         alert("✅ Se ha importado la configuracion JSON con exito.");
-                         location.reload()
+                        location.reload();
                     } else {
                         alert("❌ La configuracion JSON no es valida.");
                     }
@@ -176,7 +177,7 @@ function tph_importJSON() {
                                 }
                             }
                             alert("✅ Se ha importado la configuracion JSON con exito.");
-                            location.reload()
+                            location.reload();
                         } else {
                             alert("❌ La configuracion JSON no es valida.");
                         }
