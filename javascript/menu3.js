@@ -20,15 +20,29 @@ function initSettingsMenu3() {
       return;
     }
 
-    // Guardar la fuente seleccionada
-    localStorage.setItem("tph_font", selectedValue);
+    const aplicarH2 = confirm("¿Quieres aplicar esta fuente a los h2?");
+    const aplicarH3H4 = confirm("¿Quieres aplicar esta fuente a los h3 y h4?");
+    const aplicarButtons = confirm("¿Quieres aplicar esta fuente a los botones y desplegables?");
 
-    // Preguntar si aplicar también en ajustes
+    if (!aplicarH2 && !aplicarH3H4 && !aplicarButtons) {
+      alert("❌ No se aplicó la fuente a ningún elemento.");
+      return;
+    }
+
+    // Construir clases según lo seleccionado
+    const clases = [];
+    if (aplicarH2) clases.push(`${selectedValue}-h2`);
+    if (aplicarH3H4) clases.push(`${selectedValue}-h3h4`);
+    if (aplicarButtons) clases.push(`${selectedValue}-buttons`);
+
+    // Guardar clases en localStorage como string separado por espacios
+    localStorage.setItem("tph_font", clases.join(" "));
+
+    // Preguntar si aplicar en ajustes solo si alguna clase fue elegida
     const aplicarEnAjustes = confirm("¿Quieres aplicar esta fuente también en ajustes?");
     if (aplicarEnAjustes) {
-      applyFont(selectedValue);
+      applyFont(clases.join(" "));
     } else {
-      // Si no se aplica en ajustes, mantenemos la fuente actual (o default)
       const fuenteActual = localStorage.getItem("tph_font");
       if (fuenteActual) {
         applyFont(fuenteActual);
@@ -50,11 +64,15 @@ function initIndexMenu3() {
 }
 
 function applyFont(claseFuente) {
+  // Eliminar todas las clases que empiezan con "tph_font"
   document.body.classList.remove(
     ...Array.from(document.body.classList).filter(c => c.startsWith("tph_font"))
   );
+
   if (claseFuente) {
-    document.body.classList.add(claseFuente);
+    claseFuente.split(" ").forEach(cl => {
+      document.body.classList.add(cl);
+    });
   }
 }
 
