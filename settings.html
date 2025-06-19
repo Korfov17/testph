@@ -14,16 +14,23 @@
   src: url('web-fonts/GODOFWAR.TTF') format('truetype');
 }
 
-/* Clase para aplicar en body cuando se elige tph_font1 */
-.tph_font1 h2,
-.tph_font1 h3,
-.tph_font1 h4,
-.tph_font1 .select-contenedor select,
-.tph_font1 .botones-contenedor button {
+/* Solo h2 */
+.tph_font1-h2 h2 {
   font-family: 'GodOfWar', serif;
 }
 
+/* Solo h3 y h4 */
+.tph_font1-h3h4 h3,
+.tph_font1-h3h4 h4 {
+  font-family: 'GodOfWar', serif;
+}
 
+/* Solo botones y desplegables */
+.tph_font1-buttons .button-container *,
+.tph_font1-buttons .small-button-container * {
+  font-family: 'GodOfWar', serif;
+}
+	  
     @font-face {
       font-family: 'MODERNE';
       src: url('MODERNE%20SANS.eot');
