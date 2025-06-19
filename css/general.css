@@ -1,12 +1,12 @@
 /* === FUENTES === */
-@font-face {
-  font-family: 'Pricedown'; 
-  src: url('web-fonts/Pricedown.otf') format('opentype');
-}
+	@font-face {
+	  font-family: 'Pricedown'; 
+      src: url('../web-fonts/Pricedown.otf') format('opentype');
+	}
 
-@font-face {
-  font-family: 'GodOfWar';
-  src: url('web-fonts/GODOFWAR.TTF') format('truetype');
+	@font-face {
+	  font-family: 'GodOfWar';
+	  src: url('../web-fonts/GODOFWAR.TTF') format('truetype');
 }
 
 @font-face {
@@ -230,8 +230,8 @@ body.index {
 
 /* === FILTRO EXTRA (Index) === */
 #filterUserAgent {
-  background: white;
-  border: 1px solid #ccc;
+  background: trasparent;
+  border: 1px solid transparent;
   padding: 10px;
   font-family: monospace;
 }
