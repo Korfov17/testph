@@ -1,20 +1,22 @@
 function initSettingsMenu3() {
-  const fuenteGuardada = localStorage.getItem("tph_font");
-
-  if (fuenteGuardada) {
-    applyFont(fuenteGuardada);
+  // Cargar y aplicar solo la fuente de ajustes
+  const fuenteSettings = localStorage.getItem("tph_font_settings");
+  if (fuenteSettings) {
+    applyFont(fuenteSettings);
   }
 
   const dropdown = document.getElementById("opcion3");
   if (!dropdown) return;
 
-  dropdown.selectedIndex = 0; // Dejar en placeholder al cargar
+  dropdown.selectedIndex = 0; // placeholder
 
   dropdown.addEventListener("change", () => {
     const selectedValue = dropdown.value;
 
     if (selectedValue === "tph_fontdefault") {
-      localStorage.removeItem("tph_font");
+      // Borrar ambas claves para reset completo
+      localStorage.removeItem("tph_font_index");
+      localStorage.removeItem("tph_font_settings");
       alert("✅ Fuente restablecida por defecto.");
       location.reload();
       return;
@@ -29,26 +31,24 @@ function initSettingsMenu3() {
       return;
     }
 
-    // Construir clases según lo seleccionado
+    // Construir clases según selección
     const clases = [];
     if (aplicarH2) clases.push(`${selectedValue}-h2`);
     if (aplicarH3H4) clases.push(`${selectedValue}-h3h4`);
     if (aplicarButtons) clases.push(`${selectedValue}-buttons`);
 
-    // Guardar clases en localStorage como string separado por espacios
-    localStorage.setItem("tph_font", clases.join(" "));
+    // Guardar en index siempre
+    localStorage.setItem("tph_font_index", clases.join(" "));
 
-    // Preguntar si aplicar en ajustes solo si alguna clase fue elegida
+    // Preguntar si aplicar también en ajustes
     const aplicarEnAjustes = confirm("¿Quieres aplicar esta fuente también en ajustes?");
     if (aplicarEnAjustes) {
+      // Guardar y aplicar en settings
+      localStorage.setItem("tph_font_settings", clases.join(" "));
       applyFont(clases.join(" "));
     } else {
-      const fuenteActual = localStorage.getItem("tph_font");
-      if (fuenteActual) {
-        applyFont(fuenteActual);
-      } else {
-        applyFont(null);
-      }
+      // Solo aplicar en index (no cambiar settings)
+      applyFont(localStorage.getItem("tph_font_settings") || null);
     }
 
     alert("✅ Fuente aplicada.");
@@ -57,14 +57,14 @@ function initSettingsMenu3() {
 }
 
 function initIndexMenu3() {
-  const fuente = localStorage.getItem("tph_font");
-  if (fuente) {
-    applyFont(fuente);
+  // Solo cargar la fuente de index
+  const fuenteIndex = localStorage.getItem("tph_font_index");
+  if (fuenteIndex) {
+    applyFont(fuenteIndex);
   }
 }
 
 function applyFont(claseFuente) {
-  // Eliminar todas las clases que empiezan con "tph_font"
   document.body.classList.remove(
     ...Array.from(document.body.classList).filter(c => c.startsWith("tph_font"))
   );
