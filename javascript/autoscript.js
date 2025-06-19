@@ -82,8 +82,6 @@ function tph_resetSettings() {
     localStorage.removeItem("tph_customTitleHTML"); 
     localStorage.removeItem("tph_whiteBackground");  
     localStorage.removeItem("tph_filterUserAgent");
-    localStorage.removeItem("tph_font_settings");
-    localStorage.removeItem("tph_font_index");
     localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
@@ -99,8 +97,6 @@ function tph_exportJSON() {
         'tph_customTitleHTML',
         'tph_filterUserAgent',
         'tph_whiteBackground'
-        'tph_font_settings'
-        'tph_font_index'
     ];
     const localStorageData = {};
 
