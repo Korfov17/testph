@@ -1,12 +1,12 @@
 /* === FUENTES === */
-	@font-face {
-	  font-family: 'Pricedown'; 
-      src: url('../web-fonts/Pricedown.otf') format('opentype');
-	}
+@font-face {
+  font-family: 'Pricedown'; 
+  src: url('../web-fonts/Pricedown.otf') format('opentype');
+}
 
-	@font-face {
-	  font-family: 'GodOfWar';
-	  src: url('../web-fonts/GODOFWAR.TTF') format('truetype');
+@font-face {
+  font-family: 'GodOfWar';
+  src: url('../web-fonts/GODOFWAR.TTF') format('truetype');
 }
 
 @font-face {
@@ -30,6 +30,7 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   margin: 0;
+  background-image: url('background/default.jpg');
   font-family: 'MODERNE', monospace;
 }
 
@@ -68,9 +69,6 @@ main {
 }
 
 /* === ESTILOS DE INDEX === */
-body.index {
-  background-image: url('background/default.jpg');
-}
 
 .classname, .classname1 {
   display: inline-block;
