@@ -15,7 +15,7 @@ function detect_device() {
         } else if (versionPS4 === "6.72") {
             result = "PlayStation 4 v" + versionPS4 + " - Jailbreak (PS4JB Exploit)";
         } else if (versionPS4 === "9.00") {
-            result = "PlayStation 4 v" + versionPS4 + " - Jailbreak (PPPwn/pOObs4/Lapse)";
+            result = "PlayStation 4 v" + versionPS4 + " - Jailbreak (PPPwn/PSFree/pOObs4/Lapse)";
         } else if (parseFloat(versionPS4) >= 7.00 && parseFloat(versionPS4) <= 9.60) {
             result = "PlayStation 4 v" + versionPS4 + " - Jailbreak (PSFree/Lapse/PPPwn)";
         } else if (parseFloat(versionPS4) >= 10.00 && parseFloat(versionPS4) <= 11.00) {
