@@ -228,8 +228,5 @@ main {
 
 /* === FILTRO EXTRA (Index) === */
 #filterUserAgent {
-  background: trasparent;
-  border: 1px solid transparent;
   padding: 10px;
-  font-family: monospace;
 }
