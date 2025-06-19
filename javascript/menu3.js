@@ -1,23 +1,18 @@
 function initSettingsMenu3() {
-  const fuenteAjustes = localStorage.getItem("settingsFont");
-  if (fuenteAjustes) {
-    applyFont(fuenteAjustes);
-  }
+  const fuenteAjustes = localStorage.getItem("settingsFont") || "tph_fontdefault";
+  applyFont(fuenteAjustes);
 
   const dropdown = document.getElementById("opcion3");
   if (!dropdown) return;
 
-  // Seleccionar la opción guardada en el dropdown al iniciar
-  if (fuenteAjustes) {
-    dropdown.value = fuenteAjustes;
-  } else {
-    dropdown.selectedIndex = 0; // opción por defecto (disabled)
-  }
+  // Siempre dejar la opción inicial seleccionada al cargar
+  dropdown.selectedIndex = 0;
 
   dropdown.addEventListener("change", () => {
     const selectedValue = dropdown.value;
 
     if (selectedValue === "tph_fontdefault") {
+      // Restablecer fuente por defecto
       document.body.classList.remove(
         ...Array.from(document.body.classList).filter(c => c.startsWith("tph_font"))
       );
@@ -36,39 +31,32 @@ function initSettingsMenu3() {
       localStorage.setItem("settingsFont", selectedValue);
       applyFont(selectedValue);
     } else {
-      const fuenteActualSettings = localStorage.getItem("settingsFont");
-      if (fuenteActualSettings) {
-        applyFont(fuenteActualSettings);
-        dropdown.value = fuenteActualSettings; // Actualizar dropdown a la fuente aplicada
-      }
+      // Si no aplicar en ajustes, mantener la fuente anterior en ajustes
+      const fuenteActualSettings = localStorage.getItem("settingsFont") || "tph_fontdefault";
+      applyFont(fuenteActualSettings);
     }
 
     alert("✅ Fuente aplicada.");
+    // Después de aplicar, reiniciar el dropdown a la opción inicial
     dropdown.selectedIndex = 0;
   });
 }
 
 function initIndexMenu3() {
-  const fuente = localStorage.getItem("customFont");
-  if (fuente) {
-    applyFont(fuente);
-  }
+  const fuente = localStorage.getItem("customFont") || "tph_fontdefault";
+  applyFont(fuente);
 }
 
 // Asignar clase CSS según nombre de fuente
 function applyFont(fontKey) {
-  // Eliminar todas las clases que empiezan con "tph_font"
   document.body.classList.remove(
     ...Array.from(document.body.classList).filter(c => c.startsWith("tph_font"))
   );
-
-  // Añadir la clase correspondiente si hay valor
-  if (fontKey) {
+  if (fontKey && fontKey !== "tph_fontdefault") {
     document.body.classList.add(fontKey);
   }
 }
 
-// Detectar si es settings o index y ejecutar la función correspondiente
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings = document.getElementById("opcion3") !== null;
   if (isSettings) {
