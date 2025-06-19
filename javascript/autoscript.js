@@ -82,8 +82,8 @@ function tph_resetSettings() {
     localStorage.removeItem("tph_customTitleHTML"); 
     localStorage.removeItem("tph_whiteBackground");  
     localStorage.removeItem("tph_filterUserAgent");
-    localStorage.removeItem("tph_font_index");         // Añadido
-    localStorage.removeItem("tph_font_settings");      // Añadido
+    localStorage.removeItem("tph_font_index");     
+    localStorage.removeItem("tph_font_settings");   
     localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
@@ -99,8 +99,8 @@ function tph_exportJSON() {
         'tph_customTitleHTML',
         'tph_filterUserAgent',
         'tph_whiteBackground',
-        'tph_font_index',         // Añadido
-        'tph_font_settings'       // Añadido
+        'tph_font_index',     
+        'tph_font_settings' 
     ];
     const localStorageData = {};
 
