@@ -11,6 +11,17 @@
     }
 
     @font-face {
+  font-family: 'GodOfWar';
+  src: url('web-fonts/GODOFWAR.TTF') format('truetype');
+}
+
+/* Clase para aplicar en body cuando se elige tph_font1 */
+.tph_font1 h2,
+.tph_font1 h3 {
+  font-family: 'GodOfWar', serif;
+}
+
+    @font-face {
       font-family: 'MODERNE';
       src: url('MODERNE%20SANS.eot');
       src: local('MODERNE Regular'), local('MODERNE SANS'),
@@ -186,6 +197,7 @@
 	     <script src="javascript/autoscript.js"></script>
 	     <script src="javascript/menu1.js"></script>
 	     <script src="javascript/menu2.js"></script>
+	     <script src="javascript/menu3.js"></script>
 
    <script>
         window.applicationCache.ondownloading=function(){document.getElementById("progress").innerHTML="Iniciando proceso de caché...";};
