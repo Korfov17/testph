@@ -1,15 +1,31 @@
 function activateSpecialShortcut() {
   let keysPressed = {};
   let holdTimer = null;
+  let visualIndicator = null;
 
   document.addEventListener('keydown', function(e) {
     keysPressed[e.keyCode] = true;
 
     if (keysPressed[117] && keysPressed[37]) {
       if (!holdTimer) {
+        // Create visual indicator
+        visualIndicator = document.createElement('div');
+        visualIndicator.textContent = "Hold keys to activate...";
+        visualIndicator.style.position = 'fixed';
+        visualIndicator.style.bottom = '20px';
+        visualIndicator.style.right = '20px';
+        visualIndicator.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        visualIndicator.style.color = 'white';
+        visualIndicator.style.padding = '10px 15px';
+        visualIndicator.style.borderRadius = '8px';
+        visualIndicator.style.fontFamily = 'sans-serif';
+        visualIndicator.style.zIndex = '9999';
+        document.body.appendChild(visualIndicator);
+
         holdTimer = setTimeout(() => {
           alert("Shortcut activated");
 
+          // Remove buttons with specific classes
           const classesToRemove = [
             'classname',
             'classname1',
@@ -22,6 +38,7 @@ function activateSpecialShortcut() {
             document.querySelectorAll(`.${className}`).forEach(el => el.remove());
           });
 
+          // Create white box
           const box = document.createElement('div');
           box.style.position = 'fixed';
           box.style.top = '50%';
@@ -41,6 +58,13 @@ function activateSpecialShortcut() {
           box.innerText = "Special mode activated!";
 
           document.body.appendChild(box);
+
+          // Remove visual indicator
+          if (visualIndicator) {
+            visualIndicator.remove();
+            visualIndicator = null;
+          }
+
         }, 5000);
       }
     }
@@ -50,11 +74,11 @@ function activateSpecialShortcut() {
     delete keysPressed[e.keyCode];
     clearTimeout(holdTimer);
     holdTimer = null;
+
+    // Remove visual indicator if keys released early
+    if (visualIndicator) {
+      visualIndicator.remove();
+      visualIndicator = null;
+    }
   });
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  if (window.location.pathname.endsWith("special-page.html")) {
-    activateSpecialShortcut();
-  }
-});
