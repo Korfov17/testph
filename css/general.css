@@ -192,7 +192,7 @@ main {
   top: 1px;
 }
 
-.largue-button-container {
+.large-button-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -308,7 +308,7 @@ main {
 
 .tph_font1-buttons .botones-contenedor *,
 .tph_font1-buttons .select-contenedor *,
-.tph_font1-buttons .largue-button-container *,
+.tph_font1-buttons .large-button-container *,
 .tph_font1-buttons .small-button-container * {
   font-family: 'GodOfWar', serif;
 }
@@ -325,7 +325,7 @@ main {
 
 .tph_font2-buttons .botones-contenedor *,
 .tph_font2-buttons .select-contenedor *,
-.tph_font2-buttons .largue-button-container *,
+.tph_font2-buttons .large-button-container *,
 .tph_font2-buttons .small-button-container * {
   font-family: 'Akira_Expanded_Demo', serif;
 }
@@ -342,7 +342,7 @@ main {
 
 .tph_font3-buttons .botones-contenedor *,
 .tph_font3-buttons .select-contenedor *,
-.tph_font3-buttons .largue-button-container *,
+.tph_font3-buttons .large-button-container *,
 .tph_font3-buttons .small-button-container * {
   font-family: 'Ethnocentri_Rg', serif;
 }
@@ -359,7 +359,7 @@ main {
 
 .tph_font4-buttons .botones-contenedor *,
 .tph_font4-buttons .select-contenedor *,
-.tph_font4-buttons .largue-button-container *,
+.tph_font4-buttons .large-button-container *,
 .tph_font4-buttons .small-button-container * {
   font-family: 'Ethnocentri_Rg_It', serif;
 }
@@ -376,7 +376,7 @@ main {
 
 .tph_font5-buttons .botones-contenedor *,
 .tph_font5-buttons .select-contenedor *,
-.tph_font5-buttons .largue-button-container *,
+.tph_font5-buttons .large-button-container *,
 .tph_font5-buttons .small-button-container * {
   font-family: 'Lemon_Tuesday', serif;
 }
@@ -393,7 +393,7 @@ main {
 
 .tph_font6-buttons .botones-contenedor *,
 .tph_font6-buttons .select-contenedor *,
-.tph_font6-buttons .largue-button-container *,
+.tph_font6-buttons .large-button-container *,
 .tph_font6-buttons .small-button-container * {
   font-family: 'MinecraftFifty-Solid', serif;
 }
@@ -410,7 +410,7 @@ main {
 
 .tph_font7-buttons .botones-contenedor *,
 .tph_font7-buttons .select-contenedor *,
-.tph_font7-buttons .largue-button-container *,
+.tph_font7-buttons .large-button-container *,
 .tph_font7-buttons .small-button-container * {
   font-family: 'Minecrafter_Alt', serif;
 }
@@ -427,7 +427,7 @@ main {
 
 .tph_font8-buttons .botones-contenedor *,
 .tph_font8-buttons .select-contenedor *,
-.tph_font8-buttons .largue-button-container *,
+.tph_font8-buttons .large-button-container *,
 .tph_font8-buttons .small-button-container * {
   font-family: 'Minecrafter_Reg', serif;
 }
@@ -444,7 +444,7 @@ main {
 
 .tph_font9-buttons .botones-contenedor *,
 .tph_font9-buttons .select-contenedor *,
-.tph_font9-buttons .largue-button-container *,
+.tph_font9-buttons .large-button-container *,
 .tph_font9-buttons .small-button-container * {
   font-family: 'Pokemon_Hollow', serif;
 }
@@ -461,7 +461,7 @@ main {
 
 .tph_font10-buttons .botones-contenedor *,
 .tph_font10-buttons .select-contenedor *,
-.tph_font10-buttons .largue-button-container *,
+.tph_font10-buttons .large-button-container *,
 .tph_font10-buttons .small-button-container * {
   font-family: 'Pokemon_Solid', serif;
 }
@@ -478,7 +478,7 @@ main {
 
 .tph_font11-buttons .botones-contenedor *,
 .tph_font11-buttons .select-contenedor *,
-.tph_font11-buttons .largue-button-container *,
+.tph_font11-buttons .large-button-container *,
 .tph_font11-buttons .small-button-container * {
   font-family: 'Pricedown', serif;
 }
@@ -495,7 +495,7 @@ main {
 
 .tph_font12-buttons .botones-contenedor *,
 .tph_font12-buttons .select-contenedor *,
-.tph_font12-buttons .largue-button-container *,
+.tph_font12-buttons .large-button-container *,
 .tph_font12-buttons .small-button-container * {
   font-family: 'Road_Rage', serif;
 }
@@ -512,7 +512,7 @@ main {
 
 .tph_font13-buttons .botones-contenedor *,
 .tph_font13-buttons .select-contenedor *,
-.tph_font13-buttons .largue-button-container *,
+.tph_font13-buttons .large-button-container *,
 .tph_font13-buttons .small-button-container * {
   font-family: 'Rumble_Strike', serif;
 }
@@ -529,7 +529,7 @@ main {
 
 .tph_font14-buttons .botones-contenedor *,
 .tph_font14-buttons .select-contenedor *,
-.tph_font14-buttons .largue-button-container *,
+.tph_font14-buttons .large-button-container *,
 .tph_font14-buttons .small-button-container * {
   font-family: 'SignPainterHouseScript', serif;
 }
@@ -546,7 +546,7 @@ main {
 
 .tph_font15-buttons .botones-contenedor *,
 .tph_font15-buttons .select-contenedor *,
-.tph_font15-buttons .largue-button-container *,
+.tph_font15-buttons .large-button-container *,
 .tph_font15-buttons .small-button-container * {
   font-family: 'VCR_OSD_MONO_1_001', serif;
 }
@@ -563,7 +563,7 @@ main {
 
 .tph_font16-buttons .botones-contenedor *,
 .tph_font16-buttons .select-contenedor *,
-.tph_font16-buttons .largue-button-container *,
+.tph_font16-buttons .large-button-container *,
 .tph_font16-buttons .small-button-container * {
   font-family: 'Vampire_Wars', serif;
 }
@@ -580,7 +580,7 @@ main {
 
 .tph_font17-buttons .botones-contenedor *,
 .tph_font17-buttons .select-contenedor *,
-.tph_font17-buttons .largue-button-container *,
+.tph_font17-buttons .large-button-container *,
 .tph_font17-buttons .small-button-container * {
   font-family: 'Vampire_Wars_Italic', serif;
 }
@@ -597,7 +597,7 @@ main {
 
 .tph_font18-buttons .botones-contenedor *,
 .tph_font18-buttons .select-contenedor *,
-.tph_font18-buttons .largue-button-container *,
+.tph_font18-buttons .large-button-container *,
 .tph_font18-buttons .small-button-container * {
   font-family: 'chinese_rocks_rg', serif;
 }
@@ -614,7 +614,7 @@ main {
 
 .tph_font19-buttons .botones-contenedor *,
 .tph_font19-buttons .select-contenedor *,
-.tph_font19-buttons .largue-button-container *,
+.tph_font19-buttons .large-button-container *,
 .tph_font19-buttons .small-button-container * {
   font-family: 'minecraft_10', serif;
 }
@@ -631,7 +631,7 @@ main {
 
 .tph_font20-buttons .botones-contenedor *,
 .tph_font20-buttons .select-contenedor *,
-.tph_font20-buttons .largue-button-container *,
+.tph_font20-buttons .large-button-container *,
 .tph_font20-buttons .small-button-container * {
   font-family: 'minecraft_font', serif;
 }
