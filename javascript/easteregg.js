@@ -12,11 +12,28 @@ function mostrarAlerta() {
   const smallButtons = document.querySelectorAll('.small-button-container');
   smallButtons.forEach(div => div.remove());
 
-  // Crear el cuadro en el medio
-  const cuadro = document.createElement('div');
-  cuadro.classList.add('center-box');
-  cuadro.textContent = '¡Cuadro creado tras la alerta!';
-  document.body.appendChild(cuadro);
+  // Crear un h3 centrado
+  const mensaje = document.createElement('h3');
+  mensaje.textContent = '¡Mensaje centrado tras la alerta!';
+  
+  // Estilos para centrar y dar formato
+  mensaje.style.position = 'fixed';
+  mensaje.style.top = '50%';
+  mensaje.style.left = '50%';
+  mensaje.style.transform = 'translate(-50%, -50%)';
+  mensaje.style.color = 'white';
+  mensaje.style.background = 'rgba(0,0,0,0.3)';
+  mensaje.style.border = '2px solid white';
+  mensaje.style.padding = '20px 40px';
+  mensaje.style.borderRadius = '8px';
+  mensaje.style.boxShadow = '0 0 12px 2px white';
+  mensaje.style.userSelect = 'none';
+  mensaje.style.zIndex = '1000';
+  mensaje.style.fontWeight = '600';
+  mensaje.style.fontSize = '24px';
+  mensaje.style.textAlign = 'center';
+
+  document.body.appendChild(mensaje);
 }
 
 function iniciarContador() {
