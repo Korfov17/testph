@@ -75,8 +75,8 @@
 }
 
 @font-face {
-  font-family: 'VCR_OSD_MONO_1_001';
-  src: url('../web-fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
+  font-family: 'Pixelcraft';
+  src: url('../web-fonts/Pixelcraft.ttf') format('truetype');
 }
 
 @font-face {
@@ -538,19 +538,19 @@ i[class*=" fa-"] {
 
 /* Fuente 15 */
 .tph_font15-h2 h2 {
-  font-family: 'VCR_OSD_MONO_1_001', serif;
+  font-family: 'Pixelcraft', serif;
 }
 
 .tph_font15-h3h4 h3,
 .tph_font15-h3h4 h4 {
-  font-family: 'VCR_OSD_MONO_1_001', serif;
+  font-family: 'Pixelcraft', serif;
 }
 
 .tph_font15-buttons .botones-contenedor *,
 .tph_font15-buttons .select-contenedor *,
 .tph_font15-buttons .large-button-container *,
 .tph_font15-buttons .small-button-container * {
-  font-family: 'VCR_OSD_MONO_1_001', serif;
+  font-family: 'Pixelcraft', serif;
 }
 
 /* Fuente 16 */
