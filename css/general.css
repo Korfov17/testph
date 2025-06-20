@@ -226,6 +226,12 @@ main {
   top: 1px;
 }
 
+.icon {
+  font-size: 22px; /* tamaño independiente */
+  margin: 0 8px;    /* separación respecto al texto */
+  vertical-align: middle;
+}
+
 /* === ESTILOS DE SETTINGS === */
 .contenedor-transparente {
   background-color: rgba(0, 0, 0, 0.4);
