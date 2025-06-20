@@ -14,17 +14,17 @@ function mostrarAlerta() {
 
   // Crear un h3 centrado
   const mensaje = document.createElement('h3');
-  mensaje.textContent = '¡Esto es un mensaje de prueba!';
+  mensaje.textContent = '¡Esto es un mensaje de prueba y se esta Desarrollando un Easter Egg para dar un Legado a nuestro Grupo Caído TU PS4 HEN, del cual se le ha hechado mucho tiempo y ganas y todo se ha esfumado como si nada hubiera pasado. Pronto se completara este apartado.';
   
   // Estilos para centrar y dar formato
   mensaje.style.position = 'fixed';
   mensaje.style.top = '50%';
   mensaje.style.left = '50%';
   mensaje.style.transform = 'translate(-50%, -50%)';
-  mensaje.style.color = 'white';
+  mensaje.style.color = 'yellow';
   mensaje.style.background = 'rgba(0,0,0,0.3)';
   mensaje.style.border = '2px solid white';
-  mensaje.style.padding = '20px 40px';
+  mensaje.style.padding = '200px 200px';
   mensaje.style.borderRadius = '8px';
   mensaje.style.boxShadow = '0 0 12px 2px white';
   mensaje.style.userSelect = 'none';
