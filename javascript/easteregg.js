@@ -23,10 +23,10 @@ function mostrarAlerta() {
   mensaje.style.transform = 'translate(-50%, -50%)';
   mensaje.style.color = 'white';
   mensaje.style.background = 'rgba(0,0,0,0.3)';
-  mensaje.style.border = '2px solid yellow';
-  mensaje.style.padding = '40px 80px';
+  mensaje.style.border = '2px solid white';
+  mensaje.style.padding = '30px 85px';
   mensaje.style.borderRadius = '8px';
-  mensaje.style.boxShadow = '0 0 12px 2px yellow';
+  mensaje.style.boxShadow = '0 0 12px 2px white';
   mensaje.style.userSelect = 'none';
   mensaje.style.zIndex = '1000';
   mensaje.style.fontWeight = '600';
