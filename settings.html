@@ -179,13 +179,24 @@
 		</select>
 	     </div>
 
-        <div class="botones-contenedor">
-          <button class="boton" onclick="window.location.href='index.html';">🔄 Volver</button>
-          <button class="boton" onclick="tph_resetSettings()">🔄 Restablecer</button>
-          <button class="boton" onclick="tph_exportJSON()">🔄 Exportar</button>
-          <button class="boton" onclick="tph_importJSON()">🔄 Importar</button>
-        </div>
-      </div>
+             <div class="botones-contenedor">
+		<button class="boton" onclick="window.location.href='index.html';">
+		  <i class="fa-solid fa-arrow-rotate-left"></i> Volver
+		</button>
+		
+		<button class="boton" onclick="tph_resetSettings()">
+		  <i class="fa-solid fa-sliders"></i> Restablecer
+		</button>
+		
+		<button class="boton" onclick="tph_exportJSON()">
+		  <i class="fa-solid fa-file-export"></i> Exportar
+		</button>
+		
+		<button class="boton" onclick="tph_importJSON()">
+		  <i class="fa-solid fa-file-import"></i> Importar
+		</button>
+             </div>
+         </div>
     </main>
 
     <br><br>
