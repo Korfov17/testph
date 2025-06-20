@@ -2,10 +2,8 @@ let keysPressed = {};
 let intervalId = null;
 let counter = 0;
 
-function activarDescubrimiento() {
-  alert('¡Has descubierto esto!');
-  document.body.classList.add('pantalla-azul');
-  document.getElementById('mensaje').textContent = 'Has descubierto esto';
+function mostrarAlerta() {
+  alert('¡Has mantenido F6 + Flecha Izquierda durante 5 segundos!');
 }
 
 function iniciarContador() {
@@ -15,7 +13,7 @@ function iniciarContador() {
     if (counter >= 5) {
       clearInterval(intervalId);
       intervalId = null;
-      activarDescubrimiento();
+      mostrarAlerta();
     }
   }, 1000);
 }
