@@ -192,6 +192,14 @@ main {
   top: 1px;
 }
 
+.large-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
 .small-button-container {
   display: flex;
   justify-content: center;
