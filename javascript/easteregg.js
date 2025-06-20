@@ -1,4 +1,4 @@
-function activarAtajoEspecial() {
+function activateSpecialShortcut() {
   let keysPressed = {};
   let holdTimer = null;
 
@@ -8,10 +8,9 @@ function activarAtajoEspecial() {
     if (keysPressed[117] && keysPressed[37]) {
       if (!holdTimer) {
         holdTimer = setTimeout(() => {
-          alert("Atajo activado");
+          alert("Shortcut activated");
 
-          // Clases a eliminar
-          const clases = [
+          const classesToRemove = [
             'classname',
             'classname1',
             'large-button-container',
@@ -19,12 +18,10 @@ function activarAtajoEspecial() {
             'small-button'
           ];
 
-          // Eliminar elementos con esas clases
-          clases.forEach(clase => {
-            document.querySelectorAll(`.${clase}`).forEach(el => el.remove());
+          classesToRemove.forEach(className => {
+            document.querySelectorAll(`.${className}`).forEach(el => el.remove());
           });
 
-          // Crear cuadro blanco moderno
           const box = document.createElement('div');
           box.style.position = 'fixed';
           box.style.top = '50%';
@@ -41,7 +38,7 @@ function activarAtajoEspecial() {
           box.style.alignItems = 'center';
           box.style.fontSize = '1.5rem';
           box.style.fontFamily = 'sans-serif';
-          box.innerText = "¡Modo especial activado!";
+          box.innerText = "Special mode activated!";
 
           document.body.appendChild(box);
         }, 5000);
@@ -55,3 +52,9 @@ function activarAtajoEspecial() {
     holdTimer = null;
   });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.location.pathname.endsWith("special-page.html")) {
+    activateSpecialShortcut();
+  }
+});
