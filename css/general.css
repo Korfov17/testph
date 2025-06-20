@@ -95,13 +95,13 @@
 }
 
 @font-face {
-  font-family: 'minecraft_10';
-  src: url('../web-fonts/minecraft_10.ttf') format('truetype');
+  font-family: 'zrnic_rg';
+  src: url('../web-fonts/zrnic_rg.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'minecraft_font';
-  src: url('../web-fonts/minecraft_font.ttf') format('truetype');
+  font-family: 'Herison_Brushes';
+  src: url('../web-fonts/Herison_Brushes.ttf') format('truetype');
 }
 
 @font-face {
@@ -606,36 +606,36 @@ i[class*=" fa-"] {
 
 /* Fuente 19 */
 .tph_font19-h2 h2 {
-  font-family: 'minecraft_10', serif;
+  font-family: 'Herison_Brushes', serif;
 }
 
 .tph_font19-h3h4 h3,
 .tph_font19-h3h4 h4 {
-  font-family: 'minecraft_10', serif;
+  font-family: 'Herison_Brushes', serif;
 }
 
 .tph_font19-buttons .botones-contenedor *,
 .tph_font19-buttons .select-contenedor *,
 .tph_font19-buttons .large-button-container *,
 .tph_font19-buttons .small-button-container * {
-  font-family: 'minecraft_10', serif;
+  font-family: 'Herison_Brushes', serif;
 }
 
 /* Fuente 20 */
 .tph_font20-h2 h2 {
-  font-family: 'minecraft_font', serif;
+  font-family: 'zrnic_rg', serif;
 }
 
 .tph_font20-h3h4 h3,
 .tph_font20-h3h4 h4 {
-  font-family: 'minecraft_font', serif;
+  font-family: 'zrnic_rg', serif;
 }
 
 .tph_font20-buttons .botones-contenedor *,
 .tph_font20-buttons .select-contenedor *,
 .tph_font20-buttons .large-button-container *,
 .tph_font20-buttons .small-button-container * {
-  font-family: 'minecraft_font', serif;
+  font-family: 'zrnic_rg', serif;
 }
 
 /* === ANIMACIONES === */
