@@ -1,5 +1,4 @@
 function initSettingsMenu3() {
-  // Cargar y aplicar solo la fuente de ajustes
   const fuenteSettings = localStorage.getItem("tph_font_settings");
   if (fuenteSettings) {
     applyFont(fuenteSettings);
@@ -14,7 +13,6 @@ function initSettingsMenu3() {
     const selectedValue = dropdown.value;
 
     if (selectedValue === "tph_fontdefault") {
-      // Borrar ambas claves para reset completo
       localStorage.removeItem("tph_font_index");
       localStorage.removeItem("tph_font_settings");
       alert("✅ Fuente restablecida por defecto.");
@@ -22,16 +20,16 @@ function initSettingsMenu3() {
       return;
     }
 
-    const aplicarH2 = confirm("¿Quieres aplicar esta fuente a los h2?");
-    const aplicarH3H4 = confirm("¿Quieres aplicar esta fuente a los h3 y h4?");
-    const aplicarButtons = confirm("¿Quieres aplicar esta fuente a los botones y desplegables?");
+    // Apply Font
+    const aplicarH2 = confirm("¿Quieres aplicar la fuente seleccionada al Titulo?");
+    const aplicarH3H4 = confirm("¿Quieres aplicar la fuente seleccionada al Texto?");
+    const aplicarButtons = confirm("¿Quieres aplicar la fuente seleccionada a los Botones y Desplegables?");
 
     if (!aplicarH2 && !aplicarH3H4 && !aplicarButtons) {
       alert("❌ No se aplicó la fuente a ningún elemento.");
       return;
     }
 
-    // Función para convertir string a objeto {h2: fuente, h3h4: fuente, buttons: fuente}
     function parseFonts(str) {
       const res = { h2: null, h3h4: null, buttons: null };
       if (!str) return res;
@@ -43,11 +41,11 @@ function initSettingsMenu3() {
       return res;
     }
 
-    // Leer los valores actuales
+    // Read Values
     const indexFonts = parseFonts(localStorage.getItem("tph_font_index"));
     const settingsFonts = parseFonts(localStorage.getItem("tph_font_settings"));
 
-    // Actualizar solo las fuentes que el usuario confirme
+    // Update Current Values
     function updateFonts(currentFonts) {
       if (aplicarH2) currentFonts.h2 = selectedValue;
       if (aplicarH3H4) currentFonts.h3h4 = selectedValue;
@@ -63,7 +61,7 @@ function initSettingsMenu3() {
        .filter(Boolean).join(" ")
     );
 
-    const aplicarEnAjustes = confirm("¿Quieres aplicar esta fuente también en ajustes?");
+    const aplicarEnAjustes = confirm("¿Quieres aplicar la fuente seleccionads en ajustes?");
     if (aplicarEnAjustes) {
       const newSettingsFonts = updateFonts(settingsFonts);
       localStorage.setItem("tph_font_settings",
@@ -83,7 +81,7 @@ function initSettingsMenu3() {
 }
 
 function initIndexMenu3() {
-  // Solo cargar la fuente de index
+  // Load Index Font
   const fuenteIndex = localStorage.getItem("tph_font_index");
   if (fuenteIndex) {
     applyFont(fuenteIndex);
