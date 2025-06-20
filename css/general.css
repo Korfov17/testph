@@ -100,8 +100,8 @@
 }
 
 @font-face {
-  font-family: 'Herison_Brushes';
-  src: url('../web-fonts/Herison_Brushes.ttf') format('truetype');
+  font-family: 'HARRYP';
+  src: url('../web-fonts/HARRYP.TTF') format('truetype');
 }
 
 @font-face {
@@ -606,19 +606,19 @@ i[class*=" fa-"] {
 
 /* Fuente 19 */
 .tph_font19-h2 h2 {
-  font-family: 'Herison_Brushes', serif;
+  font-family: 'HARRYP', serif;
 }
 
 .tph_font19-h3h4 h3,
 .tph_font19-h3h4 h4 {
-  font-family: 'Herison_Brushes', serif;
+  font-family: 'HARRYP', serif;
 }
 
 .tph_font19-buttons .botones-contenedor *,
 .tph_font19-buttons .select-contenedor *,
 .tph_font19-buttons .large-button-container *,
 .tph_font19-buttons .small-button-container * {
-  font-family: 'Herison_Brushes', serif;
+  font-family: 'HARRYP', serif;
 }
 
 /* Fuente 20 */
