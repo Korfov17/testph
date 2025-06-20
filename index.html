@@ -86,25 +86,10 @@
 	     <script src="javascript/menu3.js"></script>
 
   <script>
-  const progressText = document.getElementById("progress-text");
-  const progressBar = document.getElementById("progress-bar");
-
-  window.applicationCache.ondownloading = function () {
-    progressText.textContent = "Iniciando proceso de caché...";
-  };
-
-  window.applicationCache.onprogress = function (e) {
-    const percent = Math.round(100 * (e.loaded / e.total));
-    progressBar.style.width = percent + '%';
-  };
-
-  window.applicationCache.oncached = function () {
-    progressText.textContent = "Se ha almacenado la caché exitosamente!!";
-    setTimeout(function () {
-      progressText.textContent = "Abre de nuevo el navegador!!";
-    }, 1500);
-  };
-</script>
+     window.applicationCache.ondownloading=function(){document.getElementById("progress-text").innerHTML="Iniciando proceso de caché...";};
+     window.applicationCache.onprogress=function(a){document.getElementById("progress-bar").innerHTML=(Math.round(100*(a.loaded/a.total)))+"%";};
+     window.applicationCache.oncached=function(){document.getElementById("progress-text").innerHTML="Se ha almacenado la caché exitosamente!!";setTimeout(function(){document.getElementById("progress").innerHTML="Abre de nuevo el navegador!!"; }, 1500);};
+  <script>
 
 <br><br><br><br><br><br><br><br><br><br>
 <div id="progress-text">Esperando caché...</div>
