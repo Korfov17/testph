@@ -193,8 +193,7 @@ main {
 }
 
 .large-button-container {
-  display: flex;
-  justify-content: center;
+  display: inline-block;
 }
 
 .small-button-container {
