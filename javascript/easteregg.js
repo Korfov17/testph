@@ -24,7 +24,7 @@ function mostrarAlerta() {
   mensaje.style.color = 'white';
   mensaje.style.background = 'rgba(0,0,0,0.3)';
   mensaje.style.border = '2px solid yellow';
-  mensaje.style.padding = '60px 150px';
+  mensaje.style.padding = '40px 80px';
   mensaje.style.borderRadius = '8px';
   mensaje.style.boxShadow = '0 0 12px 2px yellow';
   mensaje.style.userSelect = 'none';
