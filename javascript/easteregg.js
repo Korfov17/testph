@@ -4,6 +4,19 @@ let counter = 0;
 
 function mostrarAlerta() {
   alert('¡Has mantenido F6 + Flecha Izquierda durante 5 segundos!');
+
+  // Eliminar divs con las clases indicadas
+  const largeButtons = document.querySelectorAll('.large-button-container');
+  largeButtons.forEach(div => div.remove());
+
+  const smallButtons = document.querySelectorAll('.small-button-container');
+  smallButtons.forEach(div => div.remove());
+
+  // Crear el cuadro en el medio
+  const cuadro = document.createElement('div');
+  cuadro.classList.add('center-box');
+  cuadro.textContent = '¡Cuadro creado tras la alerta!';
+  document.body.appendChild(cuadro);
 }
 
 function iniciarContador() {
