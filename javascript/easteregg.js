@@ -14,7 +14,7 @@ function mostrarAlerta() {
 
   // Crear un h3 centrado
   const mensaje = document.createElement('h3');
-  mensaje.textContent = '¡Mensaje centrado tras la alerta!';
+  mensaje.textContent = '¡Esto es un mensaje de prueba!';
   
   // Estilos para centrar y dar formato
   mensaje.style.position = 'fixed';
