@@ -84,12 +84,28 @@
 	     <script src="javascript/menu1.js"></script>
 	     <script src="javascript/menu2.js"></script>
 	     <script src="javascript/menu3.js"></script>
+	   
+<script>
+window.applicationCache.ondownloading = function() {
+  document.getElementById("progress").innerHTML = "Iniciando proceso de caché...";
+  document.getElementById("progress-bar").style.width = "0%";
+};
 
-  <script>
-     window.applicationCache.ondownloading=function(){document.getElementById("progress-text").innerHTML="Iniciando proceso de caché...";};
-     window.applicationCache.onprogress=function(a){document.getElementById("progress-bar").innerHTML=(Math.round(100*(a.loaded/a.total)))+"%";};
-     window.applicationCache.oncached=function(){document.getElementById("progress-text").innerHTML="Se ha almacenado la caché exitosamente!!";setTimeout(function(){document.getElementById("progress").innerHTML="Abre de nuevo el navegador!!"; }, 1500);};
-  <script>
+window.applicationCache.onprogress = function(a) {
+  const percent = Math.round(100 * (a.loaded / a.total));
+  document.getElementById("progress").innerHTML = ""; // Sin mostrar porcentaje en texto
+  document.getElementById("progress-bar").style.width = percent + "%";
+};
+
+window.applicationCache.oncached = function() {
+  document.getElementById("progress").innerHTML = "Se ha almacenado la caché exitosamente!!";
+  document.getElementById("progress-bar").style.width = "100%";
+  setTimeout(function() {
+    document.getElementById("progress").innerHTML = "Abre de nuevo el navegador!!";
+    document.getElementById("progress-bar").style.width = "0%";
+  }, 1500);
+};
+<script>
 
 <br><br><br><br><br><br><br><br><br><br>
 <div id="progress-text">Esperando caché...</div>
