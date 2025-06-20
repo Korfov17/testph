@@ -31,23 +31,49 @@ function initSettingsMenu3() {
       return;
     }
 
-    // Construir clases según selección
-    const clases = [];
-    if (aplicarH2) clases.push(`${selectedValue}-h2`);
-    if (aplicarH3H4) clases.push(`${selectedValue}-h3h4`);
-    if (aplicarButtons) clases.push(`${selectedValue}-buttons`);
+    // Función para convertir string a objeto {h2: fuente, h3h4: fuente, buttons: fuente}
+    function parseFonts(str) {
+      const res = { h2: null, h3h4: null, buttons: null };
+      if (!str) return res;
+      str.split(" ").forEach(clase => {
+        if (clase.endsWith("-h2")) res.h2 = clase.replace("-h2", "");
+        else if (clase.endsWith("-h3h4")) res.h3h4 = clase.replace("-h3h4", "");
+        else if (clase.endsWith("-buttons")) res.buttons = clase.replace("-buttons", "");
+      });
+      return res;
+    }
 
-    // Guardar en index siempre
-    localStorage.setItem("tph_font_index", clases.join(" "));
+    // Leer los valores actuales
+    const indexFonts = parseFonts(localStorage.getItem("tph_font_index"));
+    const settingsFonts = parseFonts(localStorage.getItem("tph_font_settings"));
 
-    // Preguntar si aplicar también en ajustes
+    // Actualizar solo las fuentes que el usuario confirme
+    function updateFonts(currentFonts) {
+      if (aplicarH2) currentFonts.h2 = selectedValue;
+      if (aplicarH3H4) currentFonts.h3h4 = selectedValue;
+      if (aplicarButtons) currentFonts.buttons = selectedValue;
+      return currentFonts;
+    }
+
+    const newIndexFonts = updateFonts(indexFonts);
+    localStorage.setItem("tph_font_index",
+      [newIndexFonts.h2 && `${newIndexFonts.h2}-h2`,
+       newIndexFonts.h3h4 && `${newIndexFonts.h3h4}-h3h4`,
+       newIndexFonts.buttons && `${newIndexFonts.buttons}-buttons`]
+       .filter(Boolean).join(" ")
+    );
+
     const aplicarEnAjustes = confirm("¿Quieres aplicar esta fuente también en ajustes?");
     if (aplicarEnAjustes) {
-      // Guardar y aplicar en settings
-      localStorage.setItem("tph_font_settings", clases.join(" "));
-      applyFont(clases.join(" "));
+      const newSettingsFonts = updateFonts(settingsFonts);
+      localStorage.setItem("tph_font_settings",
+        [newSettingsFonts.h2 && `${newSettingsFonts.h2}-h2`,
+         newSettingsFonts.h3h4 && `${newSettingsFonts.h3h4}-h3h4`,
+         newSettingsFonts.buttons && `${newSettingsFonts.buttons}-buttons`]
+        .filter(Boolean).join(" ")
+      );
+      applyFont(localStorage.getItem("tph_font_settings"));
     } else {
-      // Solo aplicar en index (no cambiar settings)
       applyFont(localStorage.getItem("tph_font_settings") || null);
     }
 
