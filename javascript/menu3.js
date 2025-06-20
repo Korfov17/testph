@@ -1,11 +1,9 @@
 function initSettingsMenu3() {
-  // Cargar las fuentes separadas o el combinado para aplicar en ajustes
-  const h2Font = localStorage.getItem("tph_font_h2") || "";
-  const h3h4Font = localStorage.getItem("tph_font_h3h4") || "";
-  const buttonsFont = localStorage.getItem("tph_font_buttons") || "";
-
-  const combinedSettings = [h2Font, h3h4Font, buttonsFont].filter(Boolean).join(" ");
-  applyFont(combinedSettings);
+  // Cargar y aplicar solo la fuente de ajustes
+  const fuenteSettings = localStorage.getItem("tph_font_settings");
+  if (fuenteSettings) {
+    applyFont(fuenteSettings);
+  }
 
   const dropdown = document.getElementById("opcion3");
   if (!dropdown) return;
@@ -16,13 +14,10 @@ function initSettingsMenu3() {
     const selectedValue = dropdown.value;
 
     if (selectedValue === "tph_fontdefault") {
-      // Eliminar todos los settings relacionados a fuentes
-      localStorage.removeItem("tph_font_h2");
-      localStorage.removeItem("tph_font_h3h4");
-      localStorage.removeItem("tph_font_buttons");
-      localStorage.removeItem("tph_font_settings");
+      // Borrar ambas claves para reset completo
       localStorage.removeItem("tph_font_index");
-      alert("✅ Fuentes restablecidas por defecto.");
+      localStorage.removeItem("tph_font_settings");
+      alert("✅ Fuente restablecida por defecto.");
       location.reload();
       return;
     }
@@ -36,36 +31,25 @@ function initSettingsMenu3() {
       return;
     }
 
-    if (aplicarH2) {
-      localStorage.setItem("tph_font_h2", `${selectedValue}-h2`);
+    // Construir clases según selección
+    const clases = [];
+    if (aplicarH2) clases.push(`${selectedValue}-h2`);
+    if (aplicarH3H4) clases.push(`${selectedValue}-h3h4`);
+    if (aplicarButtons) clases.push(`${selectedValue}-buttons`);
+
+    // Guardar en index siempre
+    localStorage.setItem("tph_font_index", clases.join(" "));
+
+    // Preguntar si aplicar también en ajustes
+    const aplicarEnAjustes = confirm("¿Quieres aplicar esta fuente también en ajustes?");
+    if (aplicarEnAjustes) {
+      // Guardar y aplicar en settings
+      localStorage.setItem("tph_font_settings", clases.join(" "));
+      applyFont(clases.join(" "));
     } else {
-      localStorage.removeItem("tph_font_h2");
+      // Solo aplicar en index (no cambiar settings)
+      applyFont(localStorage.getItem("tph_font_settings") || null);
     }
-
-    if (aplicarH3H4) {
-      localStorage.setItem("tph_font_h3h4", `${selectedValue}-h3h4`);
-    } else {
-      localStorage.removeItem("tph_font_h3h4");
-    }
-
-    if (aplicarButtons) {
-      localStorage.setItem("tph_font_buttons", `${selectedValue}-buttons`);
-    } else {
-      localStorage.removeItem("tph_font_buttons");
-    }
-
-    // Combinar clases para index y settings
-    const combinedClasses = [
-      localStorage.getItem("tph_font_h2"),
-      localStorage.getItem("tph_font_h3h4"),
-      localStorage.getItem("tph_font_buttons")
-    ].filter(Boolean).join(" ");
-
-    // Guardar combinado en settings e index para sincronizar
-    localStorage.setItem("tph_font_settings", combinedClasses);
-    localStorage.setItem("tph_font_index", combinedClasses);
-
-    applyFont(combinedClasses);
 
     alert("✅ Fuente aplicada.");
     dropdown.selectedIndex = 0;
@@ -73,7 +57,7 @@ function initSettingsMenu3() {
 }
 
 function initIndexMenu3() {
-  // Cargar las fuentes combinadas para index
+  // Solo cargar la fuente de index
   const fuenteIndex = localStorage.getItem("tph_font_index");
   if (fuenteIndex) {
     applyFont(fuenteIndex);
@@ -81,12 +65,10 @@ function initIndexMenu3() {
 }
 
 function applyFont(claseFuente) {
-  // Limpiar clases previas de fuentes
   document.body.classList.remove(
     ...Array.from(document.body.classList).filter(c => c.startsWith("tph_font"))
   );
 
-  // Aplicar nuevas clases
   if (claseFuente) {
     claseFuente.split(" ").forEach(cl => {
       document.body.classList.add(cl);
