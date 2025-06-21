@@ -36,15 +36,14 @@
       border: 1px solid rgba(255, 255, 255, 0.4);
       margin: 20px 0;
       overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 0; /* Bordes cuadrados */
     }
     
     #progress-bar {
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
-      transition: width 0.3s ease;
+      transition: width 0.1s linear; /* Transición más precisa */
     }
     
     #progress-text {
@@ -63,7 +62,7 @@
       font-size: 18px;
       background: rgba(0, 0, 0, 0.3);
       padding: 10px 20px;
-      border-radius: 5px;
+      border-radius: 0; /* Bordes cuadrados */
       border: 1px solid rgba(255, 255, 255, 0.2);
       animation: pulse 1.5s infinite;
     }
@@ -213,7 +212,7 @@
   <script src="javascript/menu2.js"></script>
   <script src="javascript/menu3.js"></script>
 
-  <!-- Script mejorado -->
+  <!-- Script mejorado con progreso en tiempo real -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const loadingScreen = document.getElementById('loading-screen');
@@ -224,14 +223,14 @@
       const isPS4 = /PlayStation 4|Mozilla\/5.0 \(PlayStation 4/i.test(navigator.userAgent);
       const appCache = window.applicationCache;
       
-      // Verificar si ya completamos el caché (persistente entre navegaciones)
+      // Verificar si ya completamos el caché
       const cacheAlreadyDone = localStorage.getItem('ps4CacheDone');
       
       if (isPS4) {
         userAgentText.textContent = "PlayStation 4 detectada";
         
         if (!cacheAlreadyDone && appCache.status !== appCache.UNCACHED) {
-          // Primera vez que necesita cachear
+          // Configurar pantalla de carga
           loadingScreen.innerHTML = `
             <div id="loading-content">
               <div id="progress-text">Preparando caché...</div>
@@ -246,24 +245,31 @@
           const progressBar = document.getElementById('progress-bar');
           const progressText = document.getElementById('progress-text');
           
-          // Eventos de caché
+          // Evento para actualizar progreso en tiempo real
+          appCache.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+              const percent = Math.round((e.loaded / e.total) * 100);
+              progressBar.style.width = percent + '%';
+            }
+          });
+          
           appCache.addEventListener('cached', function() {
             progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue manualmente</div>';
             progressBar.style.width = '100%';
-            localStorage.setItem('ps4CacheDone', 'true'); // Marcar como completado
+            localStorage.setItem('ps4CacheDone', 'true');
           });
           
           appCache.addEventListener('error', function() {
             progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue manualmente</div>';
           });
           
-          // Actualizar progreso si ya está en proceso
+          // Iniciar progreso si ya está en proceso
           if (appCache.status === appCache.DOWNLOADING) {
             progressText.textContent = 'Preparando caché...';
             progressBar.style.width = '0%';
           }
         } else {
-          // Ya se completó el caché o no es necesario
+          // Caché ya lista o no necesaria
           loadingScreen.style.display = 'none';
           mainContent.classList.remove('hidden');
         }
