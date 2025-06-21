@@ -685,12 +685,11 @@ i[class*=" fa-"] {
 }
 
 #progress-container {
-  width: calc(100% + 40px); /* Extiende la barra 20px más a cada lado */
+  width: calc(100% + 80px); /* Extiende la barra 20px más a cada lado */
   margin-left: -20px;       /* La empuja hacia la izquierda */
   margin-right: -20px;      /* (opcional) Asegura que se mantenga centrada */
   height: 12px;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
   overflow: hidden;
