@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/general.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <style>
-    /* Estilo para la pantalla de carga (solo PS4) */
+    /* Estilo para la pantalla de carga */
     #loading-screen {
       position: fixed;
       top: 0;
@@ -53,6 +53,10 @@
       text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
     
+    .hidden {
+      display: none !important;
+    }
+    
     .reload-message {
       color: #ffffff;
       font-weight: bold;
@@ -61,6 +65,60 @@
       padding: 10px 20px;
       border-radius: 5px;
       border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+    
+    /* Tus estilos originales */
+    .small-button-container {
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .small-button {
+      padding: 10px 15px;
+      background: #333;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .large-button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .classname, .classname1 {
+      padding: 15px;
+      background: #444;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+    
+    .arcoiris {
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      padding: 0 15px;
     }
   </style>
 </head>
@@ -155,10 +213,11 @@
   <script src="javascript/menu2.js"></script>
   <script src="javascript/menu3.js"></script>
 
-  <!-- Script de detección y caché -->
+  <!-- Script de detección y caché mejorado -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const loadingScreen = document.getElementById('loading-screen');
+      const mainContent = document.getElementById('main-content');
       const userAgentText = document.getElementById('filterUserAgent');
       
       // Detección precisa de PS4
@@ -177,6 +236,7 @@
           </div>
         `;
         loadingScreen.style.display = 'flex';
+        mainContent.classList.add('hidden');
         
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
@@ -193,21 +253,27 @@
         };
 
         window.applicationCache.oncached = function() {
-          progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue la página</div>';
+          progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue la página manualmente</div>';
           progressBar.style.width = '100%';
+          
+          // NO recargamos automáticamente - esperamos acción del usuario
         };
 
         window.applicationCache.onerror = function() {
-          progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue la página</div>';
+          progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue la página manualmente</div>';
         };
         
         // Si no hay caché que cargar
         if (window.applicationCache.status === window.applicationCache.UNCACHED) {
           loadingScreen.style.display = 'none';
+          mainContent.classList.remove('hidden');
           userAgentText.textContent = "PlayStation 4 detectada";
         }
       } else {
+        // Para PC/otros navegadores
         userAgentText.textContent = "Bienvenido desde PC/Navegador";
+        loadingScreen.style.display = 'none';
+        mainContent.classList.remove('hidden');
       }
     });
   </script>
