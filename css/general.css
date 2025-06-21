@@ -685,9 +685,9 @@ i[class*=" fa-"] {
 }
 
 #progress-container {
-  width: calc(100% + 80px); /* Extiende la barra 20px más a cada lado */
-  margin-left: -20px;       /* La empuja hacia la izquierda */
-  margin-right: -20px;      /* (opcional) Asegura que se mantenga centrada */
+  width: calc(100% + 40px); /* Extiende la barra 20px más a cada lado */
+  margin-left: -40px;       /* La empuja hacia la izquierda */
+  margin-right: -40px;      /* (opcional) Asegura que se mantenga centrada */
   height: 12px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.6);
