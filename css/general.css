@@ -673,7 +673,7 @@ i[class*=" fa-"] {
 #progress-container {
   width: 70%;
   height: 16px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid white;
   margin: 10px auto;
   overflow: hidden;
@@ -682,10 +682,10 @@ i[class*=" fa-"] {
 
 #progress-bar {
   height: 100%;
-  width: 0%; /* Esto se actualizará desde JS */
-  background-color: white;
+  width: 0%;  /* importante que empiece en 0 */
+  background: white;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
   transition: width 0.3s ease;
-  /* Elimina cualquier transform */
+  transform-origin: left;  /* crece desde la izquierda */
 }
-
 
