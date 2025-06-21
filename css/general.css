@@ -685,8 +685,9 @@ i[class*=" fa-"] {
 }
 
 #progress-container {
-  width: 70%; 
-  margin-right: -90px;
+  width: 90vw; /* Estira al 90% del ancho de la ventana */
+  max-width: 1200px;
+  margin: 0 auto;
   height: 14px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.6);
