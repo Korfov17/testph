@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/general.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <style>
-    /* Estilo para la pantalla de carga */
+    /* Estilo para la pantalla de carga (solo PS4) */
     #loading-screen {
       position: fixed;
       top: 0;
@@ -14,7 +14,7 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -53,10 +53,6 @@
       text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
     
-    .hidden {
-      display: none !important;
-    }
-    
     .reload-message {
       color: #ffffff;
       font-weight: bold;
@@ -70,18 +66,11 @@
 </head>
 
 <body>
-  <!-- Pantalla de carga -->
-  <div id="loading-screen">
-    <div id="loading-content">
-      <div id="progress-text">Preparando caché...</div>
-      <div id="progress-container">
-        <div id="progress-bar"></div>
-      </div>
-    </div>
-  </div>
+  <!-- Pantalla de carga (solo para PS4) -->
+  <div id="loading-screen"></div>
 
-  <!-- Contenido principal (oculto inicialmente) -->
-  <div id="main-content" class="hidden">
+  <!-- Contenido principal -->
+  <div id="main-content">
     <center>
       <br /><br />
       <h2>
@@ -92,7 +81,7 @@
 
       <h3>¡Bienvenido al sitio web oficial de Tu PS4 Hen!</h3>
       <h3>¡Si necesitas ayuda sobre Jailbreak de PS4 puedes unirte a nuestro Grupo de Telegram!</h3>
-      <h3 id="filterUserAgent">Identificando...</h3>
+      <h3 id="filterUserAgent"></h3>
 
       <main>
         <div class="small-button-container">
@@ -166,51 +155,59 @@
   <script src="javascript/menu2.js"></script>
   <script src="javascript/menu3.js"></script>
 
-  <!-- Script de caché mejorado -->
+  <!-- Script de detección y caché -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const loadingScreen = document.getElementById('loading-screen');
-      const mainContent = document.getElementById('main-content');
-      const progressBar = document.getElementById('progress-bar');
-      const progressText = document.getElementById('progress-text');
+      const userAgentText = document.getElementById('filterUserAgent');
       
-      // Inicialización
-      progressBar.style.width = '0%';
+      // Detección precisa de PS4
+      const isPS4 = /PlayStation 4|Mozilla\/5.0 \(PlayStation 4/i.test(navigator.userAgent);
       
-      function showReloadMessage() {
-        progressText.innerHTML = '<div class="reload-message">Por favor, recargue la página manualmente</div>';
-        progressBar.style.width = '100%';
+      if (isPS4) {
+        userAgentText.textContent = "PlayStation 4 detectada - Cargando caché...";
         
-        // No capturamos eventos de teclado o clic para forzar recarga
-        // El usuario debe recargar manualmente
-      }
-      
-      window.applicationCache.ondownloading = function() {
-        progressText.textContent = 'Preparando caché...';
-        progressBar.style.width = '0%';
-      };
-
-      window.applicationCache.onprogress = function(e) {
-        const percent = Math.round(100 * (e.loaded / e.total));
-        progressBar.style.width = percent + '%';
-      };
-
-      window.applicationCache.oncached = function() {
-        progressText.textContent = '¡Caché lista!';
-        progressBar.style.width = '100%';
+        // Configurar pantalla de carga
+        loadingScreen.innerHTML = `
+          <div id="loading-content">
+            <div id="progress-text">Preparando caché...</div>
+            <div id="progress-container">
+              <div id="progress-bar"></div>
+            </div>
+          </div>
+        `;
+        loadingScreen.style.display = 'flex';
         
-        setTimeout(showReloadMessage, 1000);
-      };
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        
+        // Configurar eventos de caché
+        window.applicationCache.ondownloading = function() {
+          progressText.textContent = 'Preparando caché...';
+          progressBar.style.width = '0%';
+        };
 
-      window.applicationCache.onerror = function() {
-        progressText.textContent = 'Error al cargar la caché';
-        setTimeout(showReloadMessage, 1500);
-      };
-      
-      // Si no hay caché que cargar, mostrar contenido directamente
-      if (window.applicationCache.status === window.applicationCache.UNCACHED) {
-        loadingScreen.classList.add('hidden');
-        mainContent.classList.remove('hidden');
+        window.applicationCache.onprogress = function(e) {
+          const percent = Math.round(100 * (e.loaded / e.total));
+          progressBar.style.width = percent + '%';
+        };
+
+        window.applicationCache.oncached = function() {
+          progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue la página</div>';
+          progressBar.style.width = '100%';
+        };
+
+        window.applicationCache.onerror = function() {
+          progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue la página</div>';
+        };
+        
+        // Si no hay caché que cargar
+        if (window.applicationCache.status === window.applicationCache.UNCACHED) {
+          loadingScreen.style.display = 'none';
+          userAgentText.textContent = "PlayStation 4 detectada";
+        }
+      } else {
+        userAgentText.textContent = "Bienvenido desde PC/Navegador";
       }
     });
   </script>
