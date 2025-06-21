@@ -727,29 +727,30 @@ i[class*=" fa-"] {
   color: #ffffff;
   font-weight: bold;
   font-size: 18px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4); /* fondo negro translúcido */
   padding: 12px 25px;
-  border: 3px solid transparent;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   position: relative;
   z-index: 1;
   animation: pulse 1.5s infinite;
+  overflow: hidden; /* importante para que el borde no invada el contenido */
 }
 
 .reload-message::before {
   content: "";
   position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  z-index: -1;
-  background: linear-gradient(270deg, 
-    red, orange, yellow, lime, cyan, blue, violet, red);
+  inset: 0;
+  padding: 3px; /* grosor del borde */
+  background: linear-gradient(270deg, red, orange, yellow, lime, cyan, blue, violet, red);
   background-size: 400% 400%;
-  border-radius: 10px;
+  border-radius: inherit;
+  z-index: -1;
   animation: rainbow-border 5s linear infinite;
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0); /* máscara para dejar hueco al fondo */
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
 }
 
 @keyframes rainbow-border {
@@ -778,3 +779,4 @@ i[class*=" fa-"] {
     text-shadow: 0 0 5px rgba(255,255,255,0.5);
   }
 }
+
