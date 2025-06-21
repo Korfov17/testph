@@ -662,44 +662,47 @@ i[class*=" fa-"] {
 }
 
 /* Cache PS4 */
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #555555;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #555555 !important;
+  background-image: none !important;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  color: white;
+  font-family: Arial, sans-serif;
+  isolation: isolate;
+  overflow: hidden;
+}
 
-    #loading-content {
-      text-align: center;
-      width: 80%; /* 80% del ancho de pantalla */
-    }
+#loading-content {
+   text-align: center;
+   width: 80%; 
+}
 
-    #progress-container {
-      width: 100%;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      margin: 20px 0;
-      overflow: hidden;
-      border-radius: 0;
-    }
+#progress-container {
+   width: 100%;
+   height: 20px;
+   background: rgba(255, 255, 255, 0.1);
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   margin: 20px 0;
+   overflow: hidden;
+   border-radius: 0;
+ }
 
-    #progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
-      transition: width 0.1s linear;
-    }
-/* Efecto de brillo interior */
+#progress-bar {
+   height: 100%;
+   width: 0%;
+   background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+   transition: width 0.1s linear;
+}
+
 #progress-bar::after {
   content: '';
   position: absolute;
@@ -720,18 +723,18 @@ i[class*=" fa-"] {
   display: none !important;
 }
 
-    .reload-message {
-      color: #ffffff;
-      font-weight: bold;
-      font-size: 18px;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 15px 25px; /* 10% más grande */
-      border-radius: 0;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      animation: pulse 1.5s infinite;
-      width: fit-content;
-      margin: 0 auto;
-    }
+.reload-message {
+   color: #ffffff;
+   font-weight: bold;
+   font-size: 18px;
+   background: rgba(0, 0, 0, 0.5);
+   padding: 15px 25px; /* 10% más grande */
+   border-radius: 0;
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   animation: pulse 1.5s infinite;
+   width: fit-content;
+   margin: 0 auto;
+}
 
 @keyframes pulse {
   0% {
