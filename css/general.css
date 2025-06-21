@@ -686,8 +686,8 @@ i[class*=" fa-"] {
 
 #progress-container {
   width: calc(100% + 300px); 
-  margin-left: -500px;   
-  margin-right: -500px; 
+  margin-left: -50px;   
+  margin-right: -50px; 
   height: 12px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.6);
@@ -728,20 +728,20 @@ i[class*=" fa-"] {
   color: #ffffff;
   font-weight: bold;
   font-size: 18px;
-  background: rgba(0, 0, 0, 0.4); /* fondo negro translúcido */
+  background: rgba(0, 0, 0, 0.4); 
   padding: 12px 25px;
   border-radius: 8px;
   position: relative;
   z-index: 1;
   animation: pulse 1.5s infinite;
-  overflow: hidden; /* importante para que el borde no invada el contenido */
+  overflow: hidden; 
 }
 
 .reload-message::before {
   content: "";
   position: absolute;
   inset: 0;
-  padding: 3px; /* grosor del borde */
+  padding: 3px;
   background: linear-gradient(270deg, red, orange, yellow, lime, cyan, blue, violet, red);
   background-size: 400% 400%;
   border-radius: inherit;
