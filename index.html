@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/general.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <style>
-    /* Estilo para la pantalla de carga */
+    /* Estilos de la pantalla de carga */
     #loading-screen {
       position: fixed;
       top: 0;
@@ -124,7 +124,7 @@
 </head>
 
 <body>
-  <!-- Pantalla de carga (solo para PS4) -->
+  <!-- Pantalla de carga (solo primera vez en PS4) -->
   <div id="loading-screen"></div>
 
   <!-- Contenido principal -->
@@ -213,7 +213,7 @@
   <script src="javascript/menu2.js"></script>
   <script src="javascript/menu3.js"></script>
 
-  <!-- Script de caché mejorado -->
+  <!-- Script mejorado -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const loadingScreen = document.getElementById('loading-screen');
@@ -224,17 +224,14 @@
       const isPS4 = /PlayStation 4|Mozilla\/5.0 \(PlayStation 4/i.test(navigator.userAgent);
       const appCache = window.applicationCache;
       
+      // Verificar si ya completamos el caché (persistente entre navegaciones)
+      const cacheAlreadyDone = localStorage.getItem('ps4CacheDone');
+      
       if (isPS4) {
         userAgentText.textContent = "PlayStation 4 detectada";
         
-        // Verificar estado de la caché
-        if (appCache.status === appCache.UNCACHED || 
-            appCache.status === appCache.IDLE) {
-          // Caché ya lista o no necesaria
-          loadingScreen.style.display = 'none';
-          mainContent.classList.remove('hidden');
-        } else {
-          // Mostrar pantalla de carga
+        if (!cacheAlreadyDone && appCache.status !== appCache.UNCACHED) {
+          // Primera vez que necesita cachear
           loadingScreen.innerHTML = `
             <div id="loading-content">
               <div id="progress-text">Preparando caché...</div>
@@ -250,25 +247,25 @@
           const progressText = document.getElementById('progress-text');
           
           // Eventos de caché
-          appCache.addEventListener('downloading', function() {
-            progressText.textContent = 'Preparando caché...';
-            progressBar.style.width = '0%';
-          });
-          
-          appCache.addEventListener('progress', function(e) {
-            const percent = Math.round(100 * (e.loaded / e.total));
-            progressBar.style.width = percent + '%';
-          });
-          
           appCache.addEventListener('cached', function() {
             progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue manualmente</div>';
             progressBar.style.width = '100%';
-            // No hay recarga automática
+            localStorage.setItem('ps4CacheDone', 'true'); // Marcar como completado
           });
           
           appCache.addEventListener('error', function() {
             progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue manualmente</div>';
           });
+          
+          // Actualizar progreso si ya está en proceso
+          if (appCache.status === appCache.DOWNLOADING) {
+            progressText.textContent = 'Preparando caché...';
+            progressBar.style.width = '0%';
+          }
+        } else {
+          // Ya se completó el caché o no es necesario
+          loadingScreen.style.display = 'none';
+          mainContent.classList.remove('hidden');
         }
       } else {
         // Para PC/otros dispositivos
