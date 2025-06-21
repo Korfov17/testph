@@ -668,7 +668,7 @@ i[class*=" fa-"] {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #00aa00; /* Fondo verde sólido */
+  background: #4d4d4d; /* Fondo verde sólido */
   display: none;
   flex-direction: column;
   justify-content: center;
