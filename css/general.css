@@ -661,7 +661,7 @@ i[class*=" fa-"] {
   margin: 12px;
 }
 
-/* Barra de progreso para la caché */
+/* Barra de progreso para la cache */
 #progress-text {
   font-size: 24px;
   color: white;
@@ -678,14 +678,17 @@ i[class*=" fa-"] {
   margin: 10px auto;
   overflow: hidden;
   position: relative;
+  border-radius: 8px; /* Añadido para suavizar esquinas */
 }
 
 #progress-bar {
   height: 100%;
-  width: 0%;  /* importante que empiece en 0 */
+  width: 0%;  /* ¡Importante que empiece en 0%! */
   background: white;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
   transition: width 0.3s ease;
-  transform-origin: left;  /* crece desde la izquierda */
+  transform-origin: left;  /* Crece desde la izquierda */
+  position: absolute; /* Asegura que no haya desplazamientos */
+  left: 0; /* Fija la posición inicial */
+  top: 0;
 }
-
