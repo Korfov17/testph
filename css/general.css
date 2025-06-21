@@ -723,17 +723,25 @@ i[class*=" fa-"] {
   display: none !important;
 }
 
-    .reload-message {
-      color: #ffffff;
-      font-weight: bold;
-      font-size: 18px;
-      background: rgba(0, 0, 0, 0.4); /* Fondo negro semitransparente */
-      padding: 12px 40px;
-      position: relative;
-      z-index: 1;
-      animation: pulse 1.5s infinite;
-      overflow: hidden;
-    }
+.reload-message {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 21.6px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px 25px;
+  border-radius: 0;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  white-space: nowrap;
+  text-align: center;
+  animation: pulse 1.5s infinite;
+}
 
     .reload-message::before {
       content: "";
