@@ -687,7 +687,7 @@ i[class*=" fa-"] {
 #progress-container {
   width: 100%;
   margin-left: 100px;       /* La empuja hacia la izquierda */
-  margin-right: 100px;      /* (opcional) Asegura que se mantenga centrada */
+  margin-right: -100px;      /* (opcional) Asegura que se mantenga centrada */
   height: 12px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.6);
