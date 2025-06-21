@@ -663,25 +663,6 @@ i[class*=" fa-"] {
 
 /* Cache PS4 */
 #loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #555555 !important;
-  background-image: none !important;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  color: white;
-  font-family: Arial, sans-serif;
-  isolation: isolate;
-  overflow: hidden;
-}
-
-#loading-screen {
    position: fixed;
    top: 0;
    left: 0;
@@ -746,7 +727,6 @@ i[class*=" fa-"] {
   font-size: 18px;
   background-color: #000; /* fondo negro interno */
   padding: 12px 25px;
-  border-radius: 10px;
   z-index: 1;
   overflow: hidden;
 }
@@ -764,7 +744,6 @@ i[class*=" fa-"] {
     red, orange, yellow, green, blue, indigo, violet, red);
   background-size: 400% 400%;
   animation: rainbow-border 5s linear infinite;
-  border-radius: 12px;
 }
 
 @keyframes rainbow-border {
