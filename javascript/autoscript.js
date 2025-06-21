@@ -71,7 +71,62 @@ function detect_device() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", detect_device);
+// Función separada para manejar la pantalla de carga con caché
+function handle_cache_loading() {
+  const loadingScreen = document.getElementById('loading-screen');
+  const mainContent = document.getElementById('main-content');
+  const appCache = window.applicationCache;
+  const cacheAlreadyDone = localStorage.getItem('ps4CacheDone');
+  const isPS4 = /PlayStation 4|Mozilla\/5.0 \(PlayStation 4/i.test(navigator.userAgent);
+
+  if (isPS4 && !cacheAlreadyDone && appCache.status !== appCache.UNCACHED) {
+    loadingScreen.innerHTML = `
+      <div id="loading-content">
+        <div id="progress-text">Preparando caché...</div>
+        <div id="progress-container">
+          <div id="progress-bar"></div>
+        </div>
+      </div>
+    `;
+    loadingScreen.style.display = 'flex';
+    mainContent.classList.add('hidden');
+
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+
+    appCache.addEventListener('progress', function (e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressText.textContent = `Cargando caché... ${percent}%`;
+      }
+    });
+
+    appCache.addEventListener('cached', function () {
+      progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue manualmente</div>';
+      progressBar.style.width = '100%';
+      localStorage.setItem('ps4CacheDone', 'true');
+    });
+
+    appCache.addEventListener('error', function () {
+      progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue manualmente</div>';
+    });
+
+    if (appCache.status === appCache.DOWNLOADING) {
+      progressText.textContent = 'Preparando caché... 0%';
+      progressBar.style.width = '0%';
+    }
+  } else {
+    loadingScreen.style.display = 'none';
+    mainContent.classList.remove('hidden');
+  }
+}
+
+// Ejecutar ambas funciones al cargar el DOM
+document.addEventListener("DOMContentLoaded", function () {
+  detect_device();
+  handle_cache_loading();
+});
 
 function tph_resetSettings() {
   const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
