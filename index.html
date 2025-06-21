@@ -74,7 +74,7 @@
       100% { opacity: 0.6; }
     }
     
-    /* Tus estilos originales */
+    /* Estilos originales */
     .small-button-container {
       margin: 20px auto;
       display: flex;
@@ -213,64 +213,65 @@
   <script src="javascript/menu2.js"></script>
   <script src="javascript/menu3.js"></script>
 
-  <!-- Script de detección y caché mejorado -->
+  <!-- Script de caché mejorado -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const loadingScreen = document.getElementById('loading-screen');
       const mainContent = document.getElementById('main-content');
       const userAgentText = document.getElementById('filterUserAgent');
       
-      // Detección precisa de PS4
+      // Detección de PS4
       const isPS4 = /PlayStation 4|Mozilla\/5.0 \(PlayStation 4/i.test(navigator.userAgent);
+      const appCache = window.applicationCache;
       
       if (isPS4) {
-        userAgentText.textContent = "PlayStation 4 detectada - Cargando caché...";
+        userAgentText.textContent = "PlayStation 4 detectada";
         
-        // Configurar pantalla de carga
-        loadingScreen.innerHTML = `
-          <div id="loading-content">
-            <div id="progress-text">Preparando caché...</div>
-            <div id="progress-container">
-              <div id="progress-bar"></div>
-            </div>
-          </div>
-        `;
-        loadingScreen.style.display = 'flex';
-        mainContent.classList.add('hidden');
-        
-        const progressBar = document.getElementById('progress-bar');
-        const progressText = document.getElementById('progress-text');
-        
-        // Configurar eventos de caché
-        window.applicationCache.ondownloading = function() {
-          progressText.textContent = 'Preparando caché...';
-          progressBar.style.width = '0%';
-        };
-
-        window.applicationCache.onprogress = function(e) {
-          const percent = Math.round(100 * (e.loaded / e.total));
-          progressBar.style.width = percent + '%';
-        };
-
-        window.applicationCache.oncached = function() {
-          progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue la página manualmente</div>';
-          progressBar.style.width = '100%';
-          
-          // NO recargamos automáticamente - esperamos acción del usuario
-        };
-
-        window.applicationCache.onerror = function() {
-          progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue la página manualmente</div>';
-        };
-        
-        // Si no hay caché que cargar
-        if (window.applicationCache.status === window.applicationCache.UNCACHED) {
+        // Verificar estado de la caché
+        if (appCache.status === appCache.UNCACHED || 
+            appCache.status === appCache.IDLE) {
+          // Caché ya lista o no necesaria
           loadingScreen.style.display = 'none';
           mainContent.classList.remove('hidden');
-          userAgentText.textContent = "PlayStation 4 detectada";
+        } else {
+          // Mostrar pantalla de carga
+          loadingScreen.innerHTML = `
+            <div id="loading-content">
+              <div id="progress-text">Preparando caché...</div>
+              <div id="progress-container">
+                <div id="progress-bar"></div>
+              </div>
+            </div>
+          `;
+          loadingScreen.style.display = 'flex';
+          mainContent.classList.add('hidden');
+          
+          const progressBar = document.getElementById('progress-bar');
+          const progressText = document.getElementById('progress-text');
+          
+          // Eventos de caché
+          appCache.addEventListener('downloading', function() {
+            progressText.textContent = 'Preparando caché...';
+            progressBar.style.width = '0%';
+          });
+          
+          appCache.addEventListener('progress', function(e) {
+            const percent = Math.round(100 * (e.loaded / e.total));
+            progressBar.style.width = percent + '%';
+          });
+          
+          appCache.addEventListener('cached', function() {
+            progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue manualmente</div>';
+            progressBar.style.width = '100%';
+            // No hay recarga automática
+          });
+          
+          appCache.addEventListener('error', function() {
+            progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue manualmente</div>';
+          });
         }
       } else {
-        // Para PC/otros navegadores
+        // Para PC/otros dispositivos
         userAgentText.textContent = "Bienvenido desde PC/Navegador";
         loadingScreen.style.display = 'none';
         mainContent.classList.remove('hidden');
