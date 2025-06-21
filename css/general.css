@@ -680,8 +680,7 @@ i[class*=" fa-"] {
 
 #loading-content {
    text-align: center;
-   width: 80%; 
-   background: #1a1a1a;
+   width: 80%;
 }
 
 #progress-container {
@@ -726,8 +725,7 @@ i[class*=" fa-"] {
       font-weight: bold;
       font-size: 18px;
       background: rgba(0, 0, 0, 0.4); /* Fondo negro semitransparente */
-      padding: 12px 60px;
-      border-radius: 8px;
+      padding: 12px 40px;
       position: relative;
       z-index: 1;
       animation: pulse 1.5s infinite;
