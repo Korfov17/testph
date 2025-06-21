@@ -86,37 +86,39 @@
       <div id="progress-container">
         <div id="progress-bar"></div>
       </div>
-
     </main>
 
-    <!-- Scripts -->
-    <script src="javascript/autoscript.js"></script>
-    <script src="javascript/easteregg.js"></script>
-    <script src="javascript/menu1.js"></script>
-    <script src="javascript/menu2.js"></script>
-    <script src="javascript/menu3.js"></script>
-
-    <!-- Script de caché -->
+    <!-- Scripts optimizados -->
     <script>
-      window.applicationCache.ondownloading = function () {
-        document.getElementById("progress-text").innerHTML = "Iniciando proceso de caché...";
-        document.getElementById("progress-bar").style.width = "0%";
-      };
+      // Inicialización de la barra de progreso al cargar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        
+        // Asegurar que la barra empiece en 0%
+        progressBar.style.width = '0%';
+        
+        // Manejadores de eventos de caché
+        window.applicationCache.ondownloading = function() {
+          progressText.textContent = 'Iniciando proceso de caché...';
+          progressBar.style.width = '0%';
+        };
 
-      window.applicationCache.onprogress = function (a) {
-        const percent = Math.round(100 * (a.loaded / a.total));
-        document.getElementById("progress-text").innerHTML = ""; // No mostrar número
-        document.getElementById("progress-bar").style.width = percent + "%";
-      };
+        window.applicationCache.onprogress = function(e) {
+          const percent = Math.round(100 * (e.loaded / e.total));
+          progressText.textContent = '';
+          progressBar.style.width = percent + '%';
+        };
 
-      window.applicationCache.oncached = function () {
-        document.getElementById("progress-text").innerHTML = "Se ha almacenado la caché exitosamente!!";
-        document.getElementById("progress-bar").style.width = "100%";
-        setTimeout(function () {
-          document.getElementById("progress-text").innerHTML = "Abre de nuevo el navegador!!";
-          document.getElementById("progress-bar").style.width = "0%";
-        }, 1500);
-      };
+        window.applicationCache.oncached = function() {
+          progressText.textContent = 'Se ha almacenado la caché exitosamente!!';
+          progressBar.style.width = '100%';
+          setTimeout(function() {
+            progressText.textContent = 'Abre de nuevo el navegador!!';
+            progressBar.style.width = '0%';
+          }, 1500);
+        };
+      });
     </script>
 
     <h4>Creado por TheZodiacoX</h4>
