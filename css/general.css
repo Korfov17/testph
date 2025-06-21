@@ -682,9 +682,10 @@ i[class*=" fa-"] {
 
 #progress-bar {
   height: 100%;
-  width: 0%;
+  width: 0%; /* Esto se actualizará desde JS */
   background-color: white;
   transition: width 0.3s ease;
-  transform-origin: left; /* <-- Asegura que crezca desde la izquierda */
+  /* Elimina cualquier transform */
 }
+
 
