@@ -685,15 +685,16 @@ i[class*=" fa-"] {
 }
 
 #progress-container {
-  width: 80vw; /* 95% del ancho de la ventana del navegador */
-  max-width: none;
-  height: 12px; /* Más fina */
+  width: calc(100% + 40px); /* Extiende la barra 20px más a cada lado */
+  margin-left: -20px;       /* La empuja hacia la izquierda */
+  margin-right: -20px;      /* (opcional) Asegura que se mantenga centrada */
+  height: 12px;
   background: rgba(0, 0, 0, 0.3);
-  margin: 25px 0;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
   overflow: hidden;
   position: relative;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* Brillo blanco más suave */
-  border: 1px solid rgba(255, 255, 255, 0.6);   /* Borde blanco más visible */
 }
 
 #progress-bar {
