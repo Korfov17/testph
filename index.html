@@ -5,138 +5,10 @@
   <title>🎮 TU PS4 HEN | Menu 🎮</title>
   <link rel="stylesheet" href="css/general.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-  <style>
-    /* Estilos de la pantalla de carga */
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-    
-    #loading-content {
-      text-align: center;
-      width: 95%; /* Más ancho para la barra extendida */
-      max-width: 600px;
-    }
-    
-    #progress-container {
-      width: 100%;
-      height: 12px; /* Más fina */
-      background: rgba(0, 0, 0, 0.3);
-      margin: 25px 0;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Brillo blanco alrededor */
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    #progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
-      transition: width 0.1s linear;
-      position: relative;
-    }
-    
-    /* Efecto de brillo interior */
-    #progress-bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 50%;
-      background: rgba(255, 255, 255, 0.15);
-    }
-    
-    #progress-text {
-      font-size: 22px;
-      margin-bottom: 15px;
-      text-shadow: 0 0 8px rgba(0,0,0,0.7);
-    }
-    
-    .hidden {
-      display: none !important;
-    }
-    
-    .reload-message {
-      color: #ffffff;
-      font-weight: bold;
-      font-size: 18px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 12px 25px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      animation: pulse 1.5s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { opacity: 0.7; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-      50% { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8); }
-      100% { opacity: 0.7; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-    }
-    
-    /* Estilos originales */
-    .small-button-container {
-      margin: 20px auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    
-    .small-button {
-      padding: 10px 15px;
-      background: #333;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-    }
-    
-    .large-button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      width: 90%;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .classname, .classname1 {
-      padding: 15px;
-      background: #444;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.3s ease;
-    }
-    
-    .arcoiris {
-      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      padding: 0 15px;
-    }
-  </style>
 </head>
 
 <body>
-  <!-- Pantalla de carga (solo primera vez en PS4) -->
+
   <div id="loading-screen"></div>
 
   <!-- Contenido principal -->
@@ -151,7 +23,7 @@
 
       <h3>¡Bienvenido al sitio web oficial de Tu PS4 Hen!</h3>
       <h3>¡Si necesitas ayuda sobre Jailbreak de PS4 puedes unirte a nuestro Grupo de Telegram!</h3>
-      <h3 id="filterUserAgent"></h3>
+      <h3 id="filterUserAgent">Identificando...</h3>
 
       <main>
         <div class="small-button-container">
@@ -218,82 +90,12 @@
     </center>
   </div>
 
-  <!-- Scripts -->
+  <!-- Scripts externos -->
   <script src="javascript/autoscript.js"></script>
   <script src="javascript/easteregg.js"></script>
   <script src="javascript/menu1.js"></script>
   <script src="javascript/menu2.js"></script>
   <script src="javascript/menu3.js"></script>
 
-  <!-- Script mejorado con progreso en tiempo real -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const loadingScreen = document.getElementById('loading-screen');
-      const mainContent = document.getElementById('main-content');
-      const userAgentText = document.getElementById('filterUserAgent');
-      
-      // Detección de PS4
-      const isPS4 = /PlayStation 4|Mozilla\/5.0 \(PlayStation 4/i.test(navigator.userAgent);
-      const appCache = window.applicationCache;
-      
-      // Verificar si ya completamos el caché
-      const cacheAlreadyDone = localStorage.getItem('ps4CacheDone');
-      
-      if (isPS4) {
-        userAgentText.textContent = "PlayStation 4 detectada";
-        
-        if (!cacheAlreadyDone && appCache.status !== appCache.UNCACHED) {
-          // Configurar pantalla de carga
-          loadingScreen.innerHTML = `
-            <div id="loading-content">
-              <div id="progress-text">Preparando caché...</div>
-              <div id="progress-container">
-                <div id="progress-bar"></div>
-              </div>
-            </div>
-          `;
-          loadingScreen.style.display = 'flex';
-          mainContent.classList.add('hidden');
-          
-          const progressBar = document.getElementById('progress-bar');
-          const progressText = document.getElementById('progress-text');
-          
-          // Evento para actualizar progreso en tiempo real
-          appCache.addEventListener('progress', function(e) {
-            if (e.lengthComputable) {
-              const percent = Math.round((e.loaded / e.total) * 100);
-              progressBar.style.width = percent + '%';
-              progressText.textContent = `Cargando caché... ${percent}%`;
-            }
-          });
-          
-          appCache.addEventListener('cached', function() {
-            progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue manualmente</div>';
-            progressBar.style.width = '100%';
-            localStorage.setItem('ps4CacheDone', 'true');
-          });
-          
-          appCache.addEventListener('error', function() {
-            progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue manualmente</div>';
-          });
-          
-          // Iniciar progreso si ya está en proceso
-          if (appCache.status === appCache.DOWNLOADING) {
-            progressText.textContent = 'Preparando caché... 0%';
-            progressBar.style.width = '0%';
-          }
-        } else {
-          // Caché ya lista o no necesaria
-          loadingScreen.style.display = 'none';
-          mainContent.classList.remove('hidden');
-        }
-      } else {
-        // Para PC/otros dispositivos
-        userAgentText.textContent = "Bienvenido desde PC/Navegador";
-        loadingScreen.style.display = 'none';
-        mainContent.classList.remove('hidden');
-      }
-    });
-  </script>
 </body>
 </html>
