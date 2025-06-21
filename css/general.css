@@ -671,17 +671,20 @@ i[class*=" fa-"] {
 }
 
 #progress-container {
-  width: 80%;                      /* Ajustable */
-  height: 20px;
-  background-color: #333;
-  border-radius: 10px;
+  width: 70%;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid white;
+  margin: 10px auto;
   overflow: hidden;
-  margin: 20px auto;
+  position: relative;
 }
-.
+
 #progress-bar {
   height: 100%;
   width: 0%;
-  background-color: #00ff99;
-  transition: width 0.3s ease-in-out;
+  background-color: white;
+  transition: width 0.3s ease;
+  transform-origin: left; /* <-- Asegura que crezca desde la izquierda */
 }
+
