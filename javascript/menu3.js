@@ -48,6 +48,7 @@ function initSettingsMenu3() {
           const span = document.createElement("span");
           span.classList.add("robofan-icon");
           span.textContent = "b"; // Letra que representa el símbolo deseado
+          span.style.fontFamily = "'Robofan-Symbol', sans-serif";
           span.dataset.originalIcon = icon.outerHTML;
           icon.replaceWith(span);
         });
