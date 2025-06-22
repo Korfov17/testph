@@ -728,12 +728,12 @@ i[class*=" fa-"] {
   font-weight: bold;
   font-size: 21.6px;
   background: rgba(0, 0, 0, 0.7);
-  padding: 10px 40px;
+  padding: 12px 43px;
   border-radius: 0;
   border: 2px solid rgba(255, 255, 255, 0.4);
   width: 80%;
   max-width: 500px;
-  margin: 0 auto 10px;
+  margin: 10px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   position: relative;
   z-index: 2;
