@@ -37,6 +37,22 @@ function initSettingsMenu3() {
       return;
     }
 
+    // 🔧 NUEVA OPCIÓN PARA RESTABLECER LOS ÍCONOS
+    if (selectedValue === "tph_iconsdefault") {
+      const confirmar = confirm("¿Quieres restaurar los íconos Font Awesome originales en toda la aplicación?");
+      if (confirmar) {
+        restaurarIconosFA();
+        localStorage.removeItem("tph_robofan_symbols_enabled");
+        localStorage.removeItem("tph_robofan_symbol_selected");
+        alert("✅ Íconos restaurados por defecto.");
+        location.reload();
+        return;
+      } else {
+        dropdown.selectedIndex = 0;
+        return;
+      }
+    }
+
     // Si selecciona tph_font3, preguntar por los símbolos personalizados
     if (selectedValue === "tph_font3") {
       const usarRobofan = confirm("¿Deseas reemplazar los íconos Font Awesome por los símbolos de la fuente Robofan?");
