@@ -104,6 +104,7 @@
   src: url('../web-fonts/HARRYP.TTF') format('truetype');
 }
 
+/* EXTRA/DEFAULT */
 @font-face {
   font-family: 'Robofan-Symbol';
   src: url('../web-fonts/Robofan-Symbol.otf') format('truetype');
@@ -357,6 +358,12 @@ i[class*=" fa-"] {
 .tph_font3-buttons .large-button-container *,
 .tph_font3-buttons .small-button-container * {
   font-family: 'Transformer', serif;
+}
+
+.robofan-icon {
+  font-family: 'Robofan-Symbol', sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
 }
 
 /* Fuente 4 */
