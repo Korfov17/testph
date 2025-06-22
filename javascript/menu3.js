@@ -17,18 +17,6 @@ function initSettingsMenu3() {
     const selectedValue = dropdown.value;
 
     if (selectedValue === "tph_fontdefault") {
-      // Comprobar si hubo reemplazo de íconos
-      const symbolsWereEnabled = localStorage.getItem("tph_robofan_symbols_enabled") === "true";
-
-      if (symbolsWereEnabled) {
-        const restaurar = confirm("¿Quieres restaurar los íconos Font Awesome originales?");
-        if (restaurar) {
-          restaurarIconosFA();
-          localStorage.removeItem("tph_robofan_symbols_enabled");
-          localStorage.removeItem("tph_robofan_symbol_selected");
-        }
-      }
-
       localStorage.removeItem("tph_font_index");
       localStorage.removeItem("tph_font_settings");
 
