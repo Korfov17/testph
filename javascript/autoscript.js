@@ -155,8 +155,8 @@ function tph_exportJSON() {
         'tph_filterUserAgent',
         'tph_whiteBackground',
         'tph_font_index',     
-        'tph_font_settings' 
-        'tph_robofan_symbols_enabled'
+        'tph_font_settings',
+        'tph_robofan_symbols_enabled',
         'tph_robofan_symbol_selected' 
     ];
     const localStorageData = {};
