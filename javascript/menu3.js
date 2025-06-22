@@ -28,12 +28,12 @@ function initSettingsMenu3() {
     }
 
     if (selectedValue === "tph_iconsdefault") {
-      const confirmReset = confirm("¿Quieres restaurar los íconos Font Awesome originales?");
+      const confirmReset = confirm("¿Quieres restaurar los íconos por defecto? (Font Awesome)");
       if (confirmReset) {
         restoreFAIcons();
         localStorage.removeItem("tph_robofan_symbols_enabled");
         localStorage.removeItem("tph_robofan_symbol_selected");
-        alert("✅ Íconos restaurados por defecto.");
+        alert("✅ Íconos restaurados.");
         location.reload();
         return;
       } else {
@@ -43,10 +43,10 @@ function initSettingsMenu3() {
     }
 
     if (selectedValue === "tph_font3") {
-      const useRobofan = confirm("¿Deseas reemplazar los íconos Font Awesome por los símbolos de la fuente Robofan?");
+      const useRobofan = confirm("¿Deseas reemplazar los íconos por defecto (Font Awesome) por los iconos de Transformers?");
       if (useRobofan) {
         const symbol = prompt(
-          "Introduce la letra que quieres usar como símbolo:\n" +
+          "Introduce la letra del logo que quieras cargar:\n" +
           "Mayúsculas: A B C D E F G H I\n" +
           "Minúsculas: a b c d e f g h i j k l m n o p q r s t u v w x y z",
           "b"
@@ -67,7 +67,7 @@ function initSettingsMenu3() {
     const applyToButtons = confirm("¿Quieres aplicar la fuente seleccionada a los Botones y Desplegables?");
 
     if (!applyToH2 && !applyToH3H4 && !applyToButtons) {
-      alert("❌ No se aplicó la fuente a ningún elemento.");
+      alert("❌ No se ha aplicado la fuente.");
       return;
     }
 
