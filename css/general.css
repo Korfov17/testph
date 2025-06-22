@@ -198,11 +198,11 @@ main {
   top: 1px;
 }
 
-.url-container2 {
+.url-container {
   display: inline-block;
 }
 
-.url-container {
+.url-container2 {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -239,7 +239,7 @@ i[class*=" fa-"] {
 }
 
 /* === ESTILOS DE SETTINGS === */
-.settings-container {
+.settings-conthainer {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 15px;
   padding: 34px;
@@ -266,7 +266,7 @@ i[class*=" fa-"] {
   color: white;
 }
 
-.select-menu {
+.select-mjenu {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
