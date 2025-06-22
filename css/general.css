@@ -15,8 +15,8 @@
 }
 
 @font-face {
-  font-family: 'Ethnocentri_Rg';
-  src: url('../web-fonts/Ethnocentri_Rg.otf') format('opentype');
+  font-family: 'Transformer';
+  src: url('../web-fonts/Transformer.ttf') format('opentype');
 }
 
 @font-face {
@@ -35,8 +35,8 @@
 }
 
 @font-face {
-  font-family: 'Minecrafter_Alt';
-  src: url('../web-fonts/Minecrafter.Alt.ttf') format('truetype');
+  font-family: 'go3v2';
+  src: url('../web-fonts/go3v2.ttf') format('truetype');
 }
 
 @font-face {
@@ -102,6 +102,11 @@
 @font-face {
   font-family: 'HARRYP';
   src: url('../web-fonts/HARRYP.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'Robofan-Symbol';
+  src: url('../web-fonts/Robofan-Symbol.otf') format('truetype');
 }
 
 @font-face {
@@ -334,19 +339,19 @@ i[class*=" fa-"] {
 
 /* Fuente 3 */
 .tph_font3-h2 h2 {
-  font-family: 'Ethnocentri_Rg', serif;
+  font-family: 'Transformer', serif;
 }
 
 .tph_font3-h3h4 h3,
 .tph_font3-h3h4 h4 {
-  font-family: 'Ethnocentri_Rg', serif;
+  font-family: 'Transformer', serif;
 }
 
 .tph_font3-buttons .botones-contenedor *,
 .tph_font3-buttons .select-contenedor *,
 .tph_font3-buttons .large-button-container *,
 .tph_font3-buttons .small-button-container * {
-  font-family: 'Ethnocentri_Rg', serif;
+  font-family: 'Transformer', serif;
 }
 
 /* Fuente 4 */
@@ -402,19 +407,19 @@ i[class*=" fa-"] {
 
 /* Fuente 7 */
 .tph_font7-h2 h2 {
-  font-family: 'Minecrafter_Alt', serif;
+  font-family: 'go3v2', serif;
 }
 
 .tph_font7-h3h4 h3,
 .tph_font7-h3h4 h4 {
-  font-family: 'Minecrafter_Alt', serif;
+  font-family: 'go3v2', serif;
 }
 
 .tph_font7-buttons .botones-contenedor *,
 .tph_font7-buttons .select-contenedor *,
 .tph_font7-buttons .large-button-container *,
 .tph_font7-buttons .small-button-container * {
-  font-family: 'Minecrafter_Alt', serif;
+  font-family: 'go3v2', serif;
 }
 
 /* Fuente 8 */
