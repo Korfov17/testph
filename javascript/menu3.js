@@ -2,6 +2,10 @@ function initSettingsMenu3() {
   const fuenteSettings = localStorage.getItem("tph_font_settings");
   if (fuenteSettings) {
     applyFont(fuenteSettings);
+    // Si está activado el símbolo Robofan, reaplicar
+    if (localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
+      reemplazarIconosRobofan(localStorage.getItem("tph_robofan_symbol_selected") || "b");
+    }
   }
 
   const dropdown = document.getElementById("opcion3");
@@ -19,15 +23,9 @@ function initSettingsMenu3() {
       if (symbolsWereEnabled) {
         const restaurar = confirm("¿Quieres restaurar los íconos Font Awesome originales?");
         if (restaurar) {
-          const robofanIcons = document.querySelectorAll("span.robofan-icon[data-original-icon]");
-          robofanIcons.forEach(span => {
-            const temp = document.createElement("div");
-            temp.innerHTML = span.dataset.originalIcon;
-            const originalIcon = temp.firstElementChild;
-            span.replaceWith(originalIcon);
-          });
-
+          restaurarIconosFA();
           localStorage.removeItem("tph_robofan_symbols_enabled");
+          localStorage.removeItem("tph_robofan_symbol_selected");
         }
       }
 
@@ -43,16 +41,23 @@ function initSettingsMenu3() {
     if (selectedValue === "tph_font3") {
       const usarRobofan = confirm("¿Deseas reemplazar los íconos Font Awesome por los símbolos de la fuente Robofan?");
       if (usarRobofan) {
-        const faIcons = document.querySelectorAll("i[class*='fa']");
-        faIcons.forEach(icon => {
-          const span = document.createElement("span");
-          span.classList.add("robofan-icon");
-          span.textContent = "b"; // Letra que representa el símbolo deseado
-          span.style.fontFamily = "'Robofan-Symbol', sans-serif";
-          span.dataset.originalIcon = icon.outerHTML;
-          icon.replaceWith(span);
-        });
+        // Preguntar por el símbolo a usar
+        const simbolo = prompt(
+          "Introduce la letra que quieres usar como símbolo:\n" +
+          "Mayúsculas: A B C D E F G H I\n" +
+          "Minúsculas: a b c d e f g h i j k l m n o p q r s t u v w x y z",
+          "b"
+        ) || "b";
+
+        // Guardar y aplicar símbolo
         localStorage.setItem("tph_robofan_symbols_enabled", "true");
+        localStorage.setItem("tph_robofan_symbol_selected", simbolo);
+        reemplazarIconosRobofan(simbolo);
+      } else {
+        // Si no quiere, limpiar posibles símbolos previos
+        restaurarIconosFA();
+        localStorage.removeItem("tph_robofan_symbols_enabled");
+        localStorage.removeItem("tph_robofan_symbol_selected");
       }
     }
 
@@ -97,7 +102,7 @@ function initSettingsMenu3() {
        .filter(Boolean).join(" ")
     );
 
-    const aplicarEnAjustes = confirm("¿Quieres aplicar la fuente seleccionada en ajustes?");
+    const aplicarEnAjustes = confirm("¿Quieres aplicar la fuente seleccionads en ajustes?");
     if (aplicarEnAjustes) {
       const newSettingsFonts = updateFonts(settingsFonts);
       localStorage.setItem("tph_font_settings",
@@ -108,30 +113,10 @@ function initSettingsMenu3() {
       );
       applyFont(localStorage.getItem("tph_font_settings"));
 
-      // Si la fuente seleccionada es tph_font3 y está activo Robofan, aplicar símbolos en ajustes
-      if (selectedValue === "tph_font3" && localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
-        const faIcons = document.querySelectorAll("i[class*='fa']");
-        faIcons.forEach(icon => {
-          const span = document.createElement("span");
-          span.classList.add("robofan-icon");
-          span.textContent = "b";
-          span.dataset.originalIcon = icon.outerHTML;
-          icon.replaceWith(span);
-        });
-      } else {
-        // Si se aplica otra fuente en ajustes y estaban símbolos Robofan, restaurar FA
-        if (localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
-          const robofanIcons = document.querySelectorAll("span.robofan-icon[data-original-icon]");
-          robofanIcons.forEach(span => {
-            const temp = document.createElement("div");
-            temp.innerHTML = span.dataset.originalIcon;
-            const originalIcon = temp.firstElementChild;
-            span.replaceWith(originalIcon);
-          });
-          localStorage.removeItem("tph_robofan_symbols_enabled");
-        }
+      // Reaplicar símbolos en settings si estaba activado
+      if (localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
+        reemplazarIconosRobofan(localStorage.getItem("tph_robofan_symbol_selected") || "b");
       }
-
     } else {
       applyFont(localStorage.getItem("tph_font_settings") || null);
     }
@@ -142,9 +127,15 @@ function initSettingsMenu3() {
 }
 
 function initIndexMenu3() {
+  // Load Index Font
   const fuenteIndex = localStorage.getItem("tph_font_index");
   if (fuenteIndex) {
     applyFont(fuenteIndex);
+  }
+
+  // Reaplicar símbolo si está activado
+  if (localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
+    reemplazarIconosRobofan(localStorage.getItem("tph_robofan_symbol_selected") || "b");
   }
 }
 
@@ -160,23 +151,36 @@ function applyFont(claseFuente) {
   }
 }
 
+function reemplazarIconosRobofan(simbolo) {
+  const faIcons = document.querySelectorAll("i[class*='fa']");
+  faIcons.forEach(icon => {
+    // Si ya es un span robofan, no hacer nada para evitar duplicados
+    if (icon.tagName.toLowerCase() === "span" && icon.classList.contains("robofan-icon")) return;
+
+    const span = document.createElement("span");
+    span.classList.add("robofan-icon");
+    span.textContent = simbolo;
+    span.style.fontFamily = "'Robofan-Symbol', sans-serif";
+    span.dataset.originalIcon = icon.outerHTML;
+    icon.replaceWith(span);
+  });
+}
+
+function restaurarIconosFA() {
+  const robofanIcons = document.querySelectorAll("span.robofan-icon[data-original-icon]");
+  robofanIcons.forEach(span => {
+    const temp = document.createElement("div");
+    temp.innerHTML = span.dataset.originalIcon;
+    const originalIcon = temp.firstElementChild;
+    span.replaceWith(originalIcon);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const isSettings = document.getElementById("opcion3") !== null;
   if (isSettings) {
     initSettingsMenu3();
   } else {
     initIndexMenu3();
-  }
-
-  // Aplicar símbolos Robofan si estaban activos en esta página
-  if (localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
-    const faIcons = document.querySelectorAll("i[class*='fa']");
-    faIcons.forEach(icon => {
-      const span = document.createElement("span");
-      span.classList.add("robofan-icon");
-      span.textContent = "b";
-      span.dataset.originalIcon = icon.outerHTML;
-      icon.replaceWith(span);
-    });
   }
 });
