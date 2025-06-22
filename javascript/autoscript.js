@@ -136,7 +136,9 @@ function tph_resetSettings() {
     localStorage.removeItem("tph_whiteBackground");  
     localStorage.removeItem("tph_filterUserAgent");
     localStorage.removeItem("tph_font_index");     
-    localStorage.removeItem("tph_font_settings");   
+    localStorage.removeItem("tph_font_settings");
+    localStorage.removeItem("tph_robofan_symbols_enabled"); 
+    localStorage.removeItem("tph_robofan_symbol_selected");
     localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
@@ -154,6 +156,8 @@ function tph_exportJSON() {
         'tph_whiteBackground',
         'tph_font_index',     
         'tph_font_settings' 
+        'tph_robofan_symbols_enabled'
+        'tph_robofan_symbol_selected' 
     ];
     const localStorageData = {};
 
