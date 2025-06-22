@@ -19,6 +19,20 @@ function initSettingsMenu3() {
       location.reload();
       return;
     }
+    
+    // Si selecciona tph_font3, preguntar por los símbolos personalizados
+    if (selectedValue === "tph_font3") {
+      const usarRobofan = confirm("¿Deseas reemplazar los íconos Font Awesome por los símbolos de la fuente Robofan?");
+      if (usarRobofan) {
+        const faIcons = document.querySelectorAll("i[class*='fa']");
+        faIcons.forEach(icon => {
+          const span = document.createElement("span");
+          span.classList.add("robofan-icon");
+          span.textContent = "b"; // Letra que representa el símbolo deseado
+          icon.replaceWith(span);
+        });
+      }
+    }
 
     // Apply Font
     const aplicarH2 = confirm("¿Quieres aplicar la fuente seleccionada al Titulo?");
