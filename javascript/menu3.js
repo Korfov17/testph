@@ -7,7 +7,7 @@ function initSettingsMenu3() {
   }
 
   if (localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
-    reemplazarIconosRobofan(localStorage.getItem("tph_robofan_symbol_selected") || "b");
+    replaceRobofanIcons(localStorage.getItem("tph_robofan_symbol_selected") || "b");
   }
 
   const dropdown = document.getElementById("opcion3");
@@ -30,7 +30,7 @@ function initSettingsMenu3() {
     if (selectedValue === "tph_iconsdefault") {
       const confirmReset = confirm("¿Quieres restaurar los íconos Font Awesome originales?");
       if (confirmReset) {
-        restaurarIconosFA();
+        restoreFAIcons();
         localStorage.removeItem("tph_robofan_symbols_enabled");
         localStorage.removeItem("tph_robofan_symbol_selected");
         alert("✅ Íconos restaurados por defecto.");
@@ -43,9 +43,9 @@ function initSettingsMenu3() {
     }
 
     if (selectedValue === "tph_font3") {
-      const usarRobofan = confirm("¿Deseas reemplazar los íconos Font Awesome por los símbolos de la fuente Robofan?");
-      if (usarRobofan) {
-        const simbolo = prompt(
+      const useRobofan = confirm("¿Deseas reemplazar los íconos Font Awesome por los símbolos de la fuente Robofan?");
+      if (useRobofan) {
+        const symbol = prompt(
           "Introduce la letra que quieres usar como símbolo:\n" +
           "Mayúsculas: A B C D E F G H I\n" +
           "Minúsculas: a b c d e f g h i j k l m n o p q r s t u v w x y z",
@@ -53,20 +53,20 @@ function initSettingsMenu3() {
         ) || "b";
 
         localStorage.setItem("tph_robofan_symbols_enabled", "true");
-        localStorage.setItem("tph_robofan_symbol_selected", simbolo);
-        reemplazarIconosRobofan(simbolo);
+        localStorage.setItem("tph_robofan_symbol_selected", symbol);
+        replaceRobofanIcons(symbol);
       } else {
-        restaurarIconosFA();
+        restoreFAIcons();
         localStorage.removeItem("tph_robofan_symbols_enabled");
         localStorage.removeItem("tph_robofan_symbol_selected");
       }
     }
 
-    const aplicarH2 = confirm("¿Quieres aplicar la fuente seleccionada al Titulo?");
-    const aplicarH3H4 = confirm("¿Quieres aplicar la fuente seleccionada al Texto?");
-    const aplicarButtons = confirm("¿Quieres aplicar la fuente seleccionada a los Botones y Desplegables?");
+    const applyToH2 = confirm("¿Quieres aplicar la fuente seleccionada al Titulo?");
+    const applyToH3H4 = confirm("¿Quieres aplicar la fuente seleccionada al Texto?");
+    const applyToButtons = confirm("¿Quieres aplicar la fuente seleccionada a los Botones y Desplegables?");
 
-    if (!aplicarH2 && !aplicarH3H4 && !aplicarButtons) {
+    if (!applyToH2 && !applyToH3H4 && !applyToButtons) {
       alert("❌ No se aplicó la fuente a ningún elemento.");
       return;
     }
@@ -74,10 +74,10 @@ function initSettingsMenu3() {
     function parseFonts(str) {
       const res = { h2: null, h3h4: null, buttons: null };
       if (!str) return res;
-      str.split(" ").forEach(clase => {
-        if (clase.endsWith("-h2")) res.h2 = clase.replace("-h2", "");
-        else if (clase.endsWith("-h3h4")) res.h3h4 = clase.replace("-h3h4", "");
-        else if (clase.endsWith("-buttons")) res.buttons = clase.replace("-buttons", "");
+      str.split(" ").forEach(cls => {
+        if (cls.endsWith("-h2")) res.h2 = cls.replace("-h2", "");
+        else if (cls.endsWith("-h3h4")) res.h3h4 = cls.replace("-h3h4", "");
+        else if (cls.endsWith("-buttons")) res.buttons = cls.replace("-buttons", "");
       });
       return res;
     }
@@ -86,9 +86,9 @@ function initSettingsMenu3() {
     const settingsFonts = parseFonts(localStorage.getItem("tph_font_settings"));
 
     function updateFonts(currentFonts) {
-      if (aplicarH2) currentFonts.h2 = selectedValue;
-      if (aplicarH3H4) currentFonts.h3h4 = selectedValue;
-      if (aplicarButtons) currentFonts.buttons = selectedValue;
+      if (applyToH2) currentFonts.h2 = selectedValue;
+      if (applyToH3H4) currentFonts.h3h4 = selectedValue;
+      if (applyToButtons) currentFonts.buttons = selectedValue;
       return currentFonts;
     }
 
@@ -100,8 +100,8 @@ function initSettingsMenu3() {
        .filter(Boolean).join(" ")
     );
 
-    const aplicarEnAjustes = confirm("¿Quieres aplicar la fuente seleccionads en ajustes?");
-    if (aplicarEnAjustes) {
+    const applyToSettings = confirm("¿Quieres aplicar la fuente seleccionads en ajustes?");
+    if (applyToSettings) {
       const newSettingsFonts = updateFonts(settingsFonts);
       localStorage.setItem("tph_font_settings",
         [newSettingsFonts.h2 && `${newSettingsFonts.h2}-h2`,
@@ -112,7 +112,7 @@ function initSettingsMenu3() {
       applyFont(localStorage.getItem("tph_font_settings"));
 
       if (localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
-        reemplazarIconosRobofan(localStorage.getItem("tph_robofan_symbol_selected") || "b");
+        replaceRobofanIcons(localStorage.getItem("tph_robofan_symbol_selected") || "b");
       }
     } else {
       applyFont(localStorage.getItem("tph_font_settings") || null);
@@ -124,43 +124,43 @@ function initSettingsMenu3() {
 }
 
 function initIndexMenu3() {
-  const fuenteIndex = localStorage.getItem("tph_font_index");
-  if (fuenteIndex) {
-    applyFont(fuenteIndex);
+  const indexFont = localStorage.getItem("tph_font_index");
+  if (indexFont) {
+    applyFont(indexFont);
   }
 
   if (localStorage.getItem("tph_robofan_symbols_enabled") === "true") {
-    reemplazarIconosRobofan(localStorage.getItem("tph_robofan_symbol_selected") || "b");
+    replaceRobofanIcons(localStorage.getItem("tph_robofan_symbol_selected") || "b");
   }
 }
 
-function applyFont(claseFuente) {
+function applyFont(fontClass) {
   document.body.classList.remove(
     ...Array.from(document.body.classList).filter(c => c.startsWith("tph_font"))
   );
 
-  if (claseFuente) {
-    claseFuente.split(" ").forEach(cl => {
+  if (fontClass) {
+    fontClass.split(" ").forEach(cl => {
       document.body.classList.add(cl);
     });
   }
 }
 
-function reemplazarIconosRobofan(simbolo) {
+function replaceRobofanIcons(symbol) {
   const faIcons = document.querySelectorAll("i[class*='fa']");
   faIcons.forEach(icon => {
     if (icon.tagName.toLowerCase() === "span" && icon.classList.contains("robofan-icon")) return;
 
     const span = document.createElement("span");
     span.classList.add("robofan-icon");
-    span.textContent = simbolo;
+    span.textContent = symbol;
     span.style.fontFamily = "'Robofan-Symbol', sans-serif";
     span.dataset.originalIcon = icon.outerHTML;
     icon.replaceWith(span);
   });
 }
 
-function restaurarIconosFA() {
+function restoreFAIcons() {
   const robofanIcons = document.querySelectorAll("span.robofan-icon[data-original-icon]");
   robofanIcons.forEach(span => {
     const temp = document.createElement("div");
