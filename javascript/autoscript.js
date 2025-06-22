@@ -71,8 +71,7 @@ function detect_device() {
     }
 }
 
-// Función separada para manejar la pantalla de carga con caché
-function handle_cache_loading() {
+function ps4_cache_screen() {
   const loadingScreen = document.getElementById('loading-screen');
   const mainContent = document.getElementById('main-content');
   const appCache = window.applicationCache;
@@ -98,18 +97,18 @@ function handle_cache_loading() {
       if (e.lengthComputable) {
         const percent = Math.round((e.loaded / e.total) * 100);
         progressBar.style.width = percent + '%';
-        progressText.textContent = `Cargando caché... ${percent}%`;
+        progressText.textContent = `Instalando Caché Offline... ${percent}%`;
       }
     });
 
     appCache.addEventListener('cached', function () {
-      progressText.innerHTML = '<div class="reload-message">¡Caché lista! Recargue manualmente</div>';
+      progressText.innerHTML = '<div class="reload-message">¡Listo! Abre de nuevo el navegador</div>';
       progressBar.style.width = '100%';
       localStorage.setItem('ps4CacheDone', 'true');
     });
 
     appCache.addEventListener('error', function () {
-      progressText.innerHTML = '<div class="reload-message">Error de caché. Recargue manualmente</div>';
+      progressText.innerHTML = '<div class="reload-message">Error al instalar la caché. Vuelve a intentarlo</div>';
     });
 
     if (appCache.status === appCache.DOWNLOADING) {
@@ -122,10 +121,9 @@ function handle_cache_loading() {
   }
 }
 
-// Ejecutar ambas funciones al cargar el DOM
 document.addEventListener("DOMContentLoaded", function () {
   detect_device();
-  handle_cache_loading();
+  ps4_cache_screen();
 });
 
 function tph_resetSettings() {
