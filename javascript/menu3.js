@@ -12,27 +12,53 @@ function initSettingsMenu3() {
   dropdown.addEventListener("change", () => {
     const selectedValue = dropdown.value;
 
-    if (selectedValue === "tph_fontdefault") {
-      localStorage.removeItem("tph_font_index");
-      localStorage.removeItem("tph_font_settings");
-      alert("✅ Fuente restablecida por defecto.");
-      location.reload();
-      return;
+if (selectedValue === "tph_fontdefault") {
+  // Comprobar si hubo reemplazo de íconos
+  const symbolsWereEnabled = localStorage.getItem("tph_robofan_symbols_enabled") === "true";
+
+  if (symbolsWereEnabled) {
+    const restaurar = confirm("¿Quieres restaurar los íconos Font Awesome originales?");
+    if (restaurar) {
+      // Restaurar desde los <span> que tienen data-original-icon
+      const robofanIcons = document.querySelectorAll("span.robofan-icon[data-original-icon]");
+      robofanIcons.forEach(span => {
+        const temp = document.createElement("div");
+        temp.innerHTML = span.dataset.originalIcon;
+        const originalIcon = temp.firstElementChild;
+        span.replaceWith(originalIcon);
+      });
+
+      localStorage.removeItem("tph_robofan_symbols_enabled");
     }
+  }
+
+  localStorage.removeItem("tph_font_index");
+  localStorage.removeItem("tph_font_settings");
+
+  alert("✅ Fuente restablecida por defecto.");
+  location.reload();
+  return;
+}
     
     // Si selecciona tph_font3, preguntar por los símbolos personalizados
     if (selectedValue === "tph_font3") {
       const usarRobofan = confirm("¿Deseas reemplazar los íconos Font Awesome por los símbolos de la fuente Robofan?");
-      if (usarRobofan) {
-        const faIcons = document.querySelectorAll("i[class*='fa']");
-        faIcons.forEach(icon => {
-          const span = document.createElement("span");
-          span.classList.add("robofan-icon");
-          span.textContent = "b"; // Letra que representa el símbolo deseado
-          icon.replaceWith(span);
-        });
-      }
-    }
+    if (usarRobofan) {
+      const faIcons = document.querySelectorAll("i[class*='fa']");
+      faIcons.forEach(icon => {
+        const span = document.createElement("span");
+        span.classList.add("robofan-icon");
+        span.textContent = "b"; // Letra que representa el símbolo deseado
+    
+        // 🔐 Guardar el ícono original como HTML en data-original-icon
+        span.dataset.originalIcon = icon.outerHTML;
+    
+        icon.replaceWith(span);
+      });
+
+  // 🔐 Marcar en localStorage que se aplicaron símbolos Robofan
+  localStorage.setItem("tph_robofan_symbols_enabled", "true");
+}
 
     // Apply Font
     const aplicarH2 = confirm("¿Quieres aplicar la fuente seleccionada al Titulo?");
