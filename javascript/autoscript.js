@@ -170,7 +170,7 @@ function tph_exportJSON() {
 
     const finalData = {
         "TU PS4 HEN CONFIG JSON": {
-            "version_json": "v1.0.0",
+            "version_json": "v1.0.2",
             ...localStorageData
         }
     };
