@@ -25,8 +25,8 @@
 }
 
 @font-face {
-  font-family: 'Lemon_Tuesday';
-  src: url('../web-fonts/Lemon_Tuesday.otf') format('opentype');
+  font-family: 'old_stamper';
+  src: url('../web-fonts/old_stamper.ttf') format('opentype');
 }
 
 @font-face {
@@ -65,8 +65,8 @@
 }
 
 @font-face {
-  font-family: 'Rumble_Strike';
-  src: url('../web-fonts/Rumble_Strike.otf') format('opentype');
+  font-family: 'Kirsty_Bd_It';
+  src: url('../web-fonts/Kirsty_Bd_It.otf') format('opentype');
 }
 
 @font-face {
@@ -80,8 +80,8 @@
 }
 
 @font-face {
-  font-family: 'Vampire_Wars';
-  src: url('../web-fonts/Vampire_Wars.otf') format('opentype');
+  font-family: 'GBShinto-Regular';
+  src: url('../web-fonts/GBShinto-Regular.otf') format('opentype');
 }
 
 @font-face {
@@ -368,19 +368,19 @@ i[class*=" fa-"] {
 
 /* Fuente 5 */
 .tph_font5-h2 h2 {
-  font-family: 'Lemon_Tuesday', serif;
+  font-family: 'old_stamper', serif;
 }
 
 .tph_font5-h3h4 h3,
 .tph_font5-h3h4 h4 {
-  font-family: 'Lemon_Tuesday', serif;
+  font-family: 'old_stamper', serif;
 }
 
 .tph_font5-buttons .botones-contenedor *,
 .tph_font5-buttons .select-contenedor *,
 .tph_font5-buttons .large-button-container *,
 .tph_font5-buttons .small-button-container * {
-  font-family: 'Lemon_Tuesday', serif;
+  font-family: 'old_stamper', serif;
 }
 
 /* Fuente 6 */
@@ -504,19 +504,19 @@ i[class*=" fa-"] {
 
 /* Fuente 13 */
 .tph_font13-h2 h2 {
-  font-family: 'Rumble_Strike', serif;
+  font-family: 'Kirsty_Bd_It', serif;
 }
 
 .tph_font13-h3h4 h3,
 .tph_font13-h3h4 h4 {
-  font-family: 'Rumble_Strike', serif;
+  font-family: 'Kirsty_Bd_It', serif;
 }
 
 .tph_font13-buttons .botones-contenedor *,
 .tph_font13-buttons .select-contenedor *,
 .tph_font13-buttons .large-button-container *,
 .tph_font13-buttons .small-button-container * {
-  font-family: 'Rumble_Strike', serif;
+  font-family: 'Kirsty_Bd_It', serif;
 }
 
 /* Fuente 14 */
@@ -555,19 +555,19 @@ i[class*=" fa-"] {
 
 /* Fuente 16 */
 .tph_font16-h2 h2 {
-  font-family: 'Vampire_Wars', serif;
+  font-family: 'GBShinto-Regular', serif;
 }
 
 .tph_font16-h3h4 h3,
 .tph_font16-h3h4 h4 {
-  font-family: 'Vampire_Wars', serif;
+  font-family: 'GBShinto-Regular', serif;
 }
 
 .tph_font16-buttons .botones-contenedor *,
 .tph_font16-buttons .select-contenedor *,
 .tph_font16-buttons .large-button-container *,
 .tph_font16-buttons .small-button-container * {
-  font-family: 'Vampire_Wars', serif;
+  font-family: 'GBShinto-Regular', serif;
 }
 
 /* Fuente 17 */
@@ -686,18 +686,18 @@ i[class*=" fa-"] {
 #progress-container {
   width: 100%;
   height: 14px;
-  background: rgba(0, 0, 0, 0.2); /* Fondo más oscuro para contraste */
-  border: 1px solid rgba(255, 255, 255, 0.6); /* Borde más brillante */
+  background: rgba(0, 0, 0, 0.2); 
+  border: 1px solid rgba(255, 255, 255, 0.6);
   margin: 5px 0;
   overflow: hidden;
   border-radius: 0;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3); /* Efecto brillo en el borde */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3); 
 }
 
 #progress-bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #ffffff 0%, #f0f8ff 100%); /* Degradado blanco a blanco hielo */
+  background: linear-gradient(90deg, #ffffff 0%, #f0f8ff 100%); 
   transition: width 0.1s linear;
   position: relative;
 }
@@ -709,14 +709,14 @@ i[class*=" fa-"] {
   left: 0;
   right: 0;
   height: 50%;
-  background: rgba(255, 255, 255, 0.25); /* Efecto de brillo superior */
+  background: rgba(255, 255, 255, 0.25);
 }
 
 #progress-text {
   font-size: 22px;
   margin-bottom: 15px;
   text-shadow: 0 0 8px rgba(0,0,0,0.7);
-  color: #fff; /* Texto blanco para contraste */
+  color: #fff; 
 }
 
 .hidden {
