@@ -301,6 +301,11 @@ i[class*=" fa-"] {
   flex-wrap: wrap;
 }
 
+.robofan-icon {
+  font-family: 'Robofan-Symbol';
+  font-size: 1.2em; /* ajusta a tu gusto */
+}
+
 /* === FUENTES DINÁMICAS === */
 
 /* Fuente 1 */
