@@ -10,7 +10,7 @@ function initSettingsMenu3() {
     replaceRobofanIcons(localStorage.getItem("tph_robofan_symbol_selected") || "b");
   }
 
-  const dropdown = document.getElementById("option3");
+  const dropdown = document.getElementById("opcion3");
   if (!dropdown) return;
 
   dropdown.selectedIndex = 0;
