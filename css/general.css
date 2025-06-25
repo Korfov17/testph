@@ -820,7 +820,7 @@ i[class*=" fa-"] {
   font-size: 21.6px;
   background: rgba(0, 0, 0, 0.7);
   padding: 12px 43px;
-  border-radius: 0;
+  border-radius: 1;
   border: 2px solid rgba(255, 255, 255, 0.4);
   width: 80%;
   max-width: 500px;
