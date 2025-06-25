@@ -123,6 +123,21 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'fa-brands';
+  src: url('../web-fonts/fa-brands-400.ttf') format('truetype'); 
+}
+
+@font-face {
+  font-family: 'fa-solid';
+  src: url('../web-fonts/fa-solid-900.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'fa-v4';
+  src: url('../web-fonts/fa-v4compatibility.ttf') format('truetype');
+}
+
 /* === GENERALES === */
 body {
   text-align: center;
@@ -234,7 +249,7 @@ main {
 
 i[class^="fa-"],
 i[class*=" fa-"] {
-  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands' !important;
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', 'fa-brands', 'fa-solid', 'fa-v4' !important;
   font-style: normal;
 }
 
@@ -302,11 +317,6 @@ i[class*=" fa-"] {
   flex-wrap: wrap;
 }
 
-.robofan-icon {
-  font-family: 'Robofan-Symbol';
-  font-size: 1.3em;
-}
-
 /* === FUENTES DINÁMICAS === */
 
 /* Fuente 1 */
@@ -362,7 +372,8 @@ i[class*=" fa-"] {
 
 .robofan-icon {
   font-family: 'Robofan-Symbol', sans-serif !important;
-  font-style: normal;
+  font-style: normal;  
+  font-size: 1.3em;
   font-weight: normal;
 }
 
