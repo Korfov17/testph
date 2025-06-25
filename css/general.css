@@ -710,6 +710,43 @@ i[class*=" fa-"] {
   animation: rainbow 18s linear infinite;
 }
 
+/* Paso 2: Clases principales */
+.fa,
+.fas,
+.far,
+.fab {
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilo sólido */
+.fas {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+/* Estilo regular */
+.far {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 400;
+}
+
+/* Estilo marcas */
+.fab {
+  font-family: 'Font Awesome 6 Brands';
+  font-weight: 400;
+}
+
+/* Compatibilidad v4 */
+.fa-v4 {
+  font-family: 'Font Awesome 6 Compatibility';
+  font-weight: 400;
+}
+
 /* === FILTRO EXTRA (Index) === */
 #filterUserAgent {
   margin: 12px;
