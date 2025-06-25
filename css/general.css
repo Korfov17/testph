@@ -124,19 +124,41 @@
 }
 
 @font-face {
-  font-family: 'fa-brands';
-  src: url('../web-fonts/fa-brands-400.ttf') format('truetype'); 
+  font-family: 'Font Awesome 6 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../web-fonts/fa-brands-400.woff2') format('woff2'),
+       url('../web-fonts/fa-brands-400.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'fa-solid';
-  src: url('../web-fonts/fa-solid-900.ttf') format('truetype');
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../web-fonts/fa-regular-400.woff2') format('woff2'),
+       url('../web-fonts/fa-regular-400.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'fa-v4';
-  src: url('../web-fonts/fa-v4compatibility.ttf') format('truetype');
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url('../web-fonts/fa-solid-900.woff2') format('woff2'),
+       url('../web-fonts/fa-solid-900.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Font Awesome 6 Compatibility';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../web-fonts/fa-v4compatibility.woff2') format('woff2'),
+       url('../web-fonts/fa-v4compatibility.ttf') format('truetype');
+}
+
 
 /* === GENERALES === */
 body {
@@ -249,8 +271,12 @@ main {
 
 i[class^="fa-"],
 i[class*=" fa-"] {
-  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', 'fa-brands', 'fa-solid', 'fa-v4' !important;
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', 'Font Awesome 6 Compatibility' !important;
   font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* === ESTILOS DE SETTINGS === */
