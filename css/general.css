@@ -234,12 +234,8 @@ main {
 
 i[class^="fa-"],
 i[class*=" fa-"] {
-  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', 'Font Awesome 6 Compatibility' !important;
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands' !important;
   font-style: normal;
-  font-weight: 400;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
 }
 
 /* === ESTILOS DE SETTINGS === */
