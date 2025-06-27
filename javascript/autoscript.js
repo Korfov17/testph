@@ -126,19 +126,19 @@ document.addEventListener("DOMContentLoaded", function () {
   ps4_cache_screen();
 });
 
-function tph_resetSettings() {
+function zjb_resetSettings() {
   const confirmar = confirm("¿Estás seguro de que quieres restablecer todos los ajustes?");
   if (confirmar) {
-    localStorage.removeItem("tph_customBackground");  
-    localStorage.removeItem("tph_settingsBackground"); 
-    localStorage.removeItem("tph_customTitle");     
-    localStorage.removeItem("tph_customTitleHTML"); 
-    localStorage.removeItem("tph_whiteBackground");  
-    localStorage.removeItem("tph_filterUserAgent");
-    localStorage.removeItem("tph_font_index");     
-    localStorage.removeItem("tph_font_settings");
-    localStorage.removeItem("tph_robofan_symbols_enabled"); 
-    localStorage.removeItem("tph_robofan_symbol_selected");
+    localStorage.removeItem("zjb_customBackground");  
+    localStorage.removeItem("zjb_settingsBackground"); 
+    localStorage.removeItem("zjb_customTitle");     
+    localStorage.removeItem("zjb_customTitleHTML"); 
+    localStorage.removeItem("zjb_whiteBackground");  
+    localStorage.removeItem("zjb_filterUserAgent");
+    localStorage.removeItem("zjb_font_index");     
+    localStorage.removeItem("zjb_font_settings");
+    localStorage.removeItem("zjb_robofan_symbols_enabled"); 
+    localStorage.removeItem("zjb_robofan_symbol_selected");
     localStorage.removeItem("currentBackgroundTemp");
 
     alert("✅ Todos los ajustes han sido restablecidos.");
@@ -146,18 +146,18 @@ function tph_resetSettings() {
   }
 }
 
-function tph_exportJSON() {
+function zjb_exportJSON() {
     const selectedKeys = [
-        'tph_customBackground',
-        'tph_settingsBackground',
-        'tph_customTitle',
-        'tph_customTitleHTML',
-        'tph_filterUserAgent',
-        'tph_whiteBackground',
-        'tph_font_index',     
-        'tph_font_settings',
-        'tph_robofan_symbols_enabled',
-        'tph_robofan_symbol_selected' 
+        'zjb_customBackground',
+        'zjb_settingsBackground',
+        'zjb_customTitle',
+        'zjb_customTitleHTML',
+        'zjb_filterUserAgent',
+        'zjb_whiteBackground',
+        'zjb_font_index',     
+        'zjb_font_settings',
+        'zjb_robofan_symbols_enabled',
+        'zjb_robofan_symbol_selected' 
     ];
     const localStorageData = {};
 
@@ -186,7 +186,7 @@ function tph_exportJSON() {
     URL.revokeObjectURL(url);
 }
 
-function tph_importJSON() {
+function zjb_importJSON() {
     const useURL = confirm("¿Quieres cargar la configuracion JSON desde una URL?");
     
     if (useURL) {

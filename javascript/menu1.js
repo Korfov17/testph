@@ -1,5 +1,5 @@
 function initSettingsMenu1() {
-  const nombreSistema = localStorage.getItem("tph_customTitleHTML");
+  const nombreSistema = localStorage.getItem("zjb_customTitleHTML");
   if (nombreSistema) {
     document.title = `🎮 ${nombreSistema} | Ajustes 🎮`;
   }
@@ -11,27 +11,27 @@ function initSettingsMenu1() {
     const selectedValue = dropdown.value;
 
     switch (selectedValue) {
-      case "tph_changetitleHTML":
+      case "zjb_changetitleHTML":
         const nuevoNombre = prompt("Introduce el texto para reemplazar:");
         if (nuevoNombre) {
-          localStorage.setItem("tph_customTitleHTML", nuevoNombre);
+          localStorage.setItem("zjb_customTitleHTML", nuevoNombre);
           document.title = `🎮 ${nuevoNombre} | Ajustes 🎮`;
           alert("✅ Titulo HTML Actualizado.");
         }
         break;
 
-      case "tph_changeTitle":
+      case "zjb_changeTitle":
         const nuevoTitulo = prompt("Introduce el texto para reemplazar el título principal:");
         if (nuevoTitulo) {
-          localStorage.setItem("tph_customTitle", nuevoTitulo);
+          localStorage.setItem("zjb_customTitle", nuevoTitulo);
           alert("✅ Título actualizado.");
         }
         break;
 
-      case "tph_showuseragent":
-        const estadoActual = localStorage.getItem("tph_filterUserAgent");
+      case "zjb_showuseragent":
+        const estadoActual = localStorage.getItem("zjb_filterUserAgent");
         localStorage.setItem(
-          "tph_filterUserAgent",
+          "zjb_filterUserAgent",
           estadoActual === "hidden" ? "visible" : "hidden"
         );
         alert("✅ Mostrar/Ocultar alternado.");
@@ -49,8 +49,8 @@ function initSettingsMenu1() {
 }
 
 function initIndexMenu1() {
-  const titulo = localStorage.getItem("tph_customTitle");
-  const nombreSistema = localStorage.getItem("tph_customTitleHTML");
+  const titulo = localStorage.getItem("zjb_customTitle");
+  const nombreSistema = localStorage.getItem("zjb_customTitleHTML");
 
   if (titulo) {
     const span = document.querySelector("h2 .arcoiris");
@@ -65,7 +65,7 @@ function initIndexMenu1() {
 
   const h3 = document.getElementById("filterUserAgent");
   if (h3) {
-    const estado = localStorage.getItem("tph_filterUserAgent");
+    const estado = localStorage.getItem("zjb_filterUserAgent");
     h3.style.display = estado === "hidden" ? "none" : "block";
   }
 }
