@@ -53,7 +53,7 @@ function initIndexMenu1() {
   const nombreSistema = localStorage.getItem("zjb_customTitleHTML");
 
   if (titulo) {
-    const span = document.querySelector("h2 .arcoiris");
+    const span = document.querySelector("h2 .rainbow");
     if (span) {
       span.textContent = titulo;
     }
