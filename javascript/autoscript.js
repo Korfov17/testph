@@ -180,7 +180,7 @@ function zjb_exportJSON() {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'tups4hen_config.json';
+    a.download = 'z-jailbreak_config.json';
     a.click();
 
     URL.revokeObjectURL(url);
