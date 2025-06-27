@@ -169,8 +169,8 @@ function zjb_exportJSON() {
     });
 
     const finalData = {
-        "TU PS4 HEN CONFIG JSON": {
-            "version_json": "v1.0.2",
+        "Z-JAILBREAK CONFIG JSON": {
+            "version_json": "v1.0.3",
             ...localStorageData
         }
     };
@@ -196,8 +196,8 @@ function zjb_importJSON() {
             fetch(jsonURL)
                 .then(response => response.json())
                 .then(data => {
-                    if (data["TU PS4 HEN CONFIG JSON"]) {
-                        const importedData = data["TU PS4 HEN CONFIG JSON"];
+                    if (data["Z-JAILBREAK CONFIG JSON"]) {
+                        const importedData = data["Z-JAILBREAK CONFIG JSON"];
                         for (let key in importedData) {
                             if (importedData.hasOwnProperty(key)) {
                                 localStorage.setItem(key, importedData[key]);
@@ -226,8 +226,8 @@ function zjb_importJSON() {
                     try {
                         const data = JSON.parse(e.target.result);
                         
-                        if (data["TU PS4 HEN CONFIG JSON"]) {
-                            const importedData = data["TU PS4 HEN CONFIG JSON"];
+                        if (data["Z-JAILBREAK CONFIG JSON"]) {
+                            const importedData = data["Z-JAILBREAK CONFIG JSON"];
                             for (let key in importedData) {
                                 if (importedData.hasOwnProperty(key)) {
                                     localStorage.setItem(key, importedData[key]);
