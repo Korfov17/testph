@@ -5,58 +5,42 @@ let counter = 0;
 function mostrarAlerta() {
   alert('¡Has mantenido F6 + Flecha Izquierda durante 5 segundos!');
 
-  // Eliminar elementos .url-container y .url-container2
-  document.querySelectorAll('.url-container').forEach(el => el.remove());
-  document.querySelectorAll('.url-container2').forEach(el => el.remove());
+  // Eliminar elementos innecesarios
+  document.querySelectorAll('.url-container, .url-container2').forEach(el => el.remove());
+  document.querySelectorAll('h3').forEach(h3 => h3.remove()); // Elimina todos los h3
 
-  // Crear contenedor principal del mensaje
-  const container = document.createElement('div');
-  container.style.position = 'fixed';
-  container.style.top = '50%';
-  container.style.left = '50%';
-  container.style.transform = 'translate(-50%, -50%)';
-  container.style.background = 'rgba(0,0,0,0.3)';
-  container.style.border = '2px solid white';
-  container.style.padding = '30px 60px';
-  container.style.borderRadius = '10px';
-  container.style.boxShadow = '0 0 12px 2px white';
-  container.style.color = 'white';
-  container.style.textAlign = 'center';
-  container.style.zIndex = '1000';
-  container.style.userSelect = 'none';
-  container.style.marginTop = '100px';
-
-  // Mensaje principal
-  const mensaje = document.createElement('h3');
-  mensaje.textContent = '¡Esto es un mensaje de prueba y se está desarrollando un Easter Egg para dar un legado a nuestro grupo caído TU PS4 HEN, del cual se le ha echado mucho tiempo y ganas y todo se ha esfumado como si nada hubiera pasado. Pronto se completará este apartado.';
-  mensaje.style.fontSize = '22px';
-  mensaje.style.marginBottom = '40px';
-  container.appendChild(mensaje);
-
-  // Texto de autor
-  const autor = document.createElement('p');
-  autor.textContent = 'Creado por TheZodiacoX';
-  autor.style.fontSize = '16px';
-  autor.style.fontStyle = 'italic';
-  autor.style.marginTop = '20px';
-  autor.style.opacity = '0.85';
-  container.appendChild(autor);
-
-  document.body.appendChild(container);
-
-  // Cambiar <h2>
+  // Cambiar contenido del h2
   const h2 = document.querySelector('h2');
   if (h2) {
     h2.innerHTML = `<i class="fa-brands fa-playstation"></i> <span class="rainbow">TU PS4 HEN</span> <i class="fa-brands fa-playstation"></i>`;
   }
 
-  // Cambiar <h3>
-  document.querySelectorAll('h3').forEach(h3 => {
-    h3.textContent = h3.textContent.replace(/Z-Jailbreak/gi, 'Tu PS4 HEN');
-  });
-
-  // Cambiar <title>
+  // Cambiar el título de la página
   document.title = document.title.replace(/Z-JAILBREAK/gi, 'Tu PS4 HEN');
+
+  // Crear el mensaje libre (sin cuadro)
+  const mensaje = document.createElement('div');
+  mensaje.textContent = '¡Esto es un mensaje de prueba y se está desarrollando un Easter Egg para dar un legado a nuestro grupo caído TU PS4 HEN, del cual se le ha echado mucho tiempo y ganas y todo se ha esfumado como si nada hubiera pasado. Pronto se completará este apartado.';
+  mensaje.style.color = 'white';
+  mensaje.style.fontSize = '20px';
+  mensaje.style.fontWeight = '500';
+  mensaje.style.textAlign = 'center';
+  mensaje.style.marginTop = '50px';
+  mensaje.style.padding = '0 20px';
+
+  // Crear el texto del autor
+  const autor = document.createElement('div');
+  autor.textContent = 'Creado por TheZodiacoX';
+  autor.style.color = 'white';
+  autor.style.fontSize = '16px';
+  autor.style.fontStyle = 'italic';
+  autor.style.opacity = '0.85';
+  autor.style.textAlign = 'center';
+  autor.style.marginTop = '20px';
+
+  // Añadirlos al cuerpo del documento
+  document.body.appendChild(mensaje);
+  document.body.appendChild(autor);
 }
 
 function iniciarContador() {
@@ -81,7 +65,6 @@ function cancelarContador() {
 
 document.addEventListener('keydown', (e) => {
   keysPressed[e.keyCode] = true;
-
   if (keysPressed[117] && keysPressed[37] && !intervalId) {
     iniciarContador();
   }
