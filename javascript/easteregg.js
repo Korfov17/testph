@@ -14,10 +14,10 @@ function mostrarAlerta() {
     h2.innerHTML = `<i class="fa-brands fa-playstation"></i> <span class="rainbow">TU PS4 HEN</span> <i class="fa-brands fa-playstation"></i>`;
   }
 
-  // Cambiar título del documento
-  document.title = document.title.replace(/Z-JAILBREAK/gi, 'Tu PS4 HEN');
+  // Cambiar título del documento completamente
+  document.title = '🎮 Tu PS4 HEN | Secreto 🎮';
 
-  // Crear contenedor general para centrar mejor
+  // Crear contenedor general para los mensajes
   const wrapper = document.createElement('div');
   wrapper.style.display = 'flex';
   wrapper.style.flexDirection = 'column';
@@ -49,11 +49,9 @@ function mostrarAlerta() {
   autor.textContent = 'Creado por TheZodiacoX';
   Object.assign(autor.style, baseStyle);
 
-  // Añadirlos al wrapper
+  // Añadirlos al contenedor y al cuerpo
   wrapper.appendChild(mensaje);
   wrapper.appendChild(autor);
-
-  // Agregar al cuerpo
   document.body.appendChild(wrapper);
 }
 
