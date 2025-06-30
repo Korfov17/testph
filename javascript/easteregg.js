@@ -5,35 +5,44 @@ let counter = 0;
 function mostrarAlerta() {
   alert('¡Has mantenido F6 + Flecha Izquierda durante 5 segundos!');
 
-  // Eliminar .url-container2 dentro de .large-button-container > a
-  const largeInner = document.querySelectorAll('.url-container2');
-  largeInner.forEach(el => el.remove());
+  // ✅ Eliminar directamente los elementos .url-container y .url-container2
+  document.querySelectorAll('.url-container').forEach(el => el.remove());
+  document.querySelectorAll('.url-container2').forEach(el => el.remove());
 
-  // Eliminar .url-container dentro de .small-button-container > a
-  const smallInner = document.querySelectorAll('.url-container');
-  smallInner.forEach(el => el.remove());
+  // Crear contenedor principal del mensaje
+  const container = document.createElement('div');
+  container.style.position = 'fixed';
+  container.style.top = '50%';
+  container.style.left = '50%';
+  container.style.transform = 'translate(-50%, -50%)';
+  container.style.background = 'rgba(0,0,0,0.3)';
+  container.style.border = '2px solid white';
+  container.style.padding = '30px 60px';
+  container.style.borderRadius = '10px';
+  container.style.boxShadow = '0 0 12px 2px white';
+  container.style.color = 'white';
+  container.style.textAlign = 'center';
+  container.style.zIndex = '1000';
+  container.style.userSelect = 'none';
 
-  // Crear h3 centrado
+  // Mensaje principal
   const mensaje = document.createElement('h3');
-  mensaje.textContent = '¡Esto es un mensaje de prueba y se esta Desarrollando un Easter Egg para dar un Legado a nuestro Grupo Caído TU PS4 HEN, del cual se le ha hechado mucho tiempo y ganas y todo se ha esfumado como si nada hubiera pasado. Pronto se completara este apartado.';
+  mensaje.textContent = '¡Esto es un mensaje de prueba y se está desarrollando un Easter Egg para dar un legado a nuestro grupo caído TU PS4 HEN, del cual se le ha echado mucho tiempo y ganas y todo se ha esfumado como si nada hubiera pasado. Pronto se completará este apartado.';
+  mensaje.style.fontSize = '22px';
+  mensaje.style.marginBottom = '20px';
+  container.appendChild(mensaje);
 
-  mensaje.style.position = 'fixed';
-  mensaje.style.top = '50%';
-  mensaje.style.left = '50%';
-  mensaje.style.transform = 'translate(-50%, -50%)';
-  mensaje.style.color = 'white';
-  mensaje.style.background = 'rgba(0,0,0,0.3)';
-  mensaje.style.border = '2px solid white';
-  mensaje.style.padding = '30px 85px';
-  mensaje.style.borderRadius = '8px';
-  mensaje.style.boxShadow = '0 0 12px 2px white';
-  mensaje.style.userSelect = 'none';
-  mensaje.style.zIndex = '1000';
-  mensaje.style.fontWeight = '600';
-  mensaje.style.fontSize = '24px';
-  mensaje.style.textAlign = 'center';
+  // Texto de autor debajo del mensaje
+  const autor = document.createElement('p');
+  autor.textContent = 'Creado por Z-DEV con amor para TU PS4 HEN.';
+  autor.style.fontSize = '16px';
+  autor.style.fontStyle = 'italic';
+  autor.style.marginTop = '10px';
+  autor.style.opacity = '0.85';
+  container.appendChild(autor);
 
-  document.body.appendChild(mensaje);
+  // Agregar al body
+  document.body.appendChild(container);
 
   // Cambiar <h2>
   const h2 = document.querySelector('h2');
@@ -41,9 +50,8 @@ function mostrarAlerta() {
     h2.innerHTML = `<i class="fa-brands fa-playstation"></i> <span class="rainbow">TU PS4 HEN</span> <i class="fa-brands fa-playstation"></i>`;
   }
 
-  // Cambiar todos los <h3>
-  const h3s = document.querySelectorAll('h3');
-  h3s.forEach(h3 => {
+  // Cambiar <h3>
+  document.querySelectorAll('h3').forEach(h3 => {
     h3.textContent = h3.textContent.replace(/Z-Jailbreak/gi, 'Tu PS4 HEN');
   });
 
