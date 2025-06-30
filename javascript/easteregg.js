@@ -14,22 +14,22 @@ function mostrarAlerta() {
     h2.innerHTML = `<i class="fa-brands fa-playstation"></i> <span class="rainbow">TU PS4 HEN</span> <i class="fa-brands fa-playstation"></i>`;
   }
 
-  // Cambiar título del documento completamente
+  // Cambiar el título del documento completamente
   document.title = '🎮 Tu PS4 HEN | Secreto 🎮';
 
-  // Crear contenedor general para los mensajes
+  // Crear contenedor general para los textos
   const wrapper = document.createElement('div');
   wrapper.style.display = 'flex';
   wrapper.style.flexDirection = 'column';
   wrapper.style.alignItems = 'center';
   wrapper.style.justifyContent = 'center';
-  wrapper.style.marginTop = '60px';
+  wrapper.style.marginTop = '20px'; // Espacio reducido entre <h2> y los textos
   wrapper.style.padding = '0 20px';
   wrapper.style.maxWidth = '700px';
   wrapper.style.marginLeft = 'auto';
   wrapper.style.marginRight = 'auto';
 
-  // Estilo común para los textos
+  // Estilo común
   const baseStyle = {
     color: 'white',
     fontSize: '20px',
@@ -49,7 +49,7 @@ function mostrarAlerta() {
   autor.textContent = 'Creado por TheZodiacoX';
   Object.assign(autor.style, baseStyle);
 
-  // Añadirlos al contenedor y al cuerpo
+  // Añadir al contenedor y al body
   wrapper.appendChild(mensaje);
   wrapper.appendChild(autor);
   document.body.appendChild(wrapper);
