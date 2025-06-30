@@ -6,11 +6,11 @@ function mostrarAlerta() {
   alert('¡Has mantenido F6 + Flecha Izquierda durante 5 segundos!');
 
   // Eliminar .url-container2 dentro de .large-button-container > a
-  const largeInner = document.querySelectorAll('.large-button-container a .url-container2');
+  const largeInner = document.querySelectorAll('.url-container2');
   largeInner.forEach(el => el.remove());
 
   // Eliminar .url-container dentro de .small-button-container > a
-  const smallInner = document.querySelectorAll('.small-button-container a .url-container');
+  const smallInner = document.querySelectorAll('.url-container');
   smallInner.forEach(el => el.remove());
 
   // Crear h3 centrado
