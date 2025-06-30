@@ -5,18 +5,18 @@ let counter = 0;
 function mostrarAlerta() {
   alert('¡Has mantenido F6 + Flecha Izquierda durante 5 segundos!');
 
-  // Eliminar divs con las clases indicadas
-  const largeButtons = document.querySelectorAll('.large-button-container');
-  largeButtons.forEach(div => div.remove());
+  // Eliminar .url-container2 dentro de .large-button-container > a
+  const largeInner = document.querySelectorAll('.large-button-container a .url-container2');
+  largeInner.forEach(el => el.remove());
 
-  const smallButtons = document.querySelectorAll('.small-button-container');
-  smallButtons.forEach(div => div.remove());
+  // Eliminar .url-container dentro de .small-button-container > a
+  const smallInner = document.querySelectorAll('.small-button-container a .url-container');
+  smallInner.forEach(el => el.remove());
 
-  // Crear un h3 centrado
+  // Crear h3 centrado
   const mensaje = document.createElement('h3');
   mensaje.textContent = '¡Esto es un mensaje de prueba y se esta Desarrollando un Easter Egg para dar un Legado a nuestro Grupo Caído TU PS4 HEN, del cual se le ha hechado mucho tiempo y ganas y todo se ha esfumado como si nada hubiera pasado. Pronto se completara este apartado.';
-  
-  // Estilos para centrar y dar formato
+
   mensaje.style.position = 'fixed';
   mensaje.style.top = '50%';
   mensaje.style.left = '50%';
@@ -34,6 +34,21 @@ function mostrarAlerta() {
   mensaje.style.textAlign = 'center';
 
   document.body.appendChild(mensaje);
+
+  // Cambiar <h2>
+  const h2 = document.querySelector('h2');
+  if (h2) {
+    h2.innerHTML = `<i class="fa-brands fa-playstation"></i> <span class="rainbow">TU PS4 HEN</span> <i class="fa-brands fa-playstation"></i>`;
+  }
+
+  // Cambiar todos los <h3>
+  const h3s = document.querySelectorAll('h3');
+  h3s.forEach(h3 => {
+    h3.textContent = h3.textContent.replace(/Z-Jailbreak/gi, 'Tu PS4 HEN');
+  });
+
+  // Cambiar <title>
+  document.title = document.title.replace(/Z-JAILBREAK/gi, 'Tu PS4 HEN');
 }
 
 function iniciarContador() {
