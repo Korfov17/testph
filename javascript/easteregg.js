@@ -6,8 +6,7 @@ function mostrarAlerta() {
   alert('¡Has mantenido F6 + Flecha Izquierda durante 5 segundos!');
 
   // Eliminar elementos innecesarios
-  document.querySelectorAll('.url-container, .url-container2').forEach(el => el.remove());
-  document.querySelectorAll('h3').forEach(h3 => h3.remove()); // Elimina todos los h3
+  document.querySelectorAll('.url-container, .url-container2, h3, h4').forEach(el => el.remove());
 
   // Cambiar contenido del h2
   const h2 = document.querySelector('h2');
@@ -15,32 +14,47 @@ function mostrarAlerta() {
     h2.innerHTML = `<i class="fa-brands fa-playstation"></i> <span class="rainbow">TU PS4 HEN</span> <i class="fa-brands fa-playstation"></i>`;
   }
 
-  // Cambiar el título de la página
+  // Cambiar título del documento
   document.title = document.title.replace(/Z-JAILBREAK/gi, 'Tu PS4 HEN');
 
-  // Crear el mensaje libre (sin cuadro)
+  // Crear contenedor general para centrar mejor
+  const wrapper = document.createElement('div');
+  wrapper.style.display = 'flex';
+  wrapper.style.flexDirection = 'column';
+  wrapper.style.alignItems = 'center';
+  wrapper.style.justifyContent = 'center';
+  wrapper.style.marginTop = '60px';
+  wrapper.style.padding = '0 20px';
+  wrapper.style.maxWidth = '700px';
+  wrapper.style.marginLeft = 'auto';
+  wrapper.style.marginRight = 'auto';
+
+  // Estilo común para los textos
+  const baseStyle = {
+    color: 'white',
+    fontSize: '20px',
+    fontWeight: '500',
+    textAlign: 'center',
+    marginBottom: '20px',
+    fontFamily: 'inherit',
+  };
+
+  // Mensaje principal
   const mensaje = document.createElement('div');
   mensaje.textContent = '¡Esto es un mensaje de prueba y se está desarrollando un Easter Egg para dar un legado a nuestro grupo caído TU PS4 HEN, del cual se le ha echado mucho tiempo y ganas y todo se ha esfumado como si nada hubiera pasado. Pronto se completará este apartado.';
-  mensaje.style.color = 'white';
-  mensaje.style.fontSize = '20px';
-  mensaje.style.fontWeight = '500';
-  mensaje.style.textAlign = 'center';
-  mensaje.style.marginTop = '50px';
-  mensaje.style.padding = '0 20px';
+  Object.assign(mensaje.style, baseStyle);
 
-  // Crear el texto del autor
+  // Texto del autor
   const autor = document.createElement('div');
   autor.textContent = 'Creado por TheZodiacoX';
-  autor.style.color = 'white';
-  autor.style.fontSize = '16px';
-  autor.style.fontStyle = 'italic';
-  autor.style.opacity = '0.85';
-  autor.style.textAlign = 'center';
-  autor.style.marginTop = '20px';
+  Object.assign(autor.style, baseStyle);
 
-  // Añadirlos al cuerpo del documento
-  document.body.appendChild(mensaje);
-  document.body.appendChild(autor);
+  // Añadirlos al wrapper
+  wrapper.appendChild(mensaje);
+  wrapper.appendChild(autor);
+
+  // Agregar al cuerpo
+  document.body.appendChild(wrapper);
 }
 
 function iniciarContador() {
