@@ -39,12 +39,21 @@ function initSettingsMenu1() {
 
       case "zjb_about":
         const userAgent = navigator.userAgent;
-        const firmwareMatch = userAgent.match(/PlayStation 4\/([\d.]+)/);
-        const firmwareVersion = firmwareMatch ? firmwareMatch[1] : "00.00";
+        const isPS4 = userAgent.includes("PlayStation 4");
+        let mensaje = "";
 
-        alert(
-          `🎮 PlayStation 4 Firmware: v${firmwareVersion}\n\nℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\nℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\nℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.`
-        );
+        if (isPS4) {
+          const firmwareMatch = userAgent.match(/PlayStation 4\/([\d.]+)/);
+          const firmwareVersion = firmwareMatch ? firmwareMatch[1] : "00.00";
+          mensaje += `🎮 PlayStation 4 Firmware: v${firmwareVersion}\n\n`;
+        }
+
+        mensaje +=
+          "ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\n" +
+          "ℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\n" +
+          "ℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.";
+
+        alert(mensaje);
         break;
     }
 
