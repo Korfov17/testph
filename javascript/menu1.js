@@ -49,9 +49,13 @@ function initSettingsMenu1() {
         }
 
         text_about +=
-          "ℹ️ Este apartado es meramente informativo y esta en creacion.\n\n" +
-          "ℹ️ Este Sitio Web ha sido creado por TheZodiacoX.\n\n" +
-          "ℹ️ NOTA: Actualmente nuestro grupo de Telegram ha sido eliminado y Tu PS4 Hen cambiara a Z-Jailbreak (Mi Proyecto Personal) pero Tu PS4 Hen tendra una parte todavia en la web.";
+          "ℹ️ Este Sitio Web ha sido creado y actualizado por TheZodiacoX.\n\n" +
+          "ℹ️ Puedes usarlo como centro de recursos tanto en PC/Movil como en PS4 para hacer Jailbreak o Cargr Payloads siendo un Host personalizable.\n\n" +
+          "• Personalizable.\n" +
+          "• Configurable.\n" +
+          "• Host para Jailbreak.\n" +
+          "• Gestion propio de Accesos directos.\n\n" +
+          "ℹ️ NOTA: Este apartado esta todavia en creacion, mantengase atento a las proximas novedades del Sitio.";
 
         alert(text_about);
         break;
