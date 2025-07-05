@@ -2,36 +2,28 @@ function initSettingsMenu4() {
   const dropdown = document.getElementById("opcion4");
   if (!dropdown) return;
 
+  // Lista de colores con nombre y código hex
+  const coloresDisponibles = [
+    { nombre: "blue", codigo: "#0000FF" },
+    { nombre: "green", codigo: "#008000" },
+    { nombre: "red", codigo: "#FF0000" },
+    { nombre: "orange", codigo: "#FFA500" },
+    { nombre: "purple", codigo: "#800080" },
+    { nombre: "black", codigo: "#000000" },
+    { nombre: "gray", codigo: "#808080" }
+  ];
+
   dropdown.addEventListener("change", () => {
     const value = dropdown.value;
 
-    // 🟣 Opción: Activar animación arcoiris con colores personalizados
-    if (value === "zjb_rainbowcolor") {
-      const input = prompt("Introduce una lista de colores separados por comas (ej: red, orange, blue):");
-      if (!input) return;
-
-      const colores = input.split(",").map(c => c.trim()).filter(Boolean);
-      const confirmar = confirm(`¿Aplicar animación arcoiris con estos colores?\n\n${colores.join(", ")}`);
-      if (!confirmar) return;
-
-      const h2s = document.querySelectorAll("h2");
-      h2s.forEach(h2 => {
-        h2.style.animation = "rainbow 5s linear infinite";
-        h2.style.color = ""; // Limpia cualquier color fijo anterior
-        h2.setAttribute("data-rainbow", colores.join(","));
-      });
-
-      alert("✅ Animación arcoiris aplicada con colores personalizados.");
-    }
-
-    // 🔵 Opción: Desactivar animación y aplicar color fijo
-    else if (value === "zjb_rainbowdisabled") {
-      const opciones = ["blue", "green", "red", "orange", "purple", "black", "gray"];
-      const elegido = prompt(`¿Qué color deseas aplicar al título?\nOpciones disponibles:\n${opciones.join(", ")}`);
+    if (value === "zjb_rainbowdisabled") {
+      const nombres = coloresDisponibles.map(c => c.nombre).join(", ");
+      const elegido = prompt(`¿Qué color deseas aplicar al título?\nOpciones disponibles:\n${nombres}`);
       if (!elegido) return;
 
-      const color = elegido.trim().toLowerCase();
-      if (!opciones.includes(color)) {
+      const colorNombre = elegido.trim().toLowerCase();
+      const colorObj = coloresDisponibles.find(c => c.nombre === colorNombre);
+      if (!colorObj) {
         alert("❌ Color no válido.");
         return;
       }
@@ -39,19 +31,48 @@ function initSettingsMenu4() {
       const h2s = document.querySelectorAll("h2");
       h2s.forEach(h2 => {
         h2.style.animation = "none";
-        h2.style.color = color;
+        h2.style.color = colorObj.codigo;  // Aplica el código hex del color
         h2.removeAttribute("data-rainbow");
       });
 
-      alert(`✅ Color fijo aplicado: ${color}`);
+      // Guardar solo el nombre del color en localStorage
+      localStorage.setItem("zjb_rainbowdisabled", colorNombre);
+
+      alert(`✅ Animación desactivada y color fijo aplicado: ${colorNombre}`);
     }
 
     dropdown.selectedIndex = 0;
   });
 }
 
+function applySavedRainbowSettings() {
+  const colorGuardado = localStorage.getItem("zjb_rainbowdisabled");
+  if (colorGuardado) {
+    // Buscar el código del color guardado
+    const coloresDisponibles = [
+      { nombre: "blue", codigo: "#0000FF" },
+      { nombre: "green", codigo: "#008000" },
+      { nombre: "red", codigo: "#FF0000" },
+      { nombre: "orange", codigo: "#FFA500" },
+      { nombre: "purple", codigo: "#800080" },
+      { nombre: "black", codigo: "#000000" },
+      { nombre: "gray", codigo: "#808080" }
+    ];
+
+    const colorObj = coloresDisponibles.find(c => c.nombre === colorGuardado.toLowerCase());
+    if (!colorObj) return;
+
+    const h2s = document.querySelectorAll("h2");
+    h2s.forEach(h2 => {
+      h2.style.animation = "none";
+      h2.style.color = colorObj.codigo;
+      h2.removeAttribute("data-rainbow");
+    });
+  }
+}
+
 function initIndexMenu4() {
-  // Si en el futuro necesitas aplicar animaciones también aquí
+  applySavedRainbowSettings();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
