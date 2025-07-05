@@ -40,18 +40,18 @@ function initSettingsMenu1() {
       case "zjb_about":
         const userAgent = navigator.userAgent;
         const isPS4 = userAgent.includes("PlayStation 4");
-        let mensaje = "";
+        let text_about = "";
 
         if (isPS4) {
           const firmwareMatch = userAgent.match(/PlayStation 4\/([\d.]+)/);
           const firmwareVersion = firmwareMatch ? firmwareMatch[1] : "00.00";
-          mensaje += `🎮 PlayStation 4 Firmware: v${firmwareVersion}\n\n`;
+          text_about += `🎮 PlayStation 4 Firmware: v${firmwareVersion}\n\n`;
         }
 
-        mensaje +=
-          "ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\n" +
-          "ℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\n" +
-          "ℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.";
+        text_about +=
+          "ℹ️ Este apartado es meramente informativo y esta en creacion.\n\n" +
+          "ℹ️ Este Sitio Web ha sido creado por TheZodiacoX.\n\n" +
+          "ℹ️ NOTA: Actualmente nuestro grupo de Telegram ha sido eliminado y Tu PS4 Hen cambiara a Z-Jailbreak (Mi Proyecto Personal) pero Tu PS4 Hen tendra una parte todavia en la web.";
 
         alert(mensaje);
         break;
