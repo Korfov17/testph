@@ -671,10 +671,12 @@ i[class*=" fa-"] {
 }
 
 .rainbow-disabled {
+  font-size: 1.2em;
+  font-weight: bold;
+  letter-spacing: 0.2em;
   animation: none !important;
-  color: var(--rainbow-fixed-color, black); 
+  color: var(--rainbow-fixed-color, black) !important;
 }
-
 
 /* === FILTRO EXTRA (Index) === */
 #filterUserAgent {
