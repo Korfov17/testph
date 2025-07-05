@@ -53,7 +53,7 @@ function initSettingsMenu1() {
           "ℹ️ Este Sitio Web ha sido creado por TheZodiacoX.\n\n" +
           "ℹ️ NOTA: Actualmente nuestro grupo de Telegram ha sido eliminado y Tu PS4 Hen cambiara a Z-Jailbreak (Mi Proyecto Personal) pero Tu PS4 Hen tendra una parte todavia en la web.";
 
-        alert(mensaje);
+        alert(text_about);
         break;
     }
 
