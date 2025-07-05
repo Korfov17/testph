@@ -669,6 +669,11 @@ i[class*=" fa-"] {
   animation: rainbow 18s linear infinite;
 }
 
+.rainbow-disabled {
+  animation: none !important;
+  color: var(--rainbow-fixed-color);
+}
+
 /* === FILTRO EXTRA (Index) === */
 #filterUserAgent {
   margin: 12px;
