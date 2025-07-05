@@ -27,15 +27,12 @@ function initSettingsMenu4() {
         return;
       }
 
-      // Solo afectar al <span class="rainbow"> dentro de cada h2
-      const spans = document.querySelectorAll("h2 span.rainbow");
+      const spans = document.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
+
       spans.forEach(span => {
-        // Quitar animación (asumiendo que la animación está en CSS vinculada a la clase 'rainbow')
-        span.style.animation = "none";
-        // Aplicar color fijo
-        span.style.color = colorObj.codigo;
-        // Eliminar la clase rainbow para que no siga animando (opcional)
         span.classList.remove("rainbow");
+        span.classList.add("rainbow-disabled");
+        span.style.setProperty("--rainbow-fixed-color", colorObj.codigo);
       });
 
       localStorage.setItem("zjb_rainbowdisabled", colorNombre);
@@ -63,11 +60,12 @@ function applySavedRainbowSettings() {
     const colorObj = coloresDisponibles.find(c => c.nombre === colorGuardado.toLowerCase());
     if (!colorObj) return;
 
-    const spans = document.querySelectorAll("h2 span.rainbow");
+    const spans = document.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
+
     spans.forEach(span => {
-      span.style.animation = "none";
-      span.style.color = colorObj.codigo;
       span.classList.remove("rainbow");
+      span.classList.add("rainbow-disabled");
+      span.style.setProperty("--rainbow-fixed-color", colorObj.codigo);
     });
   }
 }
