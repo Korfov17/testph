@@ -2,7 +2,6 @@ function initSettingsMenu4() {
   const dropdown = document.getElementById("opcion4");
   if (!dropdown) return;
 
-  // Lista de colores con nombre y código hex
   const coloresDisponibles = [
     { nombre: "blue", codigo: "#0000FF" },
     { nombre: "green", codigo: "#008000" },
@@ -28,14 +27,17 @@ function initSettingsMenu4() {
         return;
       }
 
-      const h2s = document.querySelectorAll("h2");
-      h2s.forEach(h2 => {
-        h2.style.animation = "none";
-        h2.style.color = colorObj.codigo;  // Aplica el código hex del color
-        h2.removeAttribute("data-rainbow");
+      // Solo afectar al <span class="rainbow"> dentro de cada h2
+      const spans = document.querySelectorAll("h2 span.rainbow");
+      spans.forEach(span => {
+        // Quitar animación (asumiendo que la animación está en CSS vinculada a la clase 'rainbow')
+        span.style.animation = "none";
+        // Aplicar color fijo
+        span.style.color = colorObj.codigo;
+        // Eliminar la clase rainbow para que no siga animando (opcional)
+        span.classList.remove("rainbow");
       });
 
-      // Guardar solo el nombre del color en localStorage
       localStorage.setItem("zjb_rainbowdisabled", colorNombre);
 
       alert(`✅ Animación desactivada y color fijo aplicado: ${colorNombre}`);
@@ -48,7 +50,6 @@ function initSettingsMenu4() {
 function applySavedRainbowSettings() {
   const colorGuardado = localStorage.getItem("zjb_rainbowdisabled");
   if (colorGuardado) {
-    // Buscar el código del color guardado
     const coloresDisponibles = [
       { nombre: "blue", codigo: "#0000FF" },
       { nombre: "green", codigo: "#008000" },
@@ -62,11 +63,11 @@ function applySavedRainbowSettings() {
     const colorObj = coloresDisponibles.find(c => c.nombre === colorGuardado.toLowerCase());
     if (!colorObj) return;
 
-    const h2s = document.querySelectorAll("h2");
-    h2s.forEach(h2 => {
-      h2.style.animation = "none";
-      h2.style.color = colorObj.codigo;
-      h2.removeAttribute("data-rainbow");
+    const spans = document.querySelectorAll("h2 span.rainbow");
+    spans.forEach(span => {
+      span.style.animation = "none";
+      span.style.color = colorObj.codigo;
+      span.classList.remove("rainbow");
     });
   }
 }
