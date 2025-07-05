@@ -37,9 +37,13 @@ function initSettingsMenu1() {
         alert("✅ Mostrar/Ocultar alternado.");
         break;
 
-      case "infoAlert":
+      case "zjb_about":
+        const userAgent = navigator.userAgent;
+        const firmwareMatch = userAgent.match(/PlayStation 4\/([\d.]+)/);
+        const firmwareVersion = firmwareMatch ? firmwareMatch[1] : "00.00";
+
         alert(
-          "ℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\nℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\nℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app."
+          `🎮 PlayStation 4 Firmware: v${firmwareVersion}\n\nℹ️ Esta web esta en fase de desarrollo y no esta terminada.\n\nℹ️ Esta version Nightly se actualizara cada pocos cambios aunque este en desarrollo y puedan tener fallos.\n\nℹ️ Recomiendo usar esta version a modo de prueba por futuras Carasteristicas que llegaran a tups4hen.vercel.app.`
         );
         break;
     }
