@@ -667,12 +667,14 @@ i[class*=" fa-"] {
   font-weight: bold;
   letter-spacing: 0.2em;
   animation: rainbow 18s linear infinite;
+  color: inherit;
 }
 
 .rainbow-disabled {
   animation: none !important;
-  color: var(--rainbow-fixed-color);
+  color: var(--rainbow-fixed-color, black); 
 }
+
 
 /* === FILTRO EXTRA (Index) === */
 #filterUserAgent {
