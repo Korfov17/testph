@@ -10,6 +10,7 @@ function initSettingsMenu4() {
     orange: "#FFA500",
     purple: "#800080",
     black: "#000000",
+    white: "#FFFFFF",
     gray: "#808080"
   };
 
@@ -19,7 +20,7 @@ function initSettingsMenu4() {
     // Solo implementamos la opción de desactivar animación y aplicar color fijo
     if (value === "zjb_rainbowdisabled") {
       const opciones = Object.keys(coloresConCodigo);
-      const elegido = prompt(`¿Qué color deseas aplicar al título?\nOpciones disponibles:\n${opciones.join(", ")}`);
+      const elegido = prompt(`¿Qué color deseas aplicar al Título?\nOpciones disponibles:\n${opciones.join(", ")}`);
       if (!elegido) return;
 
       const color = elegido.trim().toLowerCase();
@@ -67,6 +68,7 @@ function initIndexMenu4() {
     orange: "#FFA500",
     purple: "#800080",
     black: "#000000",
+    white: "#FFFFFF",
     gray: "#808080"
   };
 
