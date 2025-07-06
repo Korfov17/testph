@@ -17,7 +17,7 @@ function initSettingsMenu4() {
     const value = dropdown.value;
 
     if (value === "zjb_rainbowcolor") {
-      // Colores base válidos del arcoiris
+      // Colores base del arcoiris (según tu keyframe original)
       const baseColors = ["red", "orange", "yellow", "green", "blue", "indigo"];
       const input = prompt(`Introduce los colores para la animación arcoiris separados por comas.\nColores disponibles:\n${baseColors.join(", ")}`, baseColors.join(", "));
       if (!input) return;
@@ -68,7 +68,8 @@ function initSettingsMenu4() {
   if (savedRainbowColors) {
     const colores = savedRainbowColors.split(",").map(c => c.trim());
     applyRainbowAnimation(colores);
-  } else {
+  }
+  else {
     const savedColor = localStorage.getItem("zjb_rainbowdisabled");
     if (savedColor && coloresDisponibles[savedColor]) {
       const spans = document.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
@@ -109,9 +110,9 @@ function applyRainbowAnimation(colors) {
     span.classList.remove("rainbow-disabled");
     span.classList.add("rainbow");
     span.style.animation = "none";
-    void span.offsetWidth; // Reflow para reiniciar animación
+    void span.offsetWidth; // reiniciar animación
     span.style.removeProperty("--rainbow-fixed-color");
-    span.style.animation = "rainbow 6s linear infinite";
+    span.style.animation = "rainbow 6s linear infinite"; // duración fija
   });
 }
 
@@ -130,7 +131,8 @@ function initIndexMenu4() {
   if (savedRainbowColors) {
     const colores = savedRainbowColors.split(",").map(c => c.trim());
     applyRainbowAnimation(colores);
-  } else {
+  }
+  else {
     const savedColor = localStorage.getItem("zjb_rainbowdisabled");
     if (savedColor && coloresDisponibles[savedColor]) {
       const spans = document.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
