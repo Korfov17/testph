@@ -3,14 +3,13 @@ function isPS4() {
   return navigator.userAgent.includes("PlayStation 4");
 }
 
-// Ejecutar solo si estamos en una PS4
 if (isPS4()) {
   // Verificar si estamos en settings.html
   function isSettingsPage() {
     return window.location.href.includes("settings");
   }
 
-  // Crear el <select> para PS4
+  // Crear el <select> para PS4 (para settings)
   function crearSelectPS4() {
     const select = document.createElement("select");
     select.id = "opcion2";
@@ -30,22 +29,34 @@ if (isPS4()) {
     return select;
   }
 
-  // Insertar el select en settings si aplica
   document.addEventListener("DOMContentLoaded", () => {
     if (isSettingsPage()) {
+      // Insertar select en settings (tu código original)
       const contenedor = document.querySelector(".select-menu");
       if (contenedor) {
         const select = crearSelectPS4();
         contenedor.appendChild(select);
       }
     } else {
-      // Aquí va el código solo para index (no settings)
-      const select = document.getElementById("opcion2");
-      if (!select) return; // Si no existe, salir
+      // Estamos en index (o cualquier otra página que NO sea settings)
+      // Crear un select igual pero controlado para mostrar/ocultar rápido con F6
+      const select = crearSelectPS4();
 
-      // Ocultar select inicialmente
-      select.style.opacity = '0';
-      select.style.pointerEvents = 'none';
+      // Añadir estilos para que esté fijo abajo y oculto
+      Object.assign(select.style, {
+        position: 'fixed',
+        bottom: '10px',
+        left: '10px',
+        opacity: '0',
+        pointerEvents: 'none',
+        transition: 'opacity 0.1s',
+        zIndex: 9999,
+      });
+
+      // Insertar en body para que sea visible en index
+      document.body.appendChild(select);
+
+      // Inicialmente deshabilitado
       select.disabled = true;
 
       window.addEventListener('keydown', (e) => {
@@ -54,7 +65,7 @@ if (isPS4()) {
           select.style.opacity = '1';
           select.style.pointerEvents = 'auto';
 
-          // Intentar abrir el select
+          // Intentar abrir el select (no funciona siempre pero vale intentar)
           const evt = new MouseEvent('mousedown', { bubbles: true });
           select.dispatchEvent(evt);
 
