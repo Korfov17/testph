@@ -17,19 +17,12 @@ function initSettingsMenu4() {
     const value = dropdown.value;
 
     if (value === "zjb_rainbowcolor") {
-      // Colores base del arcoiris (solo los del keyframe original)
+      // Colores base válidos del arcoiris
       const baseColors = ["red", "orange", "yellow", "green", "blue", "indigo"];
-      const input = prompt(
-        `Introduce los colores para la animación arcoiris separados por comas.\nColores disponibles:\n${baseColors.join(", ")}`,
-        baseColors.join(", ")
-      );
+      const input = prompt(`Introduce los colores para la animación arcoiris separados por comas.\nColores disponibles:\n${baseColors.join(", ")}`, baseColors.join(", "));
       if (!input) return;
 
-      const selectedColors = input
-        .split(",")
-        .map(c => c.trim().toLowerCase())
-        .filter(c => baseColors.includes(c));
-
+      const selectedColors = input.split(",").map(c => c.trim().toLowerCase()).filter(c => baseColors.includes(c));
       if (selectedColors.length === 0) {
         alert("❌ No se seleccionó ningún color válido.");
         return;
@@ -44,9 +37,7 @@ function initSettingsMenu4() {
     }
 
     else if (value === "zjb_rainbowdisabled") {
-      let listaColores = Object.entries(coloresDisponibles)
-        .map(([nombre, codigo]) => `${nombre} (${codigo})`)
-        .join("\n");
+      let listaColores = Object.entries(coloresDisponibles).map(([nombre, codigo]) => `${nombre} (${codigo})`).join("\n");
       const elegido = prompt(`¿Qué color deseas aplicar al título?\nOpciones disponibles:\n${listaColores}`);
       if (!elegido) return;
 
@@ -73,7 +64,6 @@ function initSettingsMenu4() {
     dropdown.selectedIndex = 0;
   });
 
-  // Al cargar
   const savedRainbowColors = localStorage.getItem("zjb_rainbowcolor");
   if (savedRainbowColors) {
     const colores = savedRainbowColors.split(",").map(c => c.trim());
@@ -97,32 +87,31 @@ function applyRainbowAnimation(colors) {
   const filteredColors = colors.filter(c => allowedColors.includes(c));
   if (filteredColors.length === 0) return;
 
-  // Eliminar keyframe anterior si existe
   const styleId = "dynamic-rainbow-style";
-  let styleTag = document.getElementById(styleId);
-  if (styleTag) styleTag.remove();
+  const oldStyle = document.getElementById(styleId);
+  if (oldStyle) oldStyle.remove();
 
   const total = filteredColors.length;
   let keyframes = `@keyframes rainbow {\n`;
-  filteredColors.forEach((color, i) => {
-    const percent = (i / total) * 100;
-    keyframes += `  ${percent.toFixed(1)}% { color: ${color}; }\n`;
+  filteredColors.forEach((color, index) => {
+    const percent = (index / total) * 100;
+    keyframes += `  ${percent.toFixed(2)}% { color: ${color}; }\n`;
   });
   keyframes += `  100% { color: ${filteredColors[0]}; }\n}`;
 
-  // Inyectar el nuevo keyframe en <head>
-  styleTag = document.createElement("style");
-  styleTag.id = styleId;
-  styleTag.textContent = keyframes;
-  document.head.appendChild(styleTag);
+  const style = document.createElement("style");
+  style.id = styleId;
+  style.textContent = keyframes;
+  document.head.appendChild(style);
 
-  // Aplicar clase y animación
   const spans = document.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
   spans.forEach(span => {
     span.classList.remove("rainbow-disabled");
     span.classList.add("rainbow");
+    span.style.animation = "none";
+    void span.offsetWidth; // Reflow para reiniciar animación
     span.style.removeProperty("--rainbow-fixed-color");
-    span.style.animation = "rainbow 10s linear infinite";
+    span.style.animation = "rainbow 6s linear infinite";
   });
 }
 
