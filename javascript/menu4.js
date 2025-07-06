@@ -87,14 +87,32 @@ function initSettingsMenu4() {
 }
 
 function applyRainbowAnimation(colors) {
-  // Aplicamos la clase rainbow que usa la animación css original
+  // Creamos/actualizamos estilo dinámico para keyframes
+  const styleId = "dynamic-rainbow-style";
+  let styleTag = document.getElementById(styleId);
+  if (styleTag) styleTag.remove();
+
+  const totalColors = colors.length;
+  let keyframes = `@keyframes rainbow-custom {`;
+
+  colors.forEach((color, index) => {
+    const percent = (index / totalColors) * 100;
+    keyframes += `${percent}% { color: ${color}; } `;
+  });
+  keyframes += `100% { color: ${colors[0]}; } }`;
+
+  styleTag = document.createElement("style");
+  styleTag.id = styleId;
+  styleTag.textContent = keyframes;
+  document.head.appendChild(styleTag);
+
+  // Aplicamos clase rainbow y animación dinámica
   const spans = document.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
   spans.forEach(span => {
     span.classList.remove("rainbow-disabled");
     span.classList.add("rainbow");
     span.style.removeProperty("--rainbow-fixed-color");
-    span.setAttribute("data-rainbow", colors.join(","));
-    span.style.animation = ""; // Que el css maneje la animación
+    span.style.animation = "rainbow-custom 10s linear infinite";
   });
 }
 
