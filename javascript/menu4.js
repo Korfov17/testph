@@ -1,5 +1,4 @@
-// JavaScript actualizado completamente con todas las opciones funcionales
-
+// SETTINGS MENU ACTUALIZADO Y CORREGIDO
 function initSettingsMenu4() {
   const dropdown = document.getElementById("opcion4");
   if (!dropdown) return;
@@ -17,189 +16,130 @@ function initSettingsMenu4() {
 
   dropdown.addEventListener("change", async () => {
     const value = dropdown.value;
-    dropdown.selectedIndex = 0;
 
-    const aplicarEnSettings = async (accionCallback) => {
-      const aplicar = confirm("¿También deseas aplicar este cambio en settings?");
-      if (aplicar) accionCallback("settings");
+    const aplicarEnSettings = async () => {
+      return confirm("¿También quieres aplicar este cambio en settings?");
     };
 
-    const aplicarCambio = (selector, propiedad, valor, context = "index") => {
-      const destino = context === "settings" ? document.getElementById("settings-container") : document;
-      const elementos = destino.querySelectorAll(selector);
-      elementos.forEach(el => el.style[propiedad] = valor);
+    const aplicarCambio = (selector, propiedad, nuevoValor, settings) => {
+      document.querySelectorAll(selector).forEach(e => {
+        e.style[propiedad] = nuevoValor;
+      });
+      if (settings) {
+        localStorage.setItem(value + "_settings", nuevoValor);
+      }
+      localStorage.setItem(value, nuevoValor);
     };
-
-    if (value === "zjb_rainbowdisabled") {
-      const opciones = Object.keys(coloresConCodigo);
-      const elegido = prompt(`¿Qué color deseas aplicar al Título?\nOpciones disponibles:\n${opciones.join(", ")}`);
-      if (!elegido) return;
-
-      const color = elegido.trim().toLowerCase();
-      if (!opciones.includes(color)) return alert("❌ Color no válido.");
-
-      const aplicarColor = (context) => {
-        const destino = context === "settings" ? document.getElementById("settings-container") : document;
-        const spans = destino.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
-        spans.forEach(span => {
-          span.classList.remove("rainbow");
-          span.classList.add("rainbow-disabled");
-          span.style.setProperty("--rainbow-fixed-color", coloresConCodigo[color]);
-        });
-        localStorage.setItem(`zjb_rainbowdisabled_${context}`, color);
-      };
-
-      aplicarColor("index");
-      await aplicarEnSettings(aplicarColor);
-
-      alert(`✅ Alternado al color: ${color}`);
-    }
 
     if (value === "zjb_sizefont1") {
-      const size = prompt("¿Qué tamaño deseas para el título? Valor por defecto: 3 (rem)");
-      if (!size || isNaN(size)) return;
-      const fontSize = `${size}rem`;
-
-      const aplicar = (context) => {
-        const destino = context === "settings" ? document.getElementById("settings-container") : document;
-        const elementos = destino.querySelectorAll("h2");
-        elementos.forEach(el => el.style.fontSize = fontSize);
-        localStorage.setItem(`zjb_sizefont1_${context}`, fontSize);
-      };
-
-      aplicar("index");
-      await aplicarEnSettings(aplicar);
-
-      alert(`✅ Tamaño de título cambiado a: ${fontSize}`);
+      const actual = parseFloat(getComputedStyle(document.querySelector("h2")).fontSize) / 16;
+      const nuevo = prompt(`Tamaño actual: ${actual}rem. ¿Nuevo tamaño (en rem)?`, actual);
+      if (!nuevo) return;
+      aplicarCambio("h2", "fontSize", `${nuevo}rem`, await aplicarEnSettings());
     }
 
-    if (value === "zjb_changeicon") {
-      const nuevoIcono = prompt("Escribe el nuevo icono FA (ejemplo: fa-brands fa-xbox):", "fa-brands fa-playstation");
-      if (!nuevoIcono) return;
-
-      const aplicar = (context) => {
-        const destino = context === "settings" ? document.getElementById("settings-container") : document;
-        const elementos = destino.querySelectorAll("h2 i");
-        elementos.forEach(el => {
-          el.className = nuevoIcono;
-        });
-        localStorage.setItem(`zjb_changeicon_${context}`, nuevoIcono);
-      };
-
-      aplicar("index");
-      await aplicarEnSettings(aplicar);
-
-      alert(`✅ Icono cambiado a: ${nuevoIcono}`);
+    else if (value === "zjb_changeicon") {
+      const actual = document.querySelector("h2 i")?.className || "fa-brands fa-playstation";
+      const nuevo = prompt(`Icono actual: ${actual}\nIntroduce nuevo valor (ej: fa-brands fa-xbox)`, actual);
+      if (!nuevo) return;
+      const iconos = document.querySelectorAll("h2 i");
+      iconos.forEach(icon => icon.className = nuevo);
+      localStorage.setItem(value, nuevo);
+      if (await aplicarEnSettings()) localStorage.setItem(value + "_settings", nuevo);
     }
 
-    if (value === "zjb_margintitle") {
-      const size = prompt("¿Qué margen deseas?\nValores comunes:\nPequeño: 5px\nMediano: 10px (por defecto)\nGrande: 20px");
-      if (!size || isNaN(parseInt(size))) return;
-
-      const aplicar = (context) => {
-        aplicarCambio("h2", "margin", `${size}px`, context);
-        localStorage.setItem(`zjb_margintitle_${context}`, size);
-      };
-
-      aplicar("index");
-      await aplicarEnSettings(aplicar);
-
-      alert(`✅ Margen del título cambiado a: ${size}px`);
+    else if (value === "zjb_margintitle") {
+      const actual = getComputedStyle(document.querySelector("h2")).margin;
+      const mensaje = `Margen actual: ${actual}\nRecomendado: pequeño (5px), medio (10px), grande (20px)`;
+      const nuevo = prompt(mensaje, "10px");
+      if (!nuevo) return;
+      aplicarCambio("h2", "margin", nuevo, await aplicarEnSettings());
     }
 
-    if (value === "zjb_bordertitle") {
-      const preset = prompt("¿Qué estilo de borde deseas para el título?\n0: Sin sombra\n2: Por defecto\n4: Más separado", "2");
-      const valores = {
+    else if (value === "zjb_bordertitle") {
+      const opciones = {
         "0": "none",
         "2": "1px 1px 0px black, -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black",
         "4": "2px 2px 0px black, -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black"
       };
-
-      if (!(preset in valores)) return;
-
-      const aplicar = (context) => {
-        aplicarCambio("h2", "textShadow", valores[preset], context);
-        localStorage.setItem(`zjb_bordertitle_${context}`, preset);
-      };
-
-      aplicar("index");
-      await aplicarEnSettings(aplicar);
-
-      alert("✅ Borde del título actualizado");
+      const preset = prompt("Presets disponibles:\n0: Sin borde\n2: Por defecto\n4: Más pronunciado", "2");
+      if (!opciones[preset]) return alert("❌ Opción no válida");
+      aplicarCambio("h2", "textShadow", opciones[preset], await aplicarEnSettings());
     }
 
-    if (value === "zjb_showiconfa") {
-      const current = localStorage.getItem("zjb_showiconfa") || "visible";
-      const nuevo = current === "visible" ? "hidden" : "visible";
-
-      const aplicar = (context) => {
-        const destino = context === "settings" ? document.getElementById("settings-container") : document;
-        const iconos = destino.querySelectorAll("h2 i");
-        iconos.forEach(i => i.style.visibility = nuevo);
-        localStorage.setItem(`zjb_showiconfa_${context}`, nuevo);
-      };
-
-      aplicar("index");
-      await aplicarEnSettings(aplicar);
-
-      alert(`✅ Iconos FA alternados a: ${nuevo}`);
+    else if (value === "zjb_showiconfa") {
+      const alternar = confirm("¿Deseas alternar visibilidad de los iconos FontAwesome?");
+      const estado = alternar ? "hidden" : "visible";
+      document.querySelectorAll("h2 i").forEach(icon => {
+        icon.style.visibility = estado;
+      });
+      localStorage.setItem(value, estado);
+      if (await aplicarEnSettings()) localStorage.setItem(value + "_settings", estado);
     }
 
-    if (value === "zjb_sizefont2") {
-      const sizeH3 = prompt("¿Qué tamaño deseas para h3? Por defecto: 1.4");
-      const sizeH4 = prompt("¿Qué tamaño deseas para h4? Por defecto: 1.6");
-      if (!sizeH3 || !sizeH4) return;
-
-      const aplicar = (context) => {
-        aplicarCambio("h3", "fontSize", `${sizeH3}rem`, context);
-        aplicarCambio("h4", "fontSize", `${sizeH4}rem`, context);
-        localStorage.setItem(`zjb_sizefont2_h3_${context}`, sizeH3);
-        localStorage.setItem(`zjb_sizefont2_h4_${context}`, sizeH4);
-      };
-
-      aplicar("index");
-      await aplicarEnSettings(aplicar);
-
-      alert(`✅ Tamaños cambiados: h3: ${sizeH3}rem, h4: ${sizeH4}rem`);
+    else if (value === "zjb_sizefont2") {
+      const font3 = prompt("Tamaño actual h3: 1.4rem\nIntroduce nuevo tamaño para h3:", "1.4");
+      if (font3) document.querySelectorAll("h3").forEach(h => h.style.fontSize = `${font3}rem`);
+      const font4 = prompt("Tamaño actual h4: 1.6rem\nIntroduce nuevo tamaño para h4:", "1.6");
+      if (font4) document.querySelectorAll("h4").forEach(h => h.style.fontSize = `${font4}rem`);
+      localStorage.setItem("zjb_sizefont2_h3", font3);
+      localStorage.setItem("zjb_sizefont2_h4", font4);
+      if (await aplicarEnSettings()) {
+        localStorage.setItem("zjb_sizefont2_h3_settings", font3);
+        localStorage.setItem("zjb_sizefont2_h4_settings", font4);
+      }
     }
 
-    if (value === "zjb_colorfont") {
-      const keys = Object.keys(coloresConCodigo);
-      const colorH3 = prompt(`¿Qué color deseas para h3?\nOpciones: ${keys.join(", ")}`);
-      const colorH4 = prompt(`¿Qué color deseas para h4?\nOpciones: ${keys.join(", ")}`);
-      if (!colorH3 || !colorH4 || !coloresConCodigo[colorH3] || !coloresConCodigo[colorH4]) return;
-
-      const aplicar = (context) => {
-        aplicarCambio("h3", "color", coloresConCodigo[colorH3], context);
-        aplicarCambio("h4", "color", coloresConCodigo[colorH4], context);
-        localStorage.setItem(`zjb_colorfont_h3_${context}`, colorH3);
-        localStorage.setItem(`zjb_colorfont_h4_${context}`, colorH4);
-      };
-
-      aplicar("index");
-      await aplicarEnSettings(aplicar);
-
-      alert(`✅ Colores cambiados: h3: ${colorH3}, h4: ${colorH4}`);
+    else if (value === "zjb_colorfont") {
+      const opciones = Object.keys(coloresConCodigo);
+      const h3Color = prompt(`¿Qué color deseas aplicar a h3?\nOpciones: ${opciones.join(", ")}`);
+      const h4Color = prompt(`¿Qué color deseas aplicar a h4?\nOpciones: ${opciones.join(", ")}`);
+      if (coloresConCodigo[h3Color]) {
+        document.querySelectorAll("h3").forEach(el => el.style.color = coloresConCodigo[h3Color]);
+        localStorage.setItem("zjb_colorfont_h3", h3Color);
+      }
+      if (coloresConCodigo[h4Color]) {
+        document.querySelectorAll("h4").forEach(el => el.style.color = coloresConCodigo[h4Color]);
+        localStorage.setItem("zjb_colorfont_h4", h4Color);
+      }
+      if (await aplicarEnSettings()) {
+        localStorage.setItem("zjb_colorfont_h3_settings", h3Color);
+        localStorage.setItem("zjb_colorfont_h4_settings", h4Color);
+      }
     }
+
+    dropdown.selectedIndex = 0;
   });
 
-  // Al cargar: aplicar todos los estados guardados
-  const context = "settings";
-  const cargarValor = (clave, selector, propiedad, transform = v => v) => {
-    const valor = localStorage.getItem(`${clave}_${context}`);
-    if (valor) {
-      document.querySelectorAll(selector).forEach(e => e.style[propiedad] = transform(valor));
-    }
+  // APLICAR GUARDADO EN SETTINGS AL CARGAR
+  const map = {
+    zjb_sizefont1: "h2",
+    zjb_changeicon: "icon",
+    zjb_margintitle: "h2",
+    zjb_bordertitle: "h2",
+    zjb_showiconfa: "icon",
+    zjb_sizefont2_h3: "h3",
+    zjb_sizefont2_h4: "h4",
+    zjb_colorfont_h3: "h3",
+    zjb_colorfont_h4: "h4"
   };
 
-  const colorRainbow = localStorage.getItem("zjb_rainbowdisabled_settings");
-  if (colorRainbow && coloresConCodigo[colorRainbow]) {
-    document.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled").forEach(span => {
-      span.classList.remove("rainbow");
-      span.classList.add("rainbow-disabled");
-      span.style.setProperty("--rainbow-fixed-color", coloresConCodigo[colorRainbow]);
-    });
-  }
+  Object.entries(map).forEach(([key, tag]) => {
+    const isIcon = tag === "icon";
+    const settingsValue = localStorage.getItem(`${key}_settings`);
+    if (settingsValue) {
+      if (isIcon) {
+        document.querySelectorAll("h2 i").forEach(el => {
+          if (key === "zjb_showiconfa") el.style.visibility = settingsValue;
+          else el.className = settingsValue;
+        });
+      } else {
+        const prop = key.includes("size") ? "fontSize" : key.includes("color") ? "color" : key.includes("margin") ? "margin" : key.includes("border") ? "textShadow" : null;
+        if (prop)
+          document.querySelectorAll(tag).forEach(el => el.style[prop] = prop === "fontSize" && !settingsValue.endsWith("rem") ? `${settingsValue}rem` : coloresConCodigo[settingsValue] || settingsValue);
+      }
+    }
+  });
 }
 
 function initIndexMenu4() {
@@ -214,14 +154,34 @@ function initIndexMenu4() {
     gray: "#808080"
   };
 
-  const colorRainbow = localStorage.getItem("zjb_rainbowdisabled_index");
-  if (colorRainbow && coloresConCodigo[colorRainbow]) {
-    document.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled").forEach(span => {
-      span.classList.remove("rainbow");
-      span.classList.add("rainbow-disabled");
-      span.style.setProperty("--rainbow-fixed-color", coloresConCodigo[colorRainbow]);
-    });
-  }
+  const map = {
+    zjb_sizefont1: "h2",
+    zjb_changeicon: "icon",
+    zjb_margintitle: "h2",
+    zjb_bordertitle: "h2",
+    zjb_showiconfa: "icon",
+    zjb_sizefont2_h3: "h3",
+    zjb_sizefont2_h4: "h4",
+    zjb_colorfont_h3: "h3",
+    zjb_colorfont_h4: "h4"
+  };
+
+  Object.entries(map).forEach(([key, tag]) => {
+    const isIcon = tag === "icon";
+    const value = localStorage.getItem(key);
+    if (value) {
+      if (isIcon) {
+        document.querySelectorAll("h2 i").forEach(el => {
+          if (key === "zjb_showiconfa") el.style.visibility = value;
+          else el.className = value;
+        });
+      } else {
+        const prop = key.includes("size") ? "fontSize" : key.includes("color") ? "color" : key.includes("margin") ? "margin" : key.includes("border") ? "textShadow" : null;
+        if (prop)
+          document.querySelectorAll(tag).forEach(el => el.style[prop] = prop === "fontSize" && !value.endsWith("rem") ? `${value}rem` : coloresConCodigo[value] || value);
+      }
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
