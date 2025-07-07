@@ -1,4 +1,3 @@
-// SETTINGS MENU ACTUALIZADO Y CORREGIDO
 function initSettingsMenu4() {
   const dropdown = document.getElementById("opcion4");
   if (!dropdown) return;
@@ -16,130 +15,191 @@ function initSettingsMenu4() {
 
   dropdown.addEventListener("change", async () => {
     const value = dropdown.value;
+    dropdown.selectedIndex = 0;
 
-    const aplicarEnSettings = async () => {
-      return confirm("¿También quieres aplicar este cambio en settings?");
-    };
+    const isSettings = true;
+    const askApplySettings = () => confirm("¿Quieres aplicar también este cambio en settings.html?");
 
-    const aplicarCambio = (selector, propiedad, nuevoValor, settings) => {
-      document.querySelectorAll(selector).forEach(e => {
-        e.style[propiedad] = nuevoValor;
-      });
-      if (settings) {
-        localStorage.setItem(value + "_settings", nuevoValor);
+    const applyToPage = (callback, applyInSettingsKey) => {
+      callback(document);
+      if (askApplySettings()) {
+        localStorage.setItem(applyInSettingsKey, "true");
+      } else {
+        localStorage.removeItem(applyInSettingsKey);
       }
-      localStorage.setItem(value, nuevoValor);
     };
 
-    if (value === "zjb_sizefont1") {
-      const actual = parseFloat(getComputedStyle(document.querySelector("h2")).fontSize) / 16;
-      const nuevo = prompt(`Tamaño actual: ${actual}rem. ¿Nuevo tamaño (en rem)?`, actual);
-      if (!nuevo) return;
-      aplicarCambio("h2", "fontSize", `${nuevo}rem`, await aplicarEnSettings());
-    }
+    const applyFontSize = (selector, label, defaultSize, key) => {
+      const size = prompt(`¿Qué tamaño deseas aplicar para ${label}? (por defecto: ${defaultSize}rem)`);
+      if (!size) return;
+      const newSize = `${parseFloat(size)}rem`;
+      localStorage.setItem(key, newSize);
+      applyToPage((doc) => {
+        doc.querySelectorAll(selector).forEach(el => el.style.fontSize = newSize);
+      }, `${key}_applyInSettings`);
+    };
 
-    else if (value === "zjb_changeicon") {
-      const actual = document.querySelector("h2 i")?.className || "fa-brands fa-playstation";
-      const nuevo = prompt(`Icono actual: ${actual}\nIntroduce nuevo valor (ej: fa-brands fa-xbox)`, actual);
-      if (!nuevo) return;
-      const iconos = document.querySelectorAll("h2 i");
-      iconos.forEach(icon => icon.className = nuevo);
-      localStorage.setItem(value, nuevo);
-      if (await aplicarEnSettings()) localStorage.setItem(value + "_settings", nuevo);
-    }
+    const applyIconChange = () => {
+      const currentIcon = "fa-playstation";
+      const newIcon = prompt(`Icono actual: ${currentIcon}\n¿Qué parte del nombre quieres cambiar?`);
+      if (!newIcon) return;
+      const finalClass = `fa-brands ${newIcon}`;
+      localStorage.setItem("zjb_changeicon", finalClass);
+      applyToPage((doc) => {
+        doc.querySelectorAll("h2 i.fa-brands").forEach(icon => {
+          icon.className = finalClass;
+        });
+      }, "zjb_changeicon_applyInSettings");
+    };
 
-    else if (value === "zjb_margintitle") {
-      const actual = getComputedStyle(document.querySelector("h2")).margin;
-      const mensaje = `Margen actual: ${actual}\nRecomendado: pequeño (5px), medio (10px), grande (20px)`;
-      const nuevo = prompt(mensaje, "10px");
-      if (!nuevo) return;
-      aplicarCambio("h2", "margin", nuevo, await aplicarEnSettings());
-    }
+    const applyMargin = () => {
+      const defaultMargin = "10px";
+      const val = prompt(`¿Qué margen deseas aplicar al título? (por defecto: ${defaultMargin})\nEj: 5px (pequeño), 10px (medio), 20px (grande)`);
+      if (!val) return;
+      localStorage.setItem("zjb_margintitle", val);
+      applyToPage((doc) => {
+        doc.querySelectorAll("h2").forEach(h2 => h2.style.margin = val);
+      }, "zjb_margintitle_applyInSettings");
+    };
 
-    else if (value === "zjb_bordertitle") {
-      const opciones = {
+    const applyTextShadow = () => {
+      const options = {
         "0": "none",
         "2": "1px 1px 0px black, -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black",
         "4": "2px 2px 0px black, -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black"
       };
-      const preset = prompt("Presets disponibles:\n0: Sin borde\n2: Por defecto\n4: Más pronunciado", "2");
-      if (!opciones[preset]) return alert("❌ Opción no válida");
-      aplicarCambio("h2", "textShadow", opciones[preset], await aplicarEnSettings());
-    }
+      const preset = prompt("Elige un preset para el borde (0: sin sombra, 2: por defecto, 4: fuerte)");
+      if (!options[preset]) return;
+      const shadow = options[preset];
+      localStorage.setItem("zjb_bordertitle", shadow);
+      applyToPage((doc) => {
+        doc.querySelectorAll("h2").forEach(h2 => h2.style.textShadow = shadow);
+      }, "zjb_bordertitle_applyInSettings");
+    };
 
-    else if (value === "zjb_showiconfa") {
-      const alternar = confirm("¿Deseas alternar visibilidad de los iconos FontAwesome?");
-      const estado = alternar ? "hidden" : "visible";
-      document.querySelectorAll("h2 i").forEach(icon => {
-        icon.style.visibility = estado;
+    const toggleIcons = () => {
+      const current = localStorage.getItem("zjb_showiconfa") || "visible";
+      const newState = current === "visible" ? "hidden" : "visible";
+      localStorage.setItem("zjb_showiconfa", newState);
+      applyToPage((doc) => {
+        doc.querySelectorAll("h2 i.fa-brands").forEach(i => i.style.visibility = newState);
+      }, "zjb_showiconfa_applyInSettings");
+    };
+
+    const applyColorFont = () => {
+      ["h3", "h4"].forEach(tag => {
+        const opciones = Object.keys(coloresConCodigo);
+        const elegido = prompt(`¿Qué color deseas aplicar para ${tag.toUpperCase()}?\nOpciones: ${opciones.join(", ")}`);
+        if (!elegido || !coloresConCodigo[elegido]) return;
+        const colorCode = coloresConCodigo[elegido];
+        const key = `zjb_colorfont_${tag}`;
+        localStorage.setItem(key, colorCode);
+        applyToPage((doc) => {
+          doc.querySelectorAll(tag).forEach(el => el.style.color = colorCode);
+        }, `${key}_applyInSettings`);
       });
-      localStorage.setItem(value, estado);
-      if (await aplicarEnSettings()) localStorage.setItem(value + "_settings", estado);
-    }
+    };
 
-    else if (value === "zjb_sizefont2") {
-      const font3 = prompt("Tamaño actual h3: 1.4rem\nIntroduce nuevo tamaño para h3:", "1.4");
-      if (font3) document.querySelectorAll("h3").forEach(h => h.style.fontSize = `${font3}rem`);
-      const font4 = prompt("Tamaño actual h4: 1.6rem\nIntroduce nuevo tamaño para h4:", "1.6");
-      if (font4) document.querySelectorAll("h4").forEach(h => h.style.fontSize = `${font4}rem`);
-      localStorage.setItem("zjb_sizefont2_h3", font3);
-      localStorage.setItem("zjb_sizefont2_h4", font4);
-      if (await aplicarEnSettings()) {
-        localStorage.setItem("zjb_sizefont2_h3_settings", font3);
-        localStorage.setItem("zjb_sizefont2_h4_settings", font4);
+    switch (value) {
+      case "zjb_sizefont1":
+        applyFontSize("h2", "Título (h2)", 3, value);
+        break;
+      case "zjb_sizefont2":
+        applyFontSize("h3", "Descripción (h3)", 1.4, `${value}_h3`);
+        applyFontSize("h4", "Descripción (h4)", 1.6, `${value}_h4`);
+        break;
+      case "zjb_changeicon":
+        applyIconChange();
+        break;
+      case "zjb_margintitle":
+        applyMargin();
+        break;
+      case "zjb_bordertitle":
+        applyTextShadow();
+        break;
+      case "zjb_showiconfa":
+        toggleIcons();
+        break;
+      case "zjb_colorfont":
+        applyColorFont();
+        break;
+      case "zjb_rainbowdisabled": {
+        const opciones = Object.keys(coloresConCodigo);
+        const elegido = prompt(`¿Qué color deseas aplicar al Título?\nOpciones disponibles:\n${opciones.join(", ")}`);
+        if (!elegido) return;
+
+        const color = elegido.trim().toLowerCase();
+        if (!opciones.includes(color)) {
+          alert("❌ Color no válido.");
+          return;
+        }
+
+        localStorage.setItem("zjb_rainbowdisabled", color);
+        applyToPage((doc) => {
+          const spans = doc.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
+          spans.forEach(span => {
+            span.classList.remove("rainbow");
+            span.classList.add("rainbow-disabled");
+            span.style.setProperty("--rainbow-fixed-color", coloresConCodigo[color]);
+          });
+        }, "zjb_rainbowdisabled_applyInSettings");
+        break;
       }
     }
-
-    else if (value === "zjb_colorfont") {
-      const opciones = Object.keys(coloresConCodigo);
-      const h3Color = prompt(`¿Qué color deseas aplicar a h3?\nOpciones: ${opciones.join(", ")}`);
-      const h4Color = prompt(`¿Qué color deseas aplicar a h4?\nOpciones: ${opciones.join(", ")}`);
-      if (coloresConCodigo[h3Color]) {
-        document.querySelectorAll("h3").forEach(el => el.style.color = coloresConCodigo[h3Color]);
-        localStorage.setItem("zjb_colorfont_h3", h3Color);
-      }
-      if (coloresConCodigo[h4Color]) {
-        document.querySelectorAll("h4").forEach(el => el.style.color = coloresConCodigo[h4Color]);
-        localStorage.setItem("zjb_colorfont_h4", h4Color);
-      }
-      if (await aplicarEnSettings()) {
-        localStorage.setItem("zjb_colorfont_h3_settings", h3Color);
-        localStorage.setItem("zjb_colorfont_h4_settings", h4Color);
-      }
-    }
-
-    dropdown.selectedIndex = 0;
   });
 
-  // APLICAR GUARDADO EN SETTINGS AL CARGAR
-  const map = {
-    zjb_sizefont1: "h2",
-    zjb_changeicon: "icon",
-    zjb_margintitle: "h2",
-    zjb_bordertitle: "h2",
-    zjb_showiconfa: "icon",
-    zjb_sizefont2_h3: "h3",
-    zjb_sizefont2_h4: "h4",
-    zjb_colorfont_h3: "h3",
-    zjb_colorfont_h4: "h4"
+  // Al cargar
+  const applySavedSettings = (doc, isSettings) => {
+    const applyIf = (key, applyFn) => {
+      const value = localStorage.getItem(key);
+      const applyKey = `${key}_applyInSettings`;
+      const shouldApply = isSettings ? localStorage.getItem(applyKey) === "true" : true;
+      if (value && shouldApply) applyFn(value);
+    };
+
+    applyIf("zjb_sizefont1", val => {
+      doc.querySelectorAll("h2").forEach(h2 => h2.style.fontSize = val);
+    });
+
+    ["h3", "h4"].forEach(tag => {
+      applyIf(`zjb_sizefont2_${tag}`, val => {
+        doc.querySelectorAll(tag).forEach(el => el.style.fontSize = val);
+      });
+    });
+
+    applyIf("zjb_changeicon", val => {
+      doc.querySelectorAll("h2 i.fa-brands").forEach(icon => icon.className = val);
+    });
+
+    applyIf("zjb_margintitle", val => {
+      doc.querySelectorAll("h2").forEach(h2 => h2.style.margin = val);
+    });
+
+    applyIf("zjb_bordertitle", val => {
+      doc.querySelectorAll("h2").forEach(h2 => h2.style.textShadow = val);
+    });
+
+    applyIf("zjb_showiconfa", val => {
+      doc.querySelectorAll("h2 i.fa-brands").forEach(icon => icon.style.visibility = val);
+    });
+
+    ["h3", "h4"].forEach(tag => {
+      applyIf(`zjb_colorfont_${tag}`, val => {
+        doc.querySelectorAll(tag).forEach(el => el.style.color = val);
+      });
+    });
+
+    applyIf("zjb_rainbowdisabled", color => {
+      const spans = doc.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
+      spans.forEach(span => {
+        span.classList.remove("rainbow");
+        span.classList.add("rainbow-disabled");
+        span.style.setProperty("--rainbow-fixed-color", coloresConCodigo[color]);
+      });
+    });
   };
 
-  Object.entries(map).forEach(([key, tag]) => {
-    const isIcon = tag === "icon";
-    const settingsValue = localStorage.getItem(`${key}_settings`);
-    if (settingsValue) {
-      if (isIcon) {
-        document.querySelectorAll("h2 i").forEach(el => {
-          if (key === "zjb_showiconfa") el.style.visibility = settingsValue;
-          else el.className = settingsValue;
-        });
-      } else {
-        const prop = key.includes("size") ? "fontSize" : key.includes("color") ? "color" : key.includes("margin") ? "margin" : key.includes("border") ? "textShadow" : null;
-        if (prop)
-          document.querySelectorAll(tag).forEach(el => el.style[prop] = prop === "fontSize" && !settingsValue.endsWith("rem") ? `${settingsValue}rem` : coloresConCodigo[settingsValue] || settingsValue);
-      }
-    }
-  });
+  applySavedSettings(document, true);
 }
 
 function initIndexMenu4() {
@@ -154,34 +214,55 @@ function initIndexMenu4() {
     gray: "#808080"
   };
 
-  const map = {
-    zjb_sizefont1: "h2",
-    zjb_changeicon: "icon",
-    zjb_margintitle: "h2",
-    zjb_bordertitle: "h2",
-    zjb_showiconfa: "icon",
-    zjb_sizefont2_h3: "h3",
-    zjb_sizefont2_h4: "h4",
-    zjb_colorfont_h3: "h3",
-    zjb_colorfont_h4: "h4"
+  const applySavedSettings = (doc) => {
+    const applyIf = (key, applyFn) => {
+      const value = localStorage.getItem(key);
+      if (value) applyFn(value);
+    };
+
+    applyIf("zjb_sizefont1", val => {
+      doc.querySelectorAll("h2").forEach(h2 => h2.style.fontSize = val);
+    });
+
+    ["h3", "h4"].forEach(tag => {
+      applyIf(`zjb_sizefont2_${tag}`, val => {
+        doc.querySelectorAll(tag).forEach(el => el.style.fontSize = val);
+      });
+    });
+
+    applyIf("zjb_changeicon", val => {
+      doc.querySelectorAll("h2 i.fa-brands").forEach(icon => icon.className = val);
+    });
+
+    applyIf("zjb_margintitle", val => {
+      doc.querySelectorAll("h2").forEach(h2 => h2.style.margin = val);
+    });
+
+    applyIf("zjb_bordertitle", val => {
+      doc.querySelectorAll("h2").forEach(h2 => h2.style.textShadow = val);
+    });
+
+    applyIf("zjb_showiconfa", val => {
+      doc.querySelectorAll("h2 i.fa-brands").forEach(icon => icon.style.visibility = val);
+    });
+
+    ["h3", "h4"].forEach(tag => {
+      applyIf(`zjb_colorfont_${tag}`, val => {
+        doc.querySelectorAll(tag).forEach(el => el.style.color = val);
+      });
+    });
+
+    applyIf("zjb_rainbowdisabled", color => {
+      const spans = doc.querySelectorAll("h2 span.rainbow, h2 span.rainbow-disabled");
+      spans.forEach(span => {
+        span.classList.remove("rainbow");
+        span.classList.add("rainbow-disabled");
+        span.style.setProperty("--rainbow-fixed-color", coloresConCodigo[color]);
+      });
+    });
   };
 
-  Object.entries(map).forEach(([key, tag]) => {
-    const isIcon = tag === "icon";
-    const value = localStorage.getItem(key);
-    if (value) {
-      if (isIcon) {
-        document.querySelectorAll("h2 i").forEach(el => {
-          if (key === "zjb_showiconfa") el.style.visibility = value;
-          else el.className = value;
-        });
-      } else {
-        const prop = key.includes("size") ? "fontSize" : key.includes("color") ? "color" : key.includes("margin") ? "margin" : key.includes("border") ? "textShadow" : null;
-        if (prop)
-          document.querySelectorAll(tag).forEach(el => el.style[prop] = prop === "fontSize" && !value.endsWith("rem") ? `${value}rem` : coloresConCodigo[value] || value);
-      }
-    }
-  });
+  applySavedSettings(document);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
