@@ -61,6 +61,7 @@
             text-align: center;
             max-width: 90%;
             width: 400px;
+            display: none; /* Oculto inicialmente */
         }
 
         .panel h2 {
@@ -104,46 +105,58 @@
 </head>
 
 <body>
-    <!-- Panel de selección inicial -->
+    <!-- Contenido original -->
+    <h1 id="progress" style='font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow;'></h1><br>
+    <div id="loader" class="loader"></div>
+    <div id="allset" class="info" style="display:none;font-size:30px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow;">
+        Liberación completada. Cierra el Navegador!
+    </div>
+
+    <!-- Panel de selección (oculto inicialmente) -->
     <div id="selectionPanel" class="panel">
         <h2>Selecciona versión de GoldHEN</h2>
         <div class="btn-container">
-            <button class="btn" onclick="startJailbreak('goldhen_2.3.bin')">
+            <button class="btn" onclick="loadGoldhen('goldhen_2.3.bin')">
                 GoldHEN 2.3
                 <div class="version-info">Última versión estable</div>
             </button>
-            <button class="btn" onclick="startJailbreak('goldhen_2.2.4.bin')">
+            <button class="btn" onclick="loadGoldhen('goldhen_2.2.4.bin')">
                 GoldHEN 2.2.4
                 <div class="version-info">Versión anterior estable</div>
             </button>
-            <button class="btn" onclick="startJailbreak('goldhen_2.1.bin')">
+            <button class="btn" onclick="loadGoldhen('goldhen_2.1.bin')">
                 GoldHEN 2.1
                 <div class="version-info">Compatibilidad con firmware antiguo</div>
             </button>
-            <button class="btn" onclick="startJailbreak('goldhen.bin')">
+            <button class="btn" onclick="loadGoldhen('goldhen.bin')">
                 GoldHEN Default
                 <div class="version-info">Versión por defecto</div>
             </button>
         </div>
     </div>
 
-    <!-- Contenido original (oculto inicialmente) -->
-    <h1 id="progress" style='font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow;display:none;'></h1><br>
-    <div id="loader" class="loader" style="display:none;"></div>
-    <div id="allset" class="info" style="display:none;font-size:30px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow;">
-        Liberación completada. Cierra el Navegador!
-    </div>
-
     <script>
         // Variable global para almacenar el archivo seleccionado
         let PLfile = "";
-        
-        // Función para iniciar el jailbreak con la versión seleccionada
-        function startJailbreak(selectedFile) {
+
+        function jbdone() {
+            window.progress.innerHTML = "Jailbreak completado!";
+            // Ocultar loader y mostrar panel de selección
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("selectionPanel").style.display = "block";
+        }
+
+        function loadGoldhen(selectedFile) {
             PLfile = selectedFile;
+            // Ocultar panel y mostrar loader nuevamente
             document.getElementById("selectionPanel").style.display = "none";
-            document.getElementById("progress").style.display = "block";
-            jbdone();
+            document.getElementById("loader").style.display = "block";
+            goldhen();
+        }
+
+        function goldhen() {
+            progress.innerHTML = "Cargando " + PLfile + "... por favor espere";
+            load_pocB();
         }
 
         function load_pocB() {
@@ -169,21 +182,13 @@
             };
         }
 
-        function jbdone() {
-            window.progress.innerHTML = "Jailbreak hecho";
-            goldhen();
-        }
-
-        function goldhen() {
-            progress.innerHTML = "Cargando " + PLfile + "... por favor espere";
-            document.getElementById("loader").style.display = "block";
-            load_pocB();
-        }
-
         function allset() {
             document.getElementById("loader").style.display = "none";
             document.getElementById("allset").style.display = "block";
         }
+
+        // Iniciar el proceso automáticamente
+        progress.innerHTML = "Iniciando jailbreak...";
     </script>
     <script src="./int64.js"></script>
     <script src="./rop.js"></script>
