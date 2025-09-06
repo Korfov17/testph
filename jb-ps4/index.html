@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Jailbreak 9.00</title>
+  <title>🎮 Z-JAILBREAK | Host 🎮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -65,7 +65,6 @@
       const detectedFW = fwMatch ? fwMatch[1] : null;
 
       if (isPS4 && detectedFW === "9.00") {
-        // ✅ Cargar scripts dinámicamente solo si se cumple el requisito
         const scripts = [
           "./int64.js",
           "./rop.js",
@@ -79,10 +78,9 @@
           document.head.appendChild(s);
         });
       } else {
-        // ❌ Bloquea y muestra alerta con detalle
         let mensaje = "";
         if (isPS4) {
-          mensaje = `Estás en PlayStation 4 firmware ${detectedFW || "desconocido"}.\nEste host es solo compatible con 9.00.`;
+          mensaje = `No puedes acceder aqui, tu PS4 tiene el Firmware ${detectedFW || "desconocido"}.\nSolo puedes acceder si tu PS4 tiene que Firmware 9.00.`;
         } else {
           let sistema = "dispositivo desconocido";
           if (/Windows/i.test(ua)) sistema = "Windows";
@@ -91,14 +89,14 @@
           else if (/iPhone/i.test(ua)) sistema = "iPhone";
           else if (/iPad/i.test(ua)) sistema = "iPad";
           else if (/Macintosh/i.test(ua)) sistema = "MacOS";
-          mensaje = `Este host solo funciona desde una PlayStation 4 con firmware 9.00.\nHas accedido desde: ${sistema}.`;
+          mensaje = `Tu dispositivo no es compatible, solo puedes entrar desde PS4.\nHas accedido desde: ${sistema}.`;
         }
 
         alert(mensaje);
         document.head.innerHTML = '';
         document.body.innerHTML = '';
         document.body.style.backgroundColor = 'white';
-        throw new Error("Dispositivo o firmware no compatible");
+        throw new Error("Dispositivo no compatible");
       }
     })();
   </script>
