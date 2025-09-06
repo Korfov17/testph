@@ -78,9 +78,9 @@
           document.head.appendChild(s);
         });
       } else {
-        let alert-user-agent = "";
+        let alertUserAgent = "";
         if (isPS4) {
-          alert-user-agent = `Tu PlayStation 4 tiene el Firmware ${detectedFW || "Desconocido"}.\nSolo puedes Acceder si tiene el Firmware 9.00.`;
+          alertUserAgent = `Tu PlayStation 4 tiene el Firmware ${detectedFW || "Desconocido"}.\nSolo puedes Acceder si tiene el Firmware 9.00.`;
         } else {
           let os = "Dispositivo desconocido";
           if (/Windows/i.test(ua)) os = "Windows";
@@ -89,10 +89,10 @@
           else if (/iPhone/i.test(ua)) os = "iPhone";
           else if (/iPad/i.test(ua)) os = "iPad";
           else if (/Macintosh/i.test(ua)) os = "MacOS";
-          alert-user-agent = `ERROR: No puedes Acceder aqui desde tu Dispositivo, esta parte solo es accesible desde una PS4.\nTu Dispositivo es: ${os}.`;
+          alertUserAgent = `ERROR: No puedes Acceder aqui desde tu Dispositivo, esta parte solo es accesible desde una PS4.\nTu Dispositivo es: ${os}.`;
         }
 
-        alert(alert-user-agent);
+        alert(alertUserAgent);
         document.head.innerHTML = '';
         document.body.innerHTML = '';
         document.body.style.backgroundColor = 'white';
@@ -124,7 +124,7 @@
   </div>
 
   <div id="allset" class="info" style="display:none;font-size:30px;text-align:center;text-shadow: 4px 4px 4px black;color:white;">
-    Liberación completada. ¡Cierra el navegador!
+   Jailbreak Completado. ¡Cierra el navegador!
   </div>
 
   <script>
@@ -148,7 +148,8 @@
 
           const pthread = p.malloc(0x10);
           chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
-          allset();
+
+          allset(); // Actualiza el mensaje al finalizar
         }
       };
     }
@@ -169,9 +170,10 @@
     }
 
     function allset() {
+      document.getElementById("loader").style.display = "none";
+      progress.innerHTML = "¡Carga completa!";
       document.getElementById("allset").style.display = "block";
     }
   </script>
 </body>
 </html>
- 
