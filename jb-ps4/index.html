@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Auto GoldHEN Host</title>
+  <title>Jailbreak 9.00</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background-color: #000000;
+      background-color: #FFFFFF;
       height: 80%;
       background-position: center;
       text-align: center;
@@ -46,7 +46,7 @@
       transform: translate(-50%, -50%);
     }
 
-    #hen-panel button {
+    #payload-menu button {
       padding: 10px 20px;
       font-size: 18px;
       margin: 10px;
@@ -65,7 +65,6 @@
       const detectedFW = fwMatch ? fwMatch[1] : null;
 
       if (isPS4 && detectedFW === "9.00") {
-        // ✅ Cargar scripts dinámicamente solo si se cumple el requisito
         const scripts = [
           "./int64.js",
           "./rop.js",
@@ -79,53 +78,52 @@
           document.head.appendChild(s);
         });
       } else {
-        // ❌ Bloquea y muestra alerta con detalle
-        let mensaje = "";
+        let alert-user-agent = "";
         if (isPS4) {
-          mensaje = `Estás en PlayStation 4 firmware ${detectedFW || "desconocido"}.\nEste host es solo compatible con 9.00.`;
+          alert-user-agent = `Tu PlayStation 4 tiene el Firmware ${detectedFW || "Desconocido"}.\nSolo puedes Acceder si tiene el Firmware 9.00.`;
         } else {
-          let sistema = "dispositivo desconocido";
-          if (/Windows/i.test(ua)) sistema = "Windows";
-          else if (/Linux/i.test(ua)) sistema = "Linux";
-          else if (/Android/i.test(ua)) sistema = "Android";
-          else if (/iPhone/i.test(ua)) sistema = "iPhone";
-          else if (/iPad/i.test(ua)) sistema = "iPad";
-          else if (/Macintosh/i.test(ua)) sistema = "MacOS";
-          mensaje = `Este host solo funciona desde una PlayStation 4 con firmware 9.00.\nHas accedido desde: ${sistema}.`;
+          let os = "Dispositivo desconocido";
+          if (/Windows/i.test(ua)) os = "Windows";
+          else if (/Linux/i.test(ua)) os = "Linux";
+          else if (/Android/i.test(ua)) os = "Android";
+          else if (/iPhone/i.test(ua)) os = "iPhone";
+          else if (/iPad/i.test(ua)) os = "iPad";
+          else if (/Macintosh/i.test(ua)) os = "MacOS";
+          alert-user-agent = `ERROR: No puedes Acceder aqui desde tu Dispositivo, esta parte solo es accesible desde una PS4.\nTu Dispositivo es: ${os}.`;
         }
 
-        alert(mensaje);
+        alert(alert-user-agent);
         document.head.innerHTML = '';
         document.body.innerHTML = '';
         document.body.style.backgroundColor = 'white';
-        throw new Error("Dispositivo o firmware no compatible");
+        throw new Error("Dispositivo no compatible");
       }
     })();
   </script>
 </head>
 
 <body>
-  <h1 id="progress" style="font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow;"></h1><br>
+  <h1 id="progress" style="font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:white;"></h1><br>
 
   <div id="loader" class="loader"></div>
 
-  <div id="hen-panel" style="display:none; text-align:center; margin-top:20px;">
-    <h2 style="color:yellow; text-shadow: 2px 2px 4px black;">Selecciona un HEN</h2>
+  <div id="payload-menu" style="display:none; text-align:center; margin-top:20px;">
+    <h2 style="color:white; text-shadow: 2px 2px 4px black;">Selecciona un HEN</h2>
 
-    <button onclick="launchHEN('goldhen.bin', 'GoldHEN')" style="background-color:#d40606; color:white;">
+    <button onclick="sendPayload('goldhen.bin', 'GoldHEN')" style="background-color:#d40606; color:white;">
       GoldHEN
     </button>
 
-    <button onclick="launchHEN('goldhen2.bin', 'GoldHEN 2.2.5b')" style="background-color:#065fd4; color:white;">
+    <button onclick="sendPayload('goldhen2.bin', 'GoldHEN 2.2.5b')" style="background-color:#065fd4; color:white;">
       GoldHEN 2.2.5b
     </button>
 
-    <button onclick="launchHEN('hen_custom.bin', 'Custom HEN')" style="background-color:#0a820a; color:white;">
+    <button onclick="sendPayload('hen_custom.bin', 'Custom HEN')" style="background-color:#0a820a; color:white;">
       Custom HEN
     </button>
   </div>
 
-  <div id="allset" class="info" style="display:none;font-size:30px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow;">
+  <div id="allset" class="info" style="display:none;font-size:30px;text-align:center;text-shadow: 4px 4px 4px black;color:white;">
     Liberación completada. ¡Cierra el navegador!
   </div>
 
@@ -156,16 +154,16 @@
     }
 
     function jbdone() {
-      showHenPanel();
+      showPayloadMenu();
     }
 
-    function showHenPanel() {
+    function showPayloadMenu() {
       document.getElementById("loader").style.display = "none";
-      document.getElementById("hen-panel").style.display = "block";
+      document.getElementById("payload-menu").style.display = "block";
     }
 
-    function launchHEN(payloadFile, displayName) {
-      document.getElementById("hen-panel").style.display = "none";
+    function sendPayload(payloadFile, displayName) {
+      document.getElementById("payload-menu").style.display = "none";
       progress.innerHTML = `Cargando ${displayName}... por favor espere`;
       loadPayload(payloadFile);
     }
