@@ -108,18 +108,14 @@
   <div id="loader" class="loader"></div>
 
   <div id="payload-menu" style="display:none; text-align:center; margin-top:20px;">
-    <h2 style="color:white; text-shadow: 2px 2px 4px black;">Selecciona un HEN</h2>
+    <h2 style="color:white; text-shadow: 2px 2px 4px black;">Selecciona un Payload</h2>
 
-    <button onclick="sendPayload('goldhen.bin', 'GoldHEN')" style="background-color:#d40606; color:white;">
-      GoldHEN
+    <button onclick="sendPayload('goldhen.bin', 'GoldHEN')" style="background-color:#e8ca1e; color:white;">
+      GoldHEN v2.4b18.6
     </button>
 
-    <button onclick="sendPayload('goldhen2.bin', 'GoldHEN 2.2.5b')" style="background-color:#065fd4; color:white;">
-      GoldHEN 2.2.5b
-    </button>
-
-    <button onclick="sendPayload('hen_custom.bin', 'Custom HEN')" style="background-color:#0a820a; color:white;">
-      Custom HEN
+    <button onclick="sendPayload('hen.bin', 'HEN')" style="background-color:#065fd4; color:white;">
+      HEN v2.2.0 BETA
     </button>
   </div>
 
@@ -148,8 +144,7 @@
 
           const pthread = p.malloc(0x10);
           chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
-
-          allset(); // Actualiza el mensaje al finalizar
+          allset(); 
         }
       };
     }
@@ -170,8 +165,7 @@
     }
 
     function allset() {
-      document.getElementById("loader").style.display = "none";
-      progress.innerHTML = "¡Carga completa!";
+      progress.innerHTML = "¡Payload Cargado!";
       document.getElementById("allset").style.display = "block";
     }
   </script>
