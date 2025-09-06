@@ -42,7 +42,6 @@ background/extra8.jpg
 background/extra4.jpg
 background/extra15.jpg
 jb-ps4/index.html
-jb-ps4/goldhen.bin
 jb-ps4/exploit.mjs
 jb-ps4/chain.mjs
 jb-ps4/config.mjs
@@ -63,3 +62,4 @@ NETWORK:
 
 SETTINGS:
 prefer-online:
+
