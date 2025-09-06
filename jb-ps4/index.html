@@ -103,7 +103,7 @@
 </head>
 
 <body>
-  <h1 id="progress" style="font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:white;"></h1><br>
+  <h1 id="jailbreak" style="font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:white;"></h1><br>
 
   <div id="loader" class="loader"></div>
 
@@ -114,7 +114,7 @@
       GoldHEN v2.4b18.6
     </button>
 
-    <button onclick="sendPayload('hen.bin', 'HEN')" style="background-color:#065fd4; color:white;">
+    <button onclick="sendPayload('hen.bin', 'HEN')" style="background-color:#0078e5; color:white;">
       HEN v2.2.0 BETA
     </button>
   </div>
@@ -160,12 +160,12 @@
 
     function sendPayload(payloadFile, displayName) {
       document.getElementById("payload-menu").style.display = "none";
-      progress.innerHTML = `Cargando ${displayName}... por favor espere`;
+      jailbreak.innerHTML = `Cargando ${displayName}... por favor espere`;
       loadPayload(payloadFile);
     }
 
     function allset() {
-      progress.innerHTML = "¡Payload Cargado!";
+      jailbreak.innerHTML = "¡Payload Cargado!";
       document.getElementById("allset").style.display = "block";
     }
   </script>
