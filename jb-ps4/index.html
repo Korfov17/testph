@@ -46,7 +46,7 @@
       transform: translate(-50%, -50%);
     }
 
-    #payload-menu button {
+    #hen-panel button {
       padding: 10px 20px;
       font-size: 18px;
       margin: 10px;
@@ -65,6 +65,7 @@
       const detectedFW = fwMatch ? fwMatch[1] : null;
 
       if (isPS4 && detectedFW === "9.00") {
+        // ✅ Cargar scripts dinámicamente solo si se cumple el requisito
         const scripts = [
           "./int64.js",
           "./rop.js",
@@ -78,51 +79,50 @@
           document.head.appendChild(s);
         });
       } else {
-        let alertUserAgent = "";
+        // ❌ Bloquea y muestra alerta con detalle
+        let mensaje = "";
         if (isPS4) {
-          alertUserAgent = `Tu PlayStation 4 tiene el Firmware ${detectedFW || "Desconocido"}.\nSolo puedes Acceder si tiene el Firmware 9.00.`;
+          mensaje = `Estás en PlayStation 4 firmware ${detectedFW || "desconocido"}.\nEste host es solo compatible con 9.00.`;
         } else {
-          let os = "Dispositivo desconocido";
-          if (/Windows/i.test(ua)) os = "Windows";
-          else if (/Linux/i.test(ua)) os = "Linux";
-          else if (/Android/i.test(ua)) os = "Android";
-          else if (/iPhone/i.test(ua)) os = "iPhone";
-          else if (/iPad/i.test(ua)) os = "iPad";
-          else if (/Macintosh/i.test(ua)) os = "MacOS";
-          alertUserAgent = `ERROR: No puedes Acceder aqui desde tu Dispositivo, esta parte solo es accesible desde una PS4.\nTu Dispositivo es: ${os}.`;
+          let sistema = "dispositivo desconocido";
+          if (/Windows/i.test(ua)) sistema = "Windows";
+          else if (/Linux/i.test(ua)) sistema = "Linux";
+          else if (/Android/i.test(ua)) sistema = "Android";
+          else if (/iPhone/i.test(ua)) sistema = "iPhone";
+          else if (/iPad/i.test(ua)) sistema = "iPad";
+          else if (/Macintosh/i.test(ua)) sistema = "MacOS";
+          mensaje = `Este host solo funciona desde una PlayStation 4 con firmware 9.00.\nHas accedido desde: ${sistema}.`;
         }
 
-        alert(alertUserAgent);
+        alert(mensaje);
         document.head.innerHTML = '';
         document.body.innerHTML = '';
         document.body.style.backgroundColor = 'white';
-        throw new Error("Dispositivo no compatible");
+        throw new Error("Dispositivo o firmware no compatible");
       }
     })();
   </script>
 </head>
 
 <body>
-  <h1 id="progress" style="display:none;"></h1>
-
-  <h1 id="jailbreak" style="font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:white;"></h1><br>
+  <h1 id="progress" style="font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow;"></h1><br>
 
   <div id="loader" class="loader"></div>
 
-  <div id="payload-menu" style="display:none; text-align:center; margin-top:20px;">
-    <h2 style="color:white; text-shadow: 2px 2px 4px black;">Selecciona un Payload</h2>
+  <div id="hen-panel" style="display:none; text-align:center; margin-top:20px;">
+    <h2 style="color:yellow; text-shadow: 2px 2px 4px black;">Selecciona un HEN</h2>
 
-    <button onclick="sendPayload('goldhen.bin', 'GoldHEN')" style="background-color:#e8ca1e; color:white;">
-      GoldHEN v2.4b18.6
+    <button onclick="launchHEN('goldhen.bin', 'GoldHEN')" style="background-color:#d40606; color:white;">
+      GoldHEN
     </button>
 
-    <button onclick="sendPayload('hen.bin', 'HEN')" style="background-color:#0078e5; color:white;">
-      HEN v2.2.0 BETA
+    <button onclick="launchHEN('hen.bin', 'HEN OG')" style="background-color:#065fd4; color:white;">
+      HEN 2.2.0
     </button>
   </div>
 
-  <div id="allset" class="info" style="display:none;font-size:30px;text-align:center;text-shadow: 4px 4px 4px black;color:white;">
-   Jailbreak Completado. ¡Cierra el navegador!
+  <div id="allset" class="info" style="display:none;font-size:30px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow;">
+    Jailbreak Completado. ¡Cierra el navegador!
   </div>
 
   <script>
@@ -146,30 +146,30 @@
 
           const pthread = p.malloc(0x10);
           chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
-          allset(); 
+          allset();
         }
       };
     }
 
     function jbdone() {
-      showPayloadMenu();
+      showHenPanel();
     }
 
-    function showPayloadMenu() {
+    function showHenPanel() {
       document.getElementById("loader").style.display = "none";
-      document.getElementById("payload-menu").style.display = "block";
+      document.getElementById("hen-panel").style.display = "block";
     }
 
-    function sendPayload(payloadFile, displayName) {
-      document.getElementById("payload-menu").style.display = "none";
-      jailbreak.innerHTML = `Cargando ${displayName}... por favor espere`;
+    function launchHEN(payloadFile, displayName) {
+      document.getElementById("hen-panel").style.display = "none";
+      progress.innerHTML = `Cargando ${displayName}... por favor espere`;
       loadPayload(payloadFile);
     }
 
     function allset() {
-      jailbreak.innerHTML = "¡Payload Cargado!";
       document.getElementById("allset").style.display = "block";
     }
   </script>
 </body>
 </html>
+ 
